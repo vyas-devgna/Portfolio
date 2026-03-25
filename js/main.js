@@ -230,7 +230,6 @@
         !prefersReducedMotion &&
         !isDragging &&
         !isPointerOver &&
-        !interactionPaused &&
         !isLightboxOpen &&
         isInViewport &&
         !document.hidden &&
@@ -238,14 +237,7 @@
         getSingleSetWidth() > 0;
     }
 
-    function pauseByUserInteraction() {
-      interactionPaused = true;
-      pausedUntil = 0;
-      stopAutoScroll();
-    }
-
     function pauseForInteraction(durationMs = 1400) {
-      if (interactionPaused) return;
       const nextPauseUntil = Date.now() + durationMs;
       if (nextPauseUntil > pausedUntil) pausedUntil = nextPauseUntil;
       stopAutoScroll();
@@ -359,9 +351,9 @@
     });
 
     gallery.addEventListener('dragstart', (e) => e.preventDefault());
-    gallery.addEventListener('wheel', pauseByUserInteraction, { passive: true });
-    gallery.addEventListener('touchstart', pauseByUserInteraction, { passive: true });
-    gallery.addEventListener('touchmove', pauseByUserInteraction, { passive: true });
+    gallery.addEventListener('wheel', () => pauseForInteraction(1300), { passive: true });
+    gallery.addEventListener('touchstart', () => pauseForInteraction(1300), { passive: true });
+    gallery.addEventListener('touchmove', () => pauseForInteraction(1300), { passive: true });
     gallery.addEventListener('pointerdown', (e) => {
       if (e.pointerType === 'mouse' && e.button !== 0) return;
       isDragging = true;
@@ -369,10 +361,7 @@
       startX = e.clientX;
       scrollStart = gallery.scrollLeft;
       gallery.classList.add('dragging');
-      pauseByUserInteraction();
-      if (gallery.setPointerCapture) {
-        try { gallery.setPointerCapture(e.pointerId); } catch (_) {}
-      }
+      pauseForInteraction(1500);
     });
 
     gallery.addEventListener('pointermove', (e) => {
@@ -427,7 +416,6 @@
       stopAutoScroll,
       updateProgress,
       resumeNow() {
-        interactionPaused = false;
         pausedUntil = 0;
         isPointerOver = false;
         startAutoScroll();

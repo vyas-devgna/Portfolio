@@ -1,1 +1,57 @@
-[]
+[
+  {
+    "type": "image",
+    "src": "images/animals/IMG_20260307_111412_460.jpg",
+    "caption": ""
+  },
+  {
+    "type": "image",
+    "src": "images/animals/20260209_212621_212.jpg",
+    "caption": ""
+  },
+  {
+    "type": "image",
+    "src": "images/animals/IMG-20260209-WA0081.jpg",
+    "caption": ""
+  },
+  {
+    "type": "image",
+    "src": "images/animals/IMG_20260127_153941.jpg",
+    "caption": ""
+  },
+  {
+    "type": "image",
+    "src": "images/animals/IMG_20260127_152251.jpg",
+    "caption": ""
+  },
+  {
+    "type": "image",
+    "src": "images/animals/1768844575569.png",
+    "caption": ""
+  },
+  {
+    "type": "image",
+    "src": "images/animals/IMG_20260107_163701.jpg",
+    "caption": ""
+  },
+  {
+    "type": "image",
+    "src": "images/animals/DSCN7064.NRW.jpg",
+    "caption": ""
+  },
+  {
+    "type": "image",
+    "src": "images/animals/DSCN7050.NRW.jpg",
+    "caption": ""
+  },
+  {
+    "type": "image",
+    "src": "images/animals/DSCN7028.jpg",
+    "caption": ""
+  },
+  {
+    "type": "image",
+    "src": "images/animals/20251204_210532_942.jpg",
+    "caption": ""
+  }
+]

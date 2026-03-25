@@ -10,6 +10,13 @@
   const navLinks = document.querySelectorAll('.nav-link');
   const sections = document.querySelectorAll('section[id]');
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const appVersion = String(window.__APP_VERSION__ || 'dev');
+
+  function withVersion(url) {
+    if (typeof url !== 'string' || !url) return url;
+    if (/^(?:data:|blob:|https?:|\/\/)/i.test(url)) return url;
+    return url + (url.includes('?') ? '&' : '?') + 'v=' + encodeURIComponent(appVersion);
+  }
 
   function updateNavbarState() {
     if (!navbar) return;
@@ -58,11 +65,11 @@
 
   // ── Resume detection ──
   ['resume.pdf', 'cv.pdf', 'Resume.pdf', 'CV.pdf'].forEach(file => {
-    fetch(file, { method: 'HEAD' }).then(r => {
+    fetch(withVersion(file), { method: 'HEAD', cache: 'no-store' }).then(r => {
       if (r.ok) {
         document.querySelectorAll('[id^="resume-"]').forEach(btn => {
           btn.style.display = 'inline-flex';
-          btn.href = file;
+          btn.href = withVersion(file);
         });
       }
     }).catch(() => {});
@@ -89,13 +96,25 @@
   const lightbox = document.getElementById('lightbox');
   const lbImg = document.getElementById('lightbox-img');
   const lbCaption = document.getElementById('lightbox-caption');
+  const carouselControllers = [];
   let lbImages = [];
   let lbIndex = 0;
+  let isLightboxOpen = false;
+
+  function pauseAllCarousels() {
+    carouselControllers.forEach(ctrl => ctrl.stopAutoScroll());
+  }
+
+  function resumeAllCarousels() {
+    carouselControllers.forEach(ctrl => ctrl.resumeNow());
+  }
 
   function openLightbox(images, index) {
     if (!lightbox || !lbImg || !lbCaption || !Array.isArray(images) || images.length === 0) return;
     lbImages = images;
     lbIndex = index;
+    isLightboxOpen = true;
+    pauseAllCarousels();
     showLightboxImage();
     lightbox.classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -111,8 +130,10 @@
 
   function closeLightbox() {
     if (!lightbox) return;
+    isLightboxOpen = false;
     lightbox.classList.remove('open');
     document.body.style.overflow = '';
+    resumeAllCarousels();
   }
 
   if (lightbox) {
@@ -163,7 +184,7 @@
     const nextBtn = wrapper.querySelector('.gallery-nav-next');
     const progressBar = wrapper.querySelector('.gallery-progress-bar');
     const SCROLL_AMOUNT = 350;
-    const AUTO_SPEED_PX_PER_SECOND = 36;
+    const AUTO_SPEED_PX_PER_SECOND = 18;
     const CLICK_SUPPRESS_MS = 260;
 
     let animationId = null;
@@ -175,19 +196,25 @@
     let dragDistance = 0;
     let isPointerOver = false;
     let isInViewport = true;
+    let pausedUntil = 0;
+    let interactionPaused = false;
+    let floatScroll = 0;
 
-    function getMaxScroll() {
-      return Math.max(gallery.scrollWidth - gallery.clientWidth, 0);
+    // We cloned the items 3 times; exactly 1/3 of the scrollWidth is a single set.
+    function getSingleSetWidth() {
+      return gallery.scrollWidth / 3;
     }
 
     function updateProgress() {
       if (!progressBar) return;
-      const maxScroll = getMaxScroll();
-      if (maxScroll <= 0) {
+      const sw = getSingleSetWidth();
+      if (sw <= 0) {
         progressBar.style.width = '100%';
         return;
       }
-      const pct = Math.min((gallery.scrollLeft / maxScroll) * 100, 100);
+      // calculate progress relative to a single set length
+      const currentScroll = gallery.scrollLeft % sw;
+      const pct = Math.min((currentScroll / sw) * 100, 100);
       progressBar.style.width = pct + '%';
     }
 
@@ -203,9 +230,26 @@
         !prefersReducedMotion &&
         !isDragging &&
         !isPointerOver &&
+        !interactionPaused &&
+        !isLightboxOpen &&
         isInViewport &&
         !document.hidden &&
-        getMaxScroll() > 0;
+        Date.now() >= pausedUntil &&
+        getSingleSetWidth() > 0;
+    }
+
+    function pauseByUserInteraction() {
+      interactionPaused = true;
+      pausedUntil = 0;
+      stopAutoScroll();
+    }
+
+    function pauseForInteraction(durationMs = 1400) {
+      if (interactionPaused) return;
+      const nextPauseUntil = Date.now() + durationMs;
+      if (nextPauseUntil > pausedUntil) pausedUntil = nextPauseUntil;
+      stopAutoScroll();
+      scheduleAutoResume(durationMs + 20);
     }
 
     function stopAutoScroll() {
@@ -222,16 +266,29 @@
         return;
       }
 
-      if (lastFrameTs === null) {
-        lastFrameTs = ts;
-      }
+      if (lastFrameTs === null) lastFrameTs = ts;
       const dt = ts - lastFrameTs;
       lastFrameTs = ts;
 
-      const maxScroll = getMaxScroll();
       const delta = (AUTO_SPEED_PX_PER_SECOND * dt) / 1000;
-      const next = gallery.scrollLeft + delta;
-      gallery.scrollLeft = next >= maxScroll ? 0 : next;
+      floatScroll += delta;
+      
+      const sw = getSingleSetWidth();
+      if (sw > 0) {
+        // Wrap exactly seamlessly
+        if (floatScroll >= sw * 2) {
+          floatScroll -= sw;
+        } else if (floatScroll < sw) {
+          floatScroll += sw;
+        }
+      }
+      
+      gallery.scrollLeft = floatScroll;
+      // Sync if the browser throttled scrollLeft
+      if (Math.abs(gallery.scrollLeft - floatScroll) > 2 && !isDragging) {
+         floatScroll = gallery.scrollLeft;
+      }
+
       updateProgress();
       animationId = requestAnimationFrame(tick);
     }
@@ -239,25 +296,37 @@
     function startAutoScroll() {
       if (animationId || !canAutoScroll()) return;
       lastFrameTs = null;
+      floatScroll = gallery.scrollLeft;
       animationId = requestAnimationFrame(tick);
     }
 
     function scheduleAutoResume(delay = 400) {
       clearResumeTimer();
-      if (!canAutoScroll()) return;
       resumeTimerId = setTimeout(() => {
         resumeTimerId = null;
         startAutoScroll();
       }, delay);
     }
 
+    function boundsCheck() {
+      const sw = getSingleSetWidth();
+      if (sw <= 0) return;
+      let pos = gallery.scrollLeft;
+      let changed = false;
+      while (pos >= sw * 2) { pos -= sw; changed = true; }
+      while (pos <= 0) { pos += sw; changed = true; }
+      if (changed) {
+        gallery.scrollLeft = pos;
+        floatScroll = pos;
+      }
+    }
+
     function scrollByAmount(amount) {
-      stopAutoScroll();
+      pauseForInteraction(1100);
       gallery.scrollBy({
         left: amount,
         behavior: prefersReducedMotion ? 'auto' : 'smooth'
       });
-      scheduleAutoResume(700);
     }
 
     if (prevBtn) {
@@ -267,7 +336,14 @@
       nextBtn.addEventListener('click', () => scrollByAmount(SCROLL_AMOUNT));
     }
 
-    gallery.addEventListener('scroll', updateProgress, { passive: true });
+    gallery.addEventListener('scroll', () => {
+      boundsCheck();
+      updateProgress();
+      if (!isDragging && !animationId) {
+        floatScroll = gallery.scrollLeft;
+      }
+    }, { passive: true });
+
     window.addEventListener('resize', () => {
       updateProgress();
       scheduleAutoResume(180);
@@ -283,6 +359,9 @@
     });
 
     gallery.addEventListener('dragstart', (e) => e.preventDefault());
+    gallery.addEventListener('wheel', pauseByUserInteraction, { passive: true });
+    gallery.addEventListener('touchstart', pauseByUserInteraction, { passive: true });
+    gallery.addEventListener('touchmove', pauseByUserInteraction, { passive: true });
     gallery.addEventListener('pointerdown', (e) => {
       if (e.pointerType === 'mouse' && e.button !== 0) return;
       isDragging = true;
@@ -290,7 +369,7 @@
       startX = e.clientX;
       scrollStart = gallery.scrollLeft;
       gallery.classList.add('dragging');
-      stopAutoScroll();
+      pauseByUserInteraction();
       if (gallery.setPointerCapture) {
         try { gallery.setPointerCapture(e.pointerId); } catch (_) {}
       }
@@ -313,7 +392,6 @@
       if (dragDistance > 6) {
         gallery.dataset.suppressClickUntil = String(Date.now() + CLICK_SUPPRESS_MS);
       }
-      scheduleAutoResume(220);
     }
 
     gallery.addEventListener('pointerup', endDrag);
@@ -348,12 +426,20 @@
       startAutoScroll,
       stopAutoScroll,
       updateProgress,
+      resumeNow() {
+        interactionPaused = false;
+        pausedUntil = 0;
+        isPointerOver = false;
+        startAutoScroll();
+      },
       shouldSuppressClick() {
         return Date.now() < Number(gallery.dataset.suppressClickUntil || 0);
+      },
+      setFloatScroll(val) {
+        floatScroll = val;
       }
     };
   }
-
   // ═══════════════════════════════════════════════════════════
   // GALLERY LOADER
   // ═══════════════════════════════════════════════════════════
@@ -369,7 +455,7 @@
       emptyEl.style.display = 'block';
     }
 
-    fetch(jsonFile)
+    fetch(withVersion(jsonFile), { cache: 'no-store' })
       .then(r => { if (!r.ok) throw new Error(); return r.json(); })
       .then(items => {
         if (!Array.isArray(items) || !items.length) {
@@ -383,67 +469,96 @@
         const imageList = [];
         let carouselCtrl = null;
 
+        // Build list of all valid images for the lightbox
         items.forEach((item) => {
-          const div = document.createElement('div');
-          div.className = 'gallery-item';
-
-          if (item.type === 'video') {
-            const vid = document.createElement('video');
-            vid.src = item.src;
-            vid.autoplay = true;
-            vid.loop = true;
-            vid.muted = true;
-            vid.playsInline = true;
-            vid.setAttribute('disablePictureInPicture', '');
-            vid.setAttribute('controlsList', 'nodownload nofullscreen noremoteplayback');
-            div.appendChild(vid);
-          } else {
-            const img = document.createElement('img');
-            img.src = item.src;
-            img.alt = item.caption || '';
-            img.loading = 'lazy';
-            div.appendChild(img);
-
-            const idx = imageList.length;
-            imageList.push({ src: item.src, caption: item.caption || '' });
-
-            div.tabIndex = 0;
-            div.setAttribute('role', 'button');
-            div.setAttribute('aria-label', item.caption ? 'Open image: ' + item.caption : 'Open image');
-
-            const openFromTile = (e) => {
-              if (e.detail === 0) return; // Ignore programmatic clicks
-              if (carouselCtrl && carouselCtrl.shouldSuppressClick()) return;
-              openLightbox(imageList, idx);
-            };
-
-            div.addEventListener('click', openFromTile);
-            div.addEventListener('keydown', (e) => {
-              if (e.key !== 'Enter' && e.key !== ' ') return;
-              e.preventDefault();
-              if (carouselCtrl && carouselCtrl.shouldSuppressClick()) return;
-              openLightbox(imageList, idx);
-            });
+          if (item.type !== 'video') {
+            imageList.push({ src: withVersion(item.src), caption: item.caption || '' });
           }
-
-          if (item.caption) {
-            const cap = document.createElement('div');
-            cap.className = 'gallery-caption';
-            cap.textContent = item.caption;
-            div.appendChild(cap);
-          }
-
-          container.appendChild(div);
         });
+
+        // Clone items 3 times for a seamless infinite loop block
+        const MathSets = 3;
+        for (let setIdx = 0; setIdx < MathSets; setIdx++) {
+          let lightboxIdx = 0;
+
+          items.forEach((item) => {
+            const div = document.createElement('div');
+            div.className = 'gallery-item';
+
+            if (item.type === 'video') {
+              const vid = document.createElement('video');
+              vid.src = withVersion(item.src);
+              vid.autoplay = true;
+              vid.loop = true;
+              vid.muted = true;
+              vid.playsInline = true;
+              vid.setAttribute('disablePictureInPicture', '');
+              vid.setAttribute('controlsList', 'nodownload nofullscreen noremoteplayback');
+              div.appendChild(vid);
+            } else {
+              const img = document.createElement('img');
+              img.src = withVersion(item.src);
+              img.alt = item.caption || '';
+              img.loading = 'lazy';
+              div.appendChild(img);
+
+              const currentIdx = lightboxIdx;
+              lightboxIdx++;
+
+              div.tabIndex = 0;
+              div.setAttribute('role', 'button');
+              div.setAttribute('aria-label', item.caption ? 'Open image: ' + item.caption : 'Open image');
+
+              const openFromTile = (e) => {
+                if (e.detail === 0) return; // programmatic click
+                if (carouselCtrl && carouselCtrl.shouldSuppressClick()) return;
+                openLightbox(imageList, currentIdx);
+              };
+
+              div.addEventListener('click', openFromTile);
+              div.addEventListener('keydown', (e) => {
+                if (e.key !== 'Enter' && e.key !== ' ') return;
+                e.preventDefault();
+                if (carouselCtrl && carouselCtrl.shouldSuppressClick()) return;
+                openLightbox(imageList, currentIdx);
+              });
+            }
+
+            if (item.caption) {
+              const cap = document.createElement('div');
+              cap.className = 'gallery-caption';
+              cap.textContent = item.caption;
+              div.appendChild(cap);
+            }
+            
+            div.addEventListener('dragstart', (e) => e.preventDefault());
+
+            container.appendChild(div);
+          });
+        }
 
         // Init carousel after items are loaded
         carouselCtrl = initCarousel(container);
-        if (carouselCtrl) carouselCtrl.updateProgress();
+        if (carouselCtrl) {
+          carouselControllers.push(carouselCtrl);
+          carouselCtrl.updateProgress();
+
+          // Move scroll secretly to the middle set (which is exactly sw) to allow backward drag/scroll
+          requestAnimationFrame(() => {
+            const sw = container.scrollWidth / 3;
+            if (sw > 0) {
+              container.scrollLeft = sw;
+              carouselCtrl.setFloatScroll(sw);
+              carouselCtrl.updateProgress();
+            }
+          });
+        }
       })
       .catch(() => {
         showEmptyState();
       });
   }
+
 
   loadGallery('photography.json', 'photo-gallery', 'photo-empty');
   loadGallery('animals.json', 'animals-gallery', 'animals-empty');
@@ -453,7 +568,7 @@
   // POETRY / WRITING
   // ═══════════════════════════════════════════════════════════
 
-  fetch('writing.json')
+  fetch(withVersion('writing.json'), { cache: 'no-store' })
     .then(r => { if (!r.ok) throw new Error(); return r.json(); })
     .then(poems => {
       if (!poems.length) { document.getElementById('poetry-empty').style.display = 'block'; return; }

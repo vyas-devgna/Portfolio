@@ -686,14 +686,12 @@ ul { list-style: none; }
   gap: 20px;
   padding: 8px 0 20px;
   overflow-x: auto;
-  scroll-behavior: smooth;
-  scroll-snap-type: x proximity;
   -webkit-overflow-scrolling: touch;
   cursor: grab;
   scrollbar-width: none;
 }
 .media-gallery::-webkit-scrollbar { display: none; }
-.media-gallery.dragging { cursor: grabbing; scroll-behavior: auto; }
+.media-gallery.dragging { cursor: grabbing; }
 
 .gallery-item {
   flex: 0 0 320px;
@@ -703,7 +701,6 @@ ul { list-style: none; }
   aspect-ratio: 4/3;
   cursor: pointer;
   border: 1px solid var(--border);
-  scroll-snap-align: center;
   transition: all 0.4s var(--ease);
   user-select: none;
 }

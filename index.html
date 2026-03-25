@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Devgna Vyas — Systems-First Engineer</title>
     <meta name="description" content="Portfolio of Devgna Vyas — Systems-First Engineer specializing in backend development, networking, Linux, cybersecurity, and AI-assisted engineering. Published researcher at icSoftComp 2025.">
     <meta name="author" content="Devgna Vyas">
@@ -22,7 +25,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=Tiro+Devanagari+Hindi:ital@0;1&family=Yatra+One&family=Noto+Serif+Devanagari:wght@400;500;600&family=Mukta:wght@300;400;500;600&family=Baloo+2:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/style.css">
+    <link id="app-style" rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <!-- Sakura Canvas -->
@@ -396,7 +399,65 @@
         </div>
     </footer>
 
-    <script src="js/main.js"></script>
-    <script src="js/sakura.js"></script>
+    <script>
+      (function () {
+        'use strict';
+
+        var VERSION_FILE = 'version.json';
+        var VERSION_STORAGE_KEY = 'portfolio_asset_version';
+
+        function safeGetStoredVersion() {
+          try { return localStorage.getItem(VERSION_STORAGE_KEY); } catch (_) { return null; }
+        }
+
+        function safeSetStoredVersion(version) {
+          try { localStorage.setItem(VERSION_STORAGE_KEY, version); } catch (_) {}
+        }
+
+        function loadApp(version) {
+          var safeVersion = encodeURIComponent(version || Date.now().toString());
+          window.__APP_VERSION__ = safeVersion;
+
+          var styleEl = document.getElementById('app-style');
+          if (styleEl) styleEl.href = 'css/style.css?v=' + safeVersion;
+
+          ['js/main.js', 'js/sakura.js'].forEach(function (src) {
+            var script = document.createElement('script');
+            script.src = src + '?v=' + safeVersion;
+            document.body.appendChild(script);
+          });
+        }
+
+        function forceFreshHtmlLoad(version) {
+          var url = new URL(window.location.href);
+          if (url.searchParams.get('appv') === version) return false;
+          url.searchParams.set('appv', version);
+          window.location.replace(url.toString());
+          return true;
+        }
+
+        fetch(VERSION_FILE + '?t=' + Date.now(), { cache: 'no-store' })
+          .then(function (res) {
+            if (!res.ok) throw new Error('version fetch failed');
+            return res.json();
+          })
+          .then(function (payload) {
+            var version = String((payload && payload.version) || '').trim();
+            if (!version) {
+              loadApp(Date.now().toString());
+              return;
+            }
+
+            var previous = safeGetStoredVersion();
+            safeSetStoredVersion(version);
+
+            if (previous !== version && forceFreshHtmlLoad(version)) return;
+            loadApp(version);
+          })
+          .catch(function () {
+            loadApp(Date.now().toString());
+          });
+      })();
+    </script>
 </body>
 </html>

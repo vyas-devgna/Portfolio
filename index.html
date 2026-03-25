@@ -295,8 +295,13 @@
         <div class="container">
             <p class="section-label reveal">Photography</p>
             <h2 class="section-heading reveal">Through my lens.</h2>
-            <div id="photo-gallery" class="media-gallery">
-                <!-- Photos loaded dynamically from photography.json -->
+            <div class="gallery-wrapper reveal">
+                <button class="gallery-nav gallery-nav-prev" aria-label="Previous">‹</button>
+                <div id="photo-gallery" class="media-gallery" data-autoscroll="true">
+                    <!-- Photos loaded dynamically from photography.json -->
+                </div>
+                <button class="gallery-nav gallery-nav-next" aria-label="Next">›</button>
+                <div class="gallery-progress"><div class="gallery-progress-bar"></div></div>
             </div>
             <p id="photo-empty" class="empty-state" style="display:none;">New photos coming to this gallery soon.</p>
         </div>
@@ -316,8 +321,13 @@
         <div class="container">
             <p class="section-label reveal">🐾 Animals</p>
             <h2 class="section-heading reveal">Creatures I adore.</h2>
-            <div id="animals-gallery" class="media-gallery">
-                <!-- Animals loaded dynamically from animals.json -->
+            <div class="gallery-wrapper reveal">
+                <button class="gallery-nav gallery-nav-prev" aria-label="Previous">‹</button>
+                <div id="animals-gallery" class="media-gallery" data-autoscroll="true">
+                    <!-- Animals loaded dynamically from animals.json -->
+                </div>
+                <button class="gallery-nav gallery-nav-next" aria-label="Next">›</button>
+                <div class="gallery-progress"><div class="gallery-progress-bar"></div></div>
             </div>
             <p id="animals-empty" class="empty-state" style="display:none;">Animal pics and videos coming soon.</p>
         </div>
@@ -328,8 +338,13 @@
         <div class="container">
             <p class="section-label reveal">✏️ Sketches</p>
             <h2 class="section-heading reveal">Things I draw.</h2>
-            <div id="sketches-gallery" class="media-gallery">
-                <!-- Sketches loaded dynamically from sketches.json -->
+            <div class="gallery-wrapper reveal">
+                <button class="gallery-nav gallery-nav-prev" aria-label="Previous">‹</button>
+                <div id="sketches-gallery" class="media-gallery" data-autoscroll="true">
+                    <!-- Sketches loaded dynamically from sketches.json -->
+                </div>
+                <button class="gallery-nav gallery-nav-next" aria-label="Next">›</button>
+                <div class="gallery-progress"><div class="gallery-progress-bar"></div></div>
             </div>
             <p id="sketches-empty" class="empty-state" style="display:none;">New sketches will appear here soon.</p>
         </div>

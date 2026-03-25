@@ -658,40 +658,76 @@ ul { list-style: none; }
 }
 
 /* ═══════════════════════════════════════════════════════════
-   GALLERY (Photography & Animals)
+   GALLERY — Horizontal Auto-Scroll Carousel
    ═══════════════════════════════════════════════════════════ */
 
-.media-gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 16px;
+.gallery-wrapper {
+  position: relative;
+  overflow: hidden;
 }
 
+/* Fade edges */
+.gallery-wrapper::before,
+.gallery-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 60px;
+  z-index: 2;
+  pointer-events: none;
+}
+.gallery-wrapper::before { left: 0; background: linear-gradient(to right, var(--bg), transparent); }
+.gallery-wrapper::after  { right: 0; background: linear-gradient(to left, var(--bg), transparent); }
+.section-alt .gallery-wrapper::before { background: linear-gradient(to right, var(--bg-elevated), transparent); }
+.section-alt .gallery-wrapper::after  { background: linear-gradient(to left, var(--bg-elevated), transparent); }
+
+.media-gallery {
+  display: flex;
+  gap: 20px;
+  padding: 8px 0 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  cursor: grab;
+  scrollbar-width: none;
+}
+.media-gallery::-webkit-scrollbar { display: none; }
+.media-gallery.dragging { cursor: grabbing; scroll-behavior: auto; }
+
 .gallery-item {
-  border-radius: 12px;
+  flex: 0 0 320px;
+  border-radius: 14px;
   overflow: hidden;
   position: relative;
   aspect-ratio: 4/3;
   cursor: pointer;
   border: 1px solid var(--border);
+  scroll-snap-align: center;
   transition: all 0.4s var(--ease);
+  user-select: none;
 }
-.gallery-item:hover { border-color: var(--border-hover); transform: translateY(-4px); }
+.gallery-item:hover {
+  border-color: var(--accent);
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3), 0 0 25px var(--accent-glow);
+}
 
 .gallery-item img,
 .gallery-item video {
   width: 100%; height: 100%;
   object-fit: cover;
   transition: transform 0.6s var(--ease-out);
+  pointer-events: none;
 }
 .gallery-item:hover img,
-.gallery-item:hover video { transform: scale(1.05); }
+.gallery-item:hover video { transform: scale(1.08); }
 
 .gallery-caption {
   position: absolute;
   bottom: 0; left: 0; right: 0;
-  padding: 24px 16px 16px;
-  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+  padding: 28px 16px 14px;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
   font-size: 13px;
   color: #fff;
   opacity: 0;
@@ -701,6 +737,51 @@ ul { list-style: none; }
 .gallery-item:hover .gallery-caption {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Gallery nav arrows */
+.gallery-nav {
+  position: absolute;
+  top: 50%; transform: translateY(-50%);
+  z-index: 3;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: rgba(10,10,10,0.85);
+  backdrop-filter: blur(12px);
+  color: var(--text-secondary);
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s var(--ease);
+  opacity: 0;
+}
+.gallery-wrapper:hover .gallery-nav { opacity: 1; }
+.gallery-nav:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: 0 4px 20px var(--accent-glow);
+}
+.gallery-nav-prev { left: 16px; }
+.gallery-nav-next { right: 16px; }
+
+/* Scroll progress bar */
+.gallery-progress {
+  width: 100%;
+  height: 2px;
+  background: var(--border);
+  border-radius: 2px;
+  margin-top: 16px;
+  overflow: hidden;
+}
+.gallery-progress-bar {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: width 0.15s ease;
+  width: 0%;
 }
 
 .empty-state {
@@ -884,7 +965,8 @@ ul { list-style: none; }
 
 @media (max-width: 600px) {
   .skills-grid { grid-template-columns: 1fr; }
-  .media-gallery { grid-template-columns: 1fr 1fr; }
+  .gallery-item { flex: 0 0 260px; }
+  .gallery-nav { width: 36px; height: 36px; font-size: 16px; }
   .poetry-container { grid-template-columns: 1fr; }
   .project-card { padding: 28px; }
   .results-grid { grid-template-columns: 1fr 1fr; }

@@ -1,21 +1,27 @@
 /* ═══════════════════════════════════════════════════════════
-   SAKURA.JS — Auto-start cherry blossom, gentle & ambient
+   SAKURA.JS — Cherry blossom canvas, always visible
    ═══════════════════════════════════════════════════════════ */
 
 (function () {
   'use strict';
 
+  // Respect reduced motion
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
   const canvas = document.getElementById('sakura-canvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
   let petals = [];
+  let isRunning = false;
+  let lastFrameTime = 0;
+  const TARGET_INTERVAL = 1000 / 30; // Cap at ~30fps
 
   function resize() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
   }
   resize();
-  window.addEventListener('resize', resize);
+  window.addEventListener('resize', resize, { passive: true });
 
   const COLORS = [
     'rgba(232,180,184,0.55)',
@@ -65,7 +71,17 @@
     ctx.restore();
   }
 
-  function update() {
+  function update(timestamp) {
+    if (!isRunning) return;
+
+    // Frame-rate limiting
+    const elapsed = timestamp - lastFrameTime;
+    if (elapsed < TARGET_INTERVAL) {
+      requestAnimationFrame(update);
+      return;
+    }
+    lastFrameTime = timestamp - (elapsed % TARGET_INTERVAL);
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Max ~18 petals, spawn slowly
@@ -94,6 +110,26 @@
     requestAnimationFrame(update);
   }
 
-  // Auto-start
-  update();
+  function startAnimation() {
+    if (isRunning) return;
+    isRunning = true;
+    lastFrameTime = 0;
+    requestAnimationFrame(update);
+  }
+
+  function stopAnimation() {
+    isRunning = false;
+  }
+
+  // Only pause when tab is hidden — sakura stays visible on all sections
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      stopAnimation();
+    } else {
+      startAnimation();
+    }
+  });
+
+  // Auto-start — always running while page is visible
+  startAnimation();
 })();

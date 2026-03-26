@@ -1,67 +1,107 @@
 [
   {
-    "type": "image",
+    "caption": "Sunset at the summit — Himalayan trek",
     "src": "images/hero2.jpg",
-    "caption": "Sunset at the summit — Himalayan trek"
+    "type": "image"
   },
   {
-    "type": "image",
+    "caption": "Layered peaks — misty mountain range",
     "src": "images/background.jpg",
-    "caption": "Layered peaks — misty mountain range"
+    "type": "image"
   },
   {
-    "type": "image",
+    "caption": "Flying Solo ,  Freedom is always lonely",
     "src": "images/photography/IMG_20260325_155444.jpg",
-    "caption": "Flying Solo ,  Freedom is always lonely"
+    "type": "image"
   },
   {
-    "type": "image",
+    "caption": "The beauty in falling",
     "src": "images/photography/IMG_20260325_105615.jpg",
-    "caption": ""
+    "type": "image"
   },
   {
-    "type": "image",
+    "caption": "Some colors stay",
     "src": "images/photography/IMG_20260305_095938.jpg",
-    "caption": ""
+    "type": "image"
   },
   {
-    "type": "image",
+    "caption": "Blooming is necessary when end is certain ",
     "src": "images/photography/1000059239.jpg",
-    "caption": ""
+    "type": "image"
   },
   {
-    "type": "image",
+    "caption": "Stars in land",
     "src": "images/photography/IMG_20251228_182342.jpg",
-    "caption": ""
+    "type": "image"
   },
   {
-    "type": "image",
+    "caption": "Peace",
     "src": "images/photography/IMG_20251228_173341.jpg",
-    "caption": ""
+    "type": "image"
   },
   {
-    "type": "image",
+    "caption": "The flight of freedom",
     "src": "images/photography/IMG_1758.jpg",
-    "caption": ""
+    "type": "image"
   },
   {
-    "type": "image",
+    "caption": "Pahado ke piche wali dunia",
     "src": "images/photography/IMG_1753.jpg",
-    "caption": ""
+    "type": "image"
   },
   {
-    "type": "image",
+    "caption": "When the night sky takes over",
     "src": "images/photography/IMG_20251227_200249.jpg",
-    "caption": ""
+    "type": "image"
   },
   {
-    "type": "image",
+    "caption": "Paradise",
     "src": "images/photography/20251224_160020.jpg",
+    "type": "image"
+  },
+  {
+    "caption": "Patience",
+    "src": "images/photography/IMG_20251209_121350.jpg",
+    "type": "image"
+  },
+  {
+    "caption": "Company ",
+    "src": "images/photography/IMG_20260221_133253.jpg",
+    "type": "image"
+  },
+  {
+    "caption": "Curiosity",
+    "src": "images/photography/IMG_20260131_124941.jpg",
+    "type": "image"
+  },
+  {
+    "caption": "Socialize ",
+    "src": "images/photography/IMG_20251211_104605.jpg",
+    "type": "image"
+  },
+  {
+    "type": "image",
+    "src": "images/photography/1000041091.jpg",
     "caption": ""
   },
   {
     "type": "image",
-    "src": "images/photography/IMG_20251209_121350.jpg",
+    "src": "images/photography/1000041073__1_.jpg",
+    "caption": ""
+  },
+  {
+    "type": "image",
+    "src": "images/photography/1000028490.jpg",
+    "caption": ""
+  },
+  {
+    "type": "image",
+    "src": "images/photography/IMG_20251004_161043.jpg",
+    "caption": ""
+  },
+  {
+    "type": "image",
+    "src": "images/photography/IMG_20250629_041928_842.jpg",
     "caption": ""
   }
 ]

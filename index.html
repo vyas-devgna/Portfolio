@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,32 +10,85 @@
     <meta name="description" content="Portfolio of Devgna Vyas — Systems-First Engineer specializing in backend development, networking, Linux, cybersecurity, and AI-assisted engineering. Published researcher at icSoftComp 2025.">
     <meta name="author" content="Devgna Vyas">
     <meta name="keywords" content="Devgna Vyas, Systems Engineer, Backend Developer, Cybersecurity, HERMES, CHARUSAT, Flutter, Python, Java">
+    <meta name="theme-color" content="#0a0a0a" id="meta-theme-color">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://vyas-devgna.github.io/Portfolio/">
 
     <!-- Open Graph -->
     <meta property="og:title" content="Devgna Vyas — Systems-First Engineer">
     <meta property="og:description" content="Backend, Networking, Linux, Cybersecurity. Published researcher. Building robust systems.">
     <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vyas-devgna.github.io/Portfolio/">
     <meta property="og:image" content="https://vyas-devgna.github.io/Portfolio/images/hero2.jpg">
 
     <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
 
-    <!-- Google Fonts -->
+    <!-- DNS Prefetch & Preconnect -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="dns-prefetch" href="//api.github.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=Tiro+Devanagari+Hindi:ital@0;1&family=Yatra+One&family=Noto+Serif+Devanagari:wght@400;500;600&family=Mukta:wght@300;400;500;600&family=Baloo+2:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Critical Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Poetry/Devanagari Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=Tiro+Devanagari+Hindi:ital@0;1&family=Yatra+One&family=Noto+Serif+Devanagari:wght@400;500;600&family=Mukta:wght@300;400;500;600&family=Baloo+2:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <link id="app-style" rel="stylesheet" href="css/style.css">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfilePage",
+      "mainEntity": {
+        "@type": "Person",
+        "name": "Devgna Vyas",
+        "jobTitle": "Systems-First Engineer",
+        "url": "https://vyas-devgna.github.io/Portfolio/",
+        "image": "https://vyas-devgna.github.io/Portfolio/images/hero.png",
+        "email": "vyasdevgna@gmail.com",
+        "telephone": "+919510292044",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Nadiad",
+          "addressRegion": "Gujarat",
+          "addressCountry": "IN"
+        },
+        "alumniOf": {
+          "@type": "CollegeOrUniversity",
+          "name": "CHARUSAT University"
+        },
+        "knowsAbout": ["Backend Development", "Networking", "Linux", "Cybersecurity", "AI Engineering", "Flutter", "Python", "Java"],
+        "sameAs": [
+          "https://github.com/vyas-devgna",
+          "https://linkedin.com/in/devgna-vyas"
+        ]
+      }
+    }
+    </script>
 </head>
 <body>
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-progress" class="scroll-progress" aria-hidden="true"><div class="scroll-progress-fill"></div></div>
+
+    <!-- Custom Cursor -->
+    <div id="cursor-dot" class="cursor-dot" aria-hidden="true"></div>
+    <div id="cursor-ring" class="cursor-ring" aria-hidden="true"></div>
+
     <!-- Sakura Canvas -->
-    <canvas id="sakura-canvas"></canvas>
+    <canvas id="sakura-canvas" aria-hidden="true"></canvas>
 
     <!-- Navigation -->
-    <nav id="navbar">
+    <header role="banner">
+    <nav id="navbar" aria-label="Primary navigation">
         <div class="nav-inner">
-            <a href="#hero" class="nav-logo">DV</a>
-            <ul class="nav-links">
+            <a href="#hero" class="nav-logo" aria-label="Devgna Vyas — Home">DV</a>
+            <ul class="nav-links" role="list">
                 <li><a href="#about" class="nav-link">About</a></li>
                 <li><a href="#work" class="nav-link">Work</a></li>
                 <li><a href="#research" class="nav-link">Research</a></li>
@@ -47,14 +100,18 @@
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
             <div class="nav-actions">
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle light/dark theme" title="Toggle theme">
+                    <svg class="theme-icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                    <svg class="theme-icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                </button>
                 <a href="#contact" class="nav-cta">Get in Touch</a>
                 <a id="resume-nav-btn" href="resume.pdf" target="_blank" class="nav-cta nav-cta-secondary" style="display:none;">Resume</a>
             </div>
-            <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+            <button class="nav-hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-menu">
                 <span></span><span></span><span></span>
             </button>
         </div>
-        <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu" id="mobile-menu" role="navigation" aria-label="Mobile navigation">
             <a href="#about" class="mobile-link">About</a>
             <a href="#work" class="mobile-link">Work</a>
             <a href="#research" class="mobile-link">Research</a>
@@ -71,31 +128,40 @@
     <!-- Hero -->
     <section id="hero">
         <div class="hero-bg">
-            <img src="images/hero2.jpg" alt="Mountain sunset" />
+            <img src="images/hero2.jpg" alt="Mountain sunset" decoding="async" fetchpriority="high" />
         </div>
+        <div class="hero-scanline" aria-hidden="true"></div>
         <div class="hero-content">
             <div class="hero-text">
                 <p class="hero-greeting reveal">Hi, I'm</p>
                 <h1 class="hero-name reveal">Devgna Vyas</h1>
                 <p class="hero-title reveal">Systems-First Engineer</p>
-                <p class="hero-subtitle reveal">I build robust backend systems, think in networking fundamentals, live in Linux, explore cybersecurity, and use AI to accelerate — not replace — engineering depth.</p>
+                <p class="hero-subtitle reveal" id="hero-typed">I build robust backend systems, think in networking fundamentals, live in Linux, explore cybersecurity, and use AI to accelerate — not replace — engineering depth.</p>
                 <div class="hero-ctas reveal">
                     <a href="#work" class="btn btn-primary">View Projects</a>
                     <a href="https://github.com/vyas-devgna" target="_blank" rel="noopener" class="btn btn-secondary">GitHub ↗</a>
                     <a id="resume-hero-btn" href="resume.pdf" target="_blank" class="btn btn-secondary" style="display:none;">Resume ↗</a>
                 </div>
+                <!-- GitHub Stats (loaded dynamically) -->
+                <div id="github-stats" class="github-stats reveal" style="display:none;"></div>
             </div>
             <div class="hero-image reveal">
                 <div class="hero-img-wrapper">
-                    <img src="images/hero.png" alt="Devgna Vyas" loading="eager" />
+                    <img src="images/hero.png" alt="Devgna Vyas" loading="eager" decoding="async" fetchpriority="high" />
                 </div>
             </div>
         </div>
-        <div class="hero-scroll-indicator">
+        <div class="hero-scroll-indicator" aria-hidden="true">
             <span>Scroll</span>
             <div class="scroll-line"></div>
         </div>
     </section>
+    </header>
+
+    <main id="main-content">
+
+    <!-- Section Divider -->
+    <div class="section-divider" aria-hidden="true"><div class="divider-line"></div></div>
 
     <!-- About -->
     <section id="about" class="section">
@@ -134,6 +200,8 @@
             </div>
         </div>
     </section>
+
+    <div class="section-divider" aria-hidden="true"><div class="divider-line"></div></div>
 
     <!-- Selected Work -->
     <section id="work" class="section section-alt">
@@ -191,7 +259,7 @@
                         <p>A two-stage hybrid detection pipeline combining signature filtering with a quantized 3-layer deep neural network. The system runs on ARM cluster nodes, enabling distributed monitoring and cooperative intelligence sharing across the edge.</p>
                     </div>
                 </div>
-                <div class="results-grid" style="margin-top:24px;">
+                <div class="results-grid">
                     <div class="result-item">
                         <span class="result-number">94.7%</span>
                         <span class="result-label">Novel attack detection</span>
@@ -221,14 +289,16 @@
         </div>
     </section>
 
+    <div class="section-divider" aria-hidden="true"><div class="divider-line"></div></div>
+
     <!-- Research -->
     <section id="research" class="section">
         <div class="container">
             <p class="section-label reveal">Research</p>
             <h2 class="section-heading reveal">Published work.</h2>
 
-            <div class="publication-card reveal">
-                <div class="pub-icon">
+            <article class="publication-card reveal">
+                <div class="pub-icon" aria-hidden="true">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/><path d="M8 7h6"/><path d="M8 11h8"/></svg>
                 </div>
                 <div class="pub-content">
@@ -242,9 +312,11 @@
                     </div>
                     <p class="pub-abstract">A hybrid intrusion detection system combining signature-based filtering with a quantized deep neural network, deployed on ARM-based edge clusters. Achieves 94.7% detection of novel attacks at just 4.2W per node with 89.3% adversarial robustness — 67% less energy than comparable x86 setups.</p>
                 </div>
-            </div>
+            </article>
         </div>
     </section>
+
+    <div class="section-divider" aria-hidden="true"><div class="divider-line"></div></div>
 
     <!-- Skills -->
     <section id="skills" class="section section-alt">
@@ -254,31 +326,33 @@
             <div class="skills-grid reveal">
                 <div class="skill-category">
                     <h4 class="skill-cat-title">Languages</h4>
-                    <ul class="skill-list"><li>Java</li><li>Python</li><li>Dart</li><li>SQL</li><li>JavaScript</li><li>HTML / CSS</li><li>Bash</li></ul>
+                    <ul class="skill-list"><li>Java<span class="skill-bar" data-width="95"></span></li><li>Python<span class="skill-bar" data-width="92"></span></li><li>Dart<span class="skill-bar" data-width="88"></span></li><li>SQL<span class="skill-bar" data-width="85"></span></li><li>JavaScript<span class="skill-bar" data-width="82"></span></li><li>HTML / CSS<span class="skill-bar" data-width="90"></span></li><li>Bash<span class="skill-bar" data-width="78"></span></li></ul>
                 </div>
                 <div class="skill-category">
                     <h4 class="skill-cat-title">Backend &amp; Systems</h4>
-                    <ul class="skill-list"><li>REST API Design</li><li>Object-Oriented Design</li><li>Clean Architecture</li><li>Database Design</li><li>Flask</li></ul>
+                    <ul class="skill-list"><li>REST API Design<span class="skill-bar" data-width="93"></span></li><li>Object-Oriented Design<span class="skill-bar" data-width="90"></span></li><li>Clean Architecture<span class="skill-bar" data-width="88"></span></li><li>Database Design<span class="skill-bar" data-width="85"></span></li><li>Flask<span class="skill-bar" data-width="82"></span></li></ul>
                 </div>
                 <div class="skill-category">
                     <h4 class="skill-cat-title">Networking &amp; Security</h4>
-                    <ul class="skill-list"><li>TCP/IP &amp; Protocols</li><li>Ethical Hacking</li><li>Vulnerability Research</li><li>Intrusion Detection</li><li>Network Analysis</li><li>Defensive Architecture</li></ul>
+                    <ul class="skill-list"><li>TCP/IP &amp; Protocols<span class="skill-bar" data-width="92"></span></li><li>Ethical Hacking<span class="skill-bar" data-width="88"></span></li><li>Vulnerability Research<span class="skill-bar" data-width="85"></span></li><li>Intrusion Detection<span class="skill-bar" data-width="90"></span></li><li>Network Analysis<span class="skill-bar" data-width="87"></span></li><li>Defensive Architecture<span class="skill-bar" data-width="83"></span></li></ul>
                 </div>
                 <div class="skill-category">
                     <h4 class="skill-cat-title">Linux &amp; DevOps</h4>
-                    <ul class="skill-list"><li>Linux Administration</li><li>Shell Scripting</li><li>Docker</li><li>Git &amp; GitHub</li><li>CI/CD Workflows</li></ul>
+                    <ul class="skill-list"><li>Linux Administration<span class="skill-bar" data-width="94"></span></li><li>Shell Scripting<span class="skill-bar" data-width="90"></span></li><li>Docker<span class="skill-bar" data-width="82"></span></li><li>Git &amp; GitHub<span class="skill-bar" data-width="92"></span></li><li>CI/CD Workflows<span class="skill-bar" data-width="80"></span></li></ul>
                 </div>
                 <div class="skill-category">
                     <h4 class="skill-cat-title">AI &amp; Applied ML</h4>
-                    <ul class="skill-list"><li>Deep Learning</li><li>Model Quantization</li><li>Edge AI Inference</li><li>AI-Assisted Dev</li></ul>
+                    <ul class="skill-list"><li>Deep Learning<span class="skill-bar" data-width="85"></span></li><li>Model Quantization<span class="skill-bar" data-width="82"></span></li><li>Edge AI Inference<span class="skill-bar" data-width="80"></span></li><li>AI-Assisted Dev<span class="skill-bar" data-width="90"></span></li></ul>
                 </div>
                 <div class="skill-category">
                     <h4 class="skill-cat-title">Mobile &amp; Frontend</h4>
-                    <ul class="skill-list"><li>Flutter</li><li>Riverpod</li><li>Material Design</li><li>Responsive Web</li><li>UI/UX Sensibilities</li></ul>
+                    <ul class="skill-list"><li>Flutter<span class="skill-bar" data-width="92"></span></li><li>Riverpod<span class="skill-bar" data-width="88"></span></li><li>Material Design<span class="skill-bar" data-width="85"></span></li><li>Responsive Web<span class="skill-bar" data-width="83"></span></li><li>UI/UX Sensibilities<span class="skill-bar" data-width="80"></span></li></ul>
                 </div>
             </div>
         </div>
     </section>
+
+    <div class="section-divider" aria-hidden="true"><div class="divider-line"></div></div>
 
     <!-- Philosophy -->
     <section id="philosophy" class="section">
@@ -293,31 +367,43 @@
         </div>
     </section>
 
+    <div class="section-divider" aria-hidden="true"><div class="divider-line"></div></div>
+
     <!-- Photography -->
     <section id="photography" class="section section-alt">
         <div class="container">
             <p class="section-label reveal">Photography</p>
             <h2 class="section-heading reveal">Through my lens.</h2>
             <div class="gallery-wrapper reveal">
-                <button class="gallery-nav gallery-nav-prev" aria-label="Previous">‹</button>
-                <div id="photo-gallery" class="media-gallery" data-autoscroll="true">
-                    <!-- Photos loaded dynamically from photography.json -->
+                <button class="gallery-nav gallery-nav-prev" aria-label="Scroll gallery left">‹</button>
+                <div id="photo-gallery" class="media-gallery is-loading" data-autoscroll="true" aria-live="polite" role="region" aria-label="Photography gallery">
                 </div>
-                <button class="gallery-nav gallery-nav-next" aria-label="Next">›</button>
-                <div class="gallery-progress"><div class="gallery-progress-bar"></div></div>
+                <button class="gallery-nav gallery-nav-next" aria-label="Scroll gallery right">›</button>
+                <div class="gallery-progress" role="progressbar" aria-label="Gallery scroll progress"><div class="gallery-progress-bar"></div></div>
             </div>
             <p id="photo-empty" class="empty-state" style="display:none;">New photos coming to this gallery soon.</p>
         </div>
     </section>
 
     <!-- Photo Lightbox -->
-    <div id="lightbox" class="lightbox">
-        <button class="lightbox-close" id="lightbox-close" aria-label="Close">✕</button>
-        <button class="lightbox-prev" id="lightbox-prev" aria-label="Previous">‹</button>
-        <button class="lightbox-next" id="lightbox-next" aria-label="Next">›</button>
+    <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+        <button class="lightbox-close" id="lightbox-close" aria-label="Close image viewer">✕</button>
+        <button class="lightbox-prev" id="lightbox-prev" aria-label="Previous image">‹</button>
+        <button class="lightbox-next" id="lightbox-next" aria-label="Next image">›</button>
         <img id="lightbox-img" src="" alt="" />
         <p id="lightbox-caption" class="lightbox-caption"></p>
     </div>
+
+    <!-- Writing Lightbox -->
+    <div id="writing-lightbox" class="writing-lightbox" role="dialog" aria-modal="true" aria-label="Writing viewer">
+        <button class="lightbox-close" id="writing-lb-close" aria-label="Close writing viewer">✕</button>
+        <button class="lightbox-prev" id="writing-lb-prev" aria-label="Previous writing">‹</button>
+        <button class="lightbox-next" id="writing-lb-next" aria-label="Next writing">›</button>
+        <div id="writing-lb-content" class="writing-lb-content"></div>
+        <p id="writing-lb-meta" class="lightbox-caption"></p>
+    </div>
+
+    <div class="section-divider" aria-hidden="true"><div class="divider-line"></div></div>
 
     <!-- Animals -->
     <section id="animals" class="section">
@@ -325,16 +411,17 @@
             <p class="section-label reveal">🐾 Animals</p>
             <h2 class="section-heading reveal">Creatures I adore.</h2>
             <div class="gallery-wrapper reveal">
-                <button class="gallery-nav gallery-nav-prev" aria-label="Previous">‹</button>
-                <div id="animals-gallery" class="media-gallery" data-autoscroll="true">
-                    <!-- Animals loaded dynamically from animals.json -->
+                <button class="gallery-nav gallery-nav-prev" aria-label="Scroll gallery left">‹</button>
+                <div id="animals-gallery" class="media-gallery is-loading" data-autoscroll="true" aria-live="polite" role="region" aria-label="Animals gallery">
                 </div>
-                <button class="gallery-nav gallery-nav-next" aria-label="Next">›</button>
-                <div class="gallery-progress"><div class="gallery-progress-bar"></div></div>
+                <button class="gallery-nav gallery-nav-next" aria-label="Scroll gallery right">›</button>
+                <div class="gallery-progress" role="progressbar" aria-label="Gallery scroll progress"><div class="gallery-progress-bar"></div></div>
             </div>
             <p id="animals-empty" class="empty-state" style="display:none;">Animal pics and videos coming soon.</p>
         </div>
     </section>
+
+    <div class="section-divider" aria-hidden="true"><div class="divider-line"></div></div>
 
     <!-- Sketches -->
     <section id="sketches" class="section section-alt">
@@ -342,28 +429,35 @@
             <p class="section-label reveal">✏️ Sketches</p>
             <h2 class="section-heading reveal">Things I draw.</h2>
             <div class="gallery-wrapper reveal">
-                <button class="gallery-nav gallery-nav-prev" aria-label="Previous">‹</button>
-                <div id="sketches-gallery" class="media-gallery" data-autoscroll="true">
-                    <!-- Sketches loaded dynamically from sketches.json -->
+                <button class="gallery-nav gallery-nav-prev" aria-label="Scroll gallery left">‹</button>
+                <div id="sketches-gallery" class="media-gallery is-loading" data-autoscroll="true" aria-live="polite" role="region" aria-label="Sketches gallery">
                 </div>
-                <button class="gallery-nav gallery-nav-next" aria-label="Next">›</button>
-                <div class="gallery-progress"><div class="gallery-progress-bar"></div></div>
+                <button class="gallery-nav gallery-nav-next" aria-label="Scroll gallery right">›</button>
+                <div class="gallery-progress" role="progressbar" aria-label="Gallery scroll progress"><div class="gallery-progress-bar"></div></div>
             </div>
             <p id="sketches-empty" class="empty-state" style="display:none;">New sketches will appear here soon.</p>
         </div>
     </section>
+
+    <div class="section-divider" aria-hidden="true"><div class="divider-line"></div></div>
 
     <!-- Writing / Poetry -->
     <section id="writing" class="section section-alt">
         <div class="container">
             <p class="section-label reveal">Writing</p>
             <h2 class="section-heading reveal">Words I keep.</h2>
-            <div id="poetry-container" class="poetry-container">
-                <!-- Poems loaded dynamically from writing.json -->
+            <div class="gallery-wrapper writing-gallery-wrapper reveal">
+                <button class="gallery-nav gallery-nav-prev" aria-label="Previous writing">‹</button>
+                <div id="poetry-container" class="writing-carousel" aria-live="polite" role="region" aria-label="Writing gallery">
+                </div>
+                <button class="gallery-nav gallery-nav-next" aria-label="Next writing">›</button>
+                <div class="gallery-progress" role="progressbar" aria-label="Writing scroll progress"><div class="gallery-progress-bar"></div></div>
             </div>
             <p id="poetry-empty" class="empty-state" style="display:none;">New writings will appear here soon.</p>
         </div>
     </section>
+
+    <div class="section-divider" aria-hidden="true"><div class="divider-line"></div></div>
 
     <!-- Contact -->
     <section id="contact" class="section">
@@ -372,28 +466,34 @@
             <h2 class="section-heading reveal">Let's connect.</h2>
             <p class="contact-text reveal">I'm always open to discussing new projects, research collaborations, or engineering challenges.</p>
             <div class="contact-links reveal">
-                <a href="mailto:vyasdevgna@gmail.com" class="contact-item" id="contact-email">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                <a href="mailto:vyasdevgna@gmail.com" class="contact-item" id="contact-email" aria-label="Send email to vyasdevgna@gmail.com">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
                     <span>vyasdevgna@gmail.com</span>
                 </a>
-                <a href="https://github.com/vyas-devgna" target="_blank" rel="noopener" class="contact-item" id="contact-github">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                <a href="https://github.com/vyas-devgna" target="_blank" rel="noopener" class="contact-item" id="contact-github" aria-label="Visit GitHub profile">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                     <span>github.com/vyas-devgna</span>
                 </a>
-                <a href="https://linkedin.com/in/devgna-vyas" target="_blank" rel="noopener" class="contact-item" id="contact-linkedin">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                <a href="https://linkedin.com/in/devgna-vyas" target="_blank" rel="noopener" class="contact-item" id="contact-linkedin" aria-label="Visit LinkedIn profile">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
                     <span>linkedin.com/in/devgna-vyas</span>
                 </a>
-                <a href="tel:+919510292044" class="contact-item" id="contact-phone">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                <a href="tel:+919510292044" class="contact-item" id="contact-phone" aria-label="Call +91 9510292044">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                     <span>+91 9510292044</span>
                 </a>
             </div>
         </div>
     </section>
+    </main>
+
+    <!-- Back to Top -->
+    <button id="back-to-top" class="back-to-top" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+    </button>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer" role="contentinfo">
         <div class="container">
             <p class="footer-text">Designed &amp; built by Devgna Vyas · 2025</p>
         </div>

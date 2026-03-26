@@ -536,6 +536,16 @@
           return true;
         }
 
+        // Clean ?appv= from URL bar so it's never visible
+        (function cleanUrl() {
+          var url = new URL(window.location.href);
+          if (url.searchParams.has('appv')) {
+            url.searchParams.delete('appv');
+            var clean = url.pathname + (url.search || '') + (url.hash || '');
+            history.replaceState(null, '', clean || '/');
+          }
+        })();
+
         fetch(VERSION_FILE + '?t=' + Date.now(), { cache: 'no-store' })
           .then(function (res) {
             if (!res.ok) throw new Error('version fetch failed');

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMPICA Interview Teleprompter</title>
+    <style>
+        /* Base Styles */
+        :root {
+            --bg-color: #000000;
+            --text-color: #ffffff;
+            --cue-color: #888888;
+            --accent-color: #e50914; /* Red guide */
+            --control-bg: #1a1a1a;
+            --btn-bg: #333333;
+            --btn-hover: #555555;
+            --btn-active: #007bff;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+
+        /* Hide Scrollbar */
+        body::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Reading Guide (Center red lines) */
+        #reading-guide {
+            position: fixed;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 80px;
+            margin-top: -40px;
+            border-top: 3px solid var(--accent-color);
+            border-bottom: 3px solid var(--accent-color);
+            background: rgba(255, 255, 255, 0.03);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        #guide-arrows {
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            width: 0; 
+            height: 0; 
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+            border-left: 15px solid var(--accent-color);
+        }
+
+        #guide-arrows-right {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            width: 0; 
+            height: 0; 
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+            border-right: 15px solid var(--accent-color);
+        }
+
+        /* Text Content */
+        #content-wrapper {
+            transition: transform 0.3s ease;
+        }
+
+        .mirrored {
+            transform: scaleX(-1);
+        }
+
+        #text-content {
+            /* 50vh padding top/bottom ensures we can scroll all text through the center */
+            padding: 50vh 15vw;
+            max-width: 1200px;
+            margin: 0 auto;
+            font-size: 60px; /* Default font size */
+            font-weight: 600;
+            line-height: 1.5;
+            letter-spacing: 1px;
+            text-align: left;
+        }
+
+        p {
+            margin-bottom: 1.5em;
+        }
+
+        .cue {
+            color: var(--cue-color);
+            font-size: 0.6em;
+            font-style: italic;
+            text-align: center;
+            font-weight: normal;
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
+            padding: 15px 0;
+            margin: 2em 0;
+            letter-spacing: 2px;
+        }
+
+        /* Controls Panel */
+        #controls {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--control-bg);
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            z-index: 20;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            transition: opacity 0.3s ease;
+        }
+
+        /* Dim controls when playing to reduce distraction */
+        body.is-playing #controls {
+            opacity: 0.2;
+        }
+        body.is-playing #controls:hover {
+            opacity: 1;
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .divider {
+            width: 1px;
+            height: 30px;
+            background-color: #444;
+        }
+
+        button {
+            background-color: var(--btn-bg);
+            color: var(--text-color);
+            border: none;
+            padding: 10px 16px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        button:hover {
+            background-color: var(--btn-hover);
+        }
+
+        button.primary {
+            background-color: var(--btn-active);
+            width: 100px; /* Fixed width so it doesn't jump */
+        }
+
+        button.primary:hover {
+            background-color: #0056b3;
+        }
+
+        .label {
+            font-size: 12px;
+            color: #aaa;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-right: 5px;
+        }
+
+        .value-display {
+            font-family: monospace;
+            font-size: 18px;
+            width: 45px;
+            text-align: center;
+        }
+
+        /* Keyboard hint */
+        #keyboard-hint {
+            position: fixed;
+            top: 15px;
+            right: 20px;
+            color: #555;
+            font-size: 12px;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Center Reading Guide -->
+    <div id="reading-guide">
+        <div id="guide-arrows"></div>
+        <div id="guide-arrows-right"></div>
+    </div>
+
+    <div id="keyboard-hint">Space: Play/Pause | ↑/↓: Speed</div>
+
+    <!-- Teleprompter Text -->
+    <div id="content-wrapper">
+        <div id="text-content">
+            <p>
+                As a third-year student at CMPICA, one thing I can say with confidence is that this institute becomes a very important part of your daily life and your growth.
+            </p>
+
+            <p>
+                Since we spend so much time here, our experience is not limited to classrooms only. CMPICA gives us a strong academic foundation in computer applications, problem-solving, modern tools, teamwork, communication, and professional ethics.
+            </p>
+
+            <p>
+                The environment is very supportive, with facilities like AI & IoT labs, E-Yantra lab, digital studio, smart classrooms, and strong computing infrastructure, which makes learning more practical and engaging.
+            </p>
+
+            <div class="cue">[ Charusat +1 ]</div>
+
+            <p>
+                What I really appreciate is that opportunities here go beyond academics. At CHARUSAT, CSIC — the Charusat Startup and Innovation Centre — creates a startup mindset among students.
+            </p>
+
+            <p>
+                It encourages us to become job creators, not just job seekers, and supports innovative student ideas with proof-of-concept funding and incubation opportunities.
+            </p>
+
+            <p>
+                Recent activities like idea showcases and concept-to-creation events show that students are actually encouraged to turn ideas into working prototypes and real ventures.
+            </p>
+
+            <div class="cue">[ Charusat +2 ]</div>
+
+            <p>
+                At the same time, industry exposure is also a strong point. Through the University Industry Interaction Cell, students get access to guest lectures, leadership talks, competitions, scholarships, and corporate interaction.
+            </p>
+
+            <p>
+                CMPICA also highlights industry linkage, and recent placement records show 80%+ placements with recruiters like IBM, TCS, Celebal, Mastek, and eInfochips.
+            </p>
+
+            <div class="cue">[ Charusat +2 ]</div>
+
+            <p style="color: #b3d4ff;">
+                So overall, my experience as a third-year student has been that CMPICA is not just a place to study, but a place where academics, innovation, startups, and industry exposure all come together to prepare us for the real world.
+            </p>
+        </div>
+    </div>
+
+    <!-- Control Bar -->
+    <div id="controls">
+        <!-- Play / Pause -->
+        <button id="btn-play" class="primary">PLAY</button>
+
+        <div class="divider"></div>
+
+        <!-- Speed Controls -->
+        <div class="control-group">
+            <span class="label">Speed</span>
+            <button id="btn-speed-down" title="Decrease Speed">-</button>
+            <span id="speed-display" class="value-display">2.0</span>
+            <button id="btn-speed-up" title="Increase Speed">+</button>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Font Size Controls -->
+        <div class="control-group">
+            <span class="label">Size</span>
+            <button id="btn-font-down" title="Decrease Font">-</button>
+            <span id="font-display" class="value-display">60</span>
+            <button id="btn-font-up" title="Increase Font">+</button>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Reset & Mirror -->
+        <button id="btn-reset" title="Scroll to Top">Top</button>
+        <button id="btn-mirror" title="Flip Text Horizontally">Mirror</button>
+    </div>
+
+    <script>
+        // State Variables
+        let isPlaying = false;
+        let speed = 2.0; // Normal starting speed
+        let fontSize = 60; // Normal starting font size (px)
+        let currentScroll = 0;
+        let isMirrored = false;
+        let animationFrameId;
+
+        // DOM Elements
+        const textContent = document.getElementById('text-content');
+        const contentWrapper = document.getElementById('content-wrapper');
+        const speedDisplay = document.getElementById('speed-display');
+        const fontDisplay = document.getElementById('font-display');
+        const btnPlay = document.getElementById('btn-play');
+
+        // Scroll Logic using requestAnimationFrame for smoothness
+        function scrollLoop() {
+            if (isPlaying) {
+                currentScroll += speed;
+                window.scrollTo(0, currentScroll);
+            }
+            animationFrameId = requestAnimationFrame(scrollLoop);
+        }
+
+        // Start the loop
+        animationFrameId = requestAnimationFrame(scrollLoop);
+
+        // Keep manual scrolling in sync when paused
+        window.addEventListener('scroll', () => {
+            if (!isPlaying) {
+                currentScroll = window.scrollY;
+            }
+        });
+
+        // Toggle Play/Pause
+        function togglePlay() {
+            isPlaying = !isPlaying;
+            if (isPlaying) {
+                currentScroll = window.scrollY; // Sync just in case
+                btnPlay.textContent = "PAUSE";
+                btnPlay.style.backgroundColor = "#ff4444"; // Red for pause
+                document.body.classList.add('is-playing');
+            } else {
+                btnPlay.textContent = "PLAY";
+                btnPlay.style.backgroundColor = ""; // Revert to default
+                document.body.classList.remove('is-playing');
+            }
+        }
+
+        // Speed Adjustment
+        function changeSpeed(delta) {
+            speed = Math.max(0.5, Math.min(10, speed + delta));
+            speedDisplay.textContent = speed.toFixed(1);
+        }
+
+        // Font Size Adjustment
+        function changeFontSize(delta) {
+            fontSize = Math.max(30, Math.min(150, fontSize + delta));
+            textContent.style.fontSize = fontSize + 'px';
+            fontDisplay.textContent = fontSize;
+        }
+
+        // Reset to top
+        function resetScroll() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            currentScroll = 0;
+            if (isPlaying) togglePlay(); // Pause it when returning to top
+        }
+
+        // Toggle Mirror Mode (for actual teleprompter glass)
+        function toggleMirror() {
+            isMirrored = !isMirrored;
+            if (isMirrored) {
+                contentWrapper.classList.add('mirrored');
+            } else {
+                contentWrapper.classList.remove('mirrored');
+            }
+        }
+
+        // Event Listeners for Buttons
+        document.getElementById('btn-play').addEventListener('click', togglePlay);
+        
+        document.getElementById('btn-speed-up').addEventListener('click', () => changeSpeed(0.5));
+        document.getElementById('btn-speed-down').addEventListener('click', () => changeSpeed(-0.5));
+        
+        document.getElementById('btn-font-up').addEventListener('click', () => changeFontSize(4));
+        document.getElementById('btn-font-down').addEventListener('click', () => changeFontSize(-4));
+        
+        document.getElementById('btn-reset').addEventListener('click', resetScroll);
+        document.getElementById('btn-mirror').addEventListener('click', toggleMirror);
+
+        // Global Keyboard Shortcuts
+        document.addEventListener('keydown', (e) => {
+            // Prevent default behavior so space/arrows don't cause native jumping
+            if (['Space', 'ArrowUp', 'ArrowDown'].includes(e.code)) {
+                e.preventDefault(); 
+            }
+            
+            if (e.code === 'Space') {
+                togglePlay();
+            } else if (e.code === 'ArrowUp') {
+                changeSpeed(0.5);
+            } else if (e.code === 'ArrowDown') {
+                changeSpeed(-0.5);
+            }
+        });
+    </script>
+</body>
+</html>
+
+

@@ -1354,9 +1354,19 @@ ul { list-style: none; }
    ═══════════════════════════════════════════════════════════ */
 
 @media (max-width: 968px) {
+  :root {
+    --section-pad: clamp(45px, 6vw, 75px);
+  }
+
   .nav-links { display: none; }
-  .nav-actions { display: none; }
+  .nav-actions { 
+    display: flex; 
+    margin-left: auto; 
+    margin-right: 16px; 
+  }
+  .nav-actions .btn-brutal { display: none; }
   .nav-hamburger { display: flex; }
+  .gallery-nav { display: none; }
 
   .hero-content {
     grid-template-columns: 1fr;
@@ -1367,26 +1377,30 @@ ul { list-style: none; }
   .editorial-meta-strip { display: none; }
   .hero-subtitle { margin: 0 auto 32px; }
   .hero-image { justify-content: center; width: 100%; padding: 0 20px; }
-  .hero-img-wrapper { max-width: 320px; }
-  .annotation-arrow { display: none; }
+  .hero-img-wrapper { max-width: 100%; }
 
   .about-grid { grid-template-columns: 1fr; gap: 36px; }
 
   .project-details { grid-template-columns: 1fr; gap: 16px; }
   .project-card { padding: 24px; }
+  .skills-grid { grid-template-columns: 1fr; gap: 20px; }
 }
 
 @media (max-width: 480px) {
   body { font-size: 15px; }
+  #hero { min-height: auto; padding-top: 120px; padding-bottom: 60px; }
   .section-heading { font-size: 28px; }
-  .hero-name { font-size: 40px; }
+  .hero-name { font-size: clamp(36px, 10vw, 44px); }
   .project-title { font-size: 20px; }
-  .philosophy-block { padding: 24px; }
-  .writing-lb-content { padding: 24px; }
+  .philosophy-block { padding: 20px; }
+  .writing-lb-content { padding: 20px; }
   .contact-links { grid-template-columns: 1fr; }
   .contact-grid { grid-template-columns: 1fr; gap: 40px; }
-  .brutal-form { padding: 24px; }
+  .brutal-form { padding: 20px; }
   .hero-ctas { flex-direction: column; width: 100%; align-items: stretch; }
   .btn-brutal-wrap { width: 100%; }
-  .btn-brutal { width: 100%; justify-content: center; }
+  .btn-brutal { width: 100%; justify-content: center; padding: 16px; }
+  
+  .poem-card { flex: 0 0 clamp(240px, 85vw, 340px); padding: 24px; }
+  .gallery-item { flex: 0 0 clamp(200px, 75vw, 280px); }
 }

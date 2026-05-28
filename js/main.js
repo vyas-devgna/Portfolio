@@ -83,69 +83,6 @@
   updateBackToTop();
 
   // ═══════════════════════════════════════════════════════════
-  // 3. CUSTOM CURSOR (desktop only)
-  // ═══════════════════════════════════════════════════════════
-
-  const cursorDot = document.getElementById('cursor-dot');
-  const cursorRing = document.getElementById('cursor-ring');
-
-  if (cursorDot && cursorRing && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-    let mouseX = -100, mouseY = -100;
-    let ringX = -100, ringY = -100;
-    let cursorVisible = false;
-
-    document.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      cursorDot.style.left = mouseX + 'px';
-      cursorDot.style.top = mouseY + 'px';
-      if (!cursorVisible) {
-        cursorVisible = true;
-        cursorDot.style.opacity = '1';
-        cursorRing.style.opacity = '0.6';
-      }
-    });
-
-    // Smooth follow for ring
-    function animateCursor() {
-      ringX += (mouseX - ringX) * 0.15;
-      ringY += (mouseY - ringY) * 0.15;
-      cursorRing.style.left = ringX + 'px';
-      cursorRing.style.top = ringY + 'px';
-      requestAnimationFrame(animateCursor);
-    }
-    animateCursor();
-
-    document.addEventListener('mouseenter', () => {
-      cursorDot.style.opacity = '1';
-      cursorRing.style.opacity = '0.6';
-    });
-    document.addEventListener('mouseleave', () => {
-      cursorDot.style.opacity = '0';
-      cursorRing.style.opacity = '0';
-    });
-
-    // Hover effects on interactive elements
-    const hoverTargets = 'a, button, [role="button"], input, select, textarea, .gallery-item, .project-card, .skill-category, .contact-item, .publication-card, .poem-card';
-    document.addEventListener('mouseover', (e) => {
-      if (e.target.closest(hoverTargets)) {
-        cursorDot.classList.add('hovering');
-        cursorRing.classList.add('hovering');
-      }
-    });
-    document.addEventListener('mouseout', (e) => {
-      if (e.target.closest(hoverTargets)) {
-        cursorDot.classList.remove('hovering');
-        cursorRing.classList.remove('hovering');
-      }
-    });
-  } else {
-    // Hide cursor elements on touch devices
-    if (cursorDot) cursorDot.style.display = 'none';
-    if (cursorRing) cursorRing.style.display = 'none';
-  }
-
-  // ═══════════════════════════════════════════════════════════
   // 4. TYPED TEXT ANIMATION
   // ═══════════════════════════════════════════════════════════
 
@@ -206,8 +143,8 @@
 
   if (themeToggle) {
     themeToggle.addEventListener('click', () => {
-      const current = document.documentElement.getAttribute('data-theme') || 'dark';
-      const next = current === 'dark' ? 'light' : 'dark';
+      const current = document.documentElement.getAttribute('data-theme') || 'light';
+      const next = current === 'light' ? 'dark' : 'light';
       applyTheme(next);
       setStoredTheme(next);
     });
@@ -732,7 +669,6 @@
 
   loadGallery('photography.json', 'photo-gallery', 'photo-empty');
   loadGallery('animals.json', 'animals-gallery', 'animals-empty');
-  loadGallery('sketches.json', 'sketches-gallery', 'sketches-empty');
 
   // ═══════════════════════════════════════════════════════════
   // POETRY / WRITING — Horizontal Carousel
@@ -904,5 +840,79 @@
       if (wrapperEl) wrapperEl.style.display = 'none';
       if (emptyEl) emptyEl.style.display = 'block';
     });
+
+  // ═══════════════════════════════════════════════════════════
+  // CONTACT FORM LOGIC (FORMSPREE)
+  // ═══════════════════════════════════════════════════════════
+  
+  const contactForm = document.getElementById('contact-form');
+  const formStatus = document.getElementById('form-status');
+
+  if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const nameInput = document.getElementById('contact-name');
+      if (nameInput && nameInput.value) {
+        try { localStorage.setItem('portfolio_visitor_name', nameInput.value); } catch(_) {}
+      }
+      
+      if (formStatus) formStatus.textContent = 'Sending...';
+      
+      const data = new FormData(contactForm);
+      fetch(contactForm.action, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      })
+      .then(response => {
+        if (response.ok) {
+          contactForm.reset();
+          if (formStatus) formStatus.textContent = 'Message sent successfully!';
+          setTimeout(() => { if (formStatus) formStatus.textContent = ''; }, 4000);
+        } else {
+          if (formStatus) formStatus.textContent = 'Oops! There was a problem submitting your form.';
+        }
+      })
+      .catch(() => {
+        if (formStatus) formStatus.textContent = 'Oops! There was a network error.';
+      });
+    });
+  }
+
+  // ═══════════════════════════════════════════════════════════
+  // WELCOME OVERLAY
+  // ═══════════════════════════════════════════════════════════
+
+  function showWelcomeOverlay() {
+    let visitorName = null;
+    try { visitorName = localStorage.getItem('portfolio_visitor_name'); } catch(_) {}
+    
+    if (visitorName) {
+      document.body.style.overflow = 'hidden';
+      
+      const overlay = document.createElement('div');
+      overlay.className = 'welcome-overlay';
+      
+      overlay.innerHTML = `
+        <h2>Welcome back, ${visitorName}.</h2>
+        <p>Let's pick up right where we left off. The systems are ready.</p>
+        <button class="btn-brutal btn-brutal-accent">Enter Portfolio</button>
+      `;
+      
+      document.body.appendChild(overlay);
+      
+      setTimeout(() => overlay.classList.add('show'), 100);
+      
+      const btn = overlay.querySelector('button');
+      btn.addEventListener('click', () => {
+        overlay.classList.remove('show');
+        document.body.style.overflow = '';
+        setTimeout(() => overlay.remove(), 500);
+      });
+    }
+  }
+
+  setTimeout(showWelcomeOverlay, 300);
 
 })();

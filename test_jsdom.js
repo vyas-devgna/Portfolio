@@ -1,5 +1,5 @@
 const fs = require('fs');
-const js = fs.readFileSync('c:/Users/Dev/Documents/ctf/Portfolio/js/main.js', 'utf8');
+const js = fs.readFileSync('c:/Users/Dev/Documents/lol/Portfolio/js/main.js', 'utf8');
 
 const jsdom = require('jsdom');
 const { JSDOM } = jsdom;
@@ -28,6 +28,8 @@ const dom = new JSDOM(`
 // Mock environment
 dom.window.matchMedia = () => ({ matches: false });
 dom.window.__APP_VERSION__ = '1';
+dom.window.requestAnimationFrame = (cb) => setTimeout(cb, 16);
+dom.window.cancelAnimationFrame = (id) => clearTimeout(id);
 dom.window.IntersectionObserver = class {
   constructor(cb) { this.cb = cb; }
   observe(el) {

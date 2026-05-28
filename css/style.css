@@ -1414,3 +1414,10 @@ ul { list-style: none; }
   .poem-card { flex: 0 0 clamp(240px, 85vw, 340px); padding: 24px; }
   .gallery-item { flex: 0 0 clamp(200px, 75vw, 280px); }
 }
+
+@media (min-width: 969px) {
+  body {
+    zoom: 1.25;
+  }
+}
+

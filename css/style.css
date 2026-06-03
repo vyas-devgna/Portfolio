@@ -1345,6 +1345,39 @@ ul { list-style: none; }
   box-shadow: none;
 }
 
+/* ═══ Support ═══ */
+.support-embed-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(20px, 4vw, 36px);
+  margin-top: 24px;
+}
+
+.support-embed-row iframe {
+  border: 0;
+  flex-shrink: 0;
+}
+
+.chai-support-link {
+  display: inline-block;
+  line-height: 0;
+  text-decoration: none;
+  transition: transform var(--ease-tactile);
+}
+
+.chai-support-link:hover {
+  transform: translateY(-2px);
+}
+
+.chai-support-link img {
+  display: block;
+  height: 56px;
+  width: auto;
+  border: 0;
+}
+
 .footer {
   padding: 30px 0;
   background: var(--bg-elevated);

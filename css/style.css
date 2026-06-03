@@ -1421,3 +1421,57 @@ ul { list-style: none; }
   }
 }
 
+/* ═══ Donate / Support page ═══ */
+.donate-hero {
+  min-height: auto;
+  padding-top: clamp(140px, 18vh, 180px);
+  padding-bottom: var(--section-pad);
+}
+
+.donate-hero .hero-subtitle {
+  max-width: 42rem;
+}
+
+.support-panel-light {
+  background: #f8fafc;
+  border: 2px solid var(--border);
+  border-radius: 0;
+  padding: clamp(32px, 5vw, 48px);
+  box-shadow: var(--shadow-brutal);
+  margin-bottom: clamp(40px, 6vw, 64px);
+}
+
+[data-theme="dark"] .support-panel-light {
+  background: #f8fafc;
+  color: #111111;
+}
+
+.support-panel-light .section-heading,
+.support-panel-light .contact-text {
+  color: #111111;
+}
+
+.support-embed-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(24px, 4vw, 40px);
+  margin-top: 28px;
+}
+
+.support-embed-row a {
+  cursor: pointer;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.support-embed-row a:hover {
+  transform: scale(1.04);
+}
+
+.support-embed-row a,
+.support-embed-row a * {
+  pointer-events: auto;
+}
+

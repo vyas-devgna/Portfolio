@@ -3,476 +3,354 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Tip via UPI — Devgna Vyas</title>
-  <meta name="description" content="Send a UPI tip — scan QR or pay with your UPI app." />
+  <title>Tip via UPI</title>
+  <meta name="description" content="Send a UPI tip — scan the QR or open your UPI app." />
   <meta name="robots" content="noindex" />
   <link rel="icon" href="images/upi-logo.png" type="image/png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js" defer></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #08090d;
-      --surface: #12141b;
-      --surface-2: #1a1d27;
-      --text: #f2f0f7;
-      --muted: #9490a3;
-      --line: rgba(255, 255, 255, 0.09);
-      --green: #0a8f4a;
-      --green-soft: rgba(10, 143, 74, 0.18);
-      --orange: #f07a28;
-      --orange-soft: rgba(240, 122, 40, 0.14);
-      --radius: 16px;
-      --font-display: "Fraunces", Georgia, serif;
-      --font-ui: "DM Sans", system-ui, sans-serif;
+      --bg: #f9f8f6;
+      --card: #ffffff;
+      --ink: #111111;
+      --muted: #5c5853;
+      --line: #111111;
+      --accent: #097939;
+      --accent-hover: #066b31;
+      --shadow: 4px 4px 0 #111111;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: var(--font-ui);
-      font-size: 1rem;
-      line-height: 1.55;
-      color: var(--text);
-      min-height: 100dvh;
+      font-family: Inter, system-ui, sans-serif;
+      color: var(--ink);
       background: var(--bg);
-      -webkit-font-smoothing: antialiased;
+      min-height: 100dvh;
+      line-height: 1.5;
     }
 
-    .bg {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      background:
-        radial-gradient(ellipse 100% 80% at 50% -30%, rgba(10, 143, 74, 0.2), transparent 60%),
-        radial-gradient(ellipse 70% 50% at 100% 80%, rgba(240, 122, 40, 0.1), transparent 55%),
-        var(--bg);
-    }
-
-    .page {
-      position: relative;
-      z-index: 1;
-      width: min(24rem, 100%);
+    .wrap {
+      width: min(22rem, 100%);
       margin: 0 auto;
-      padding: clamp(1.5rem, 6vw, 2.25rem) clamp(1rem, 4vw, 1.25rem) 2.75rem;
+      padding: 1.5rem 1rem 2.5rem;
     }
 
     .back {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      margin-bottom: 1.75rem;
+      display: inline-block;
+      margin-bottom: 1.25rem;
       font-size: 0.875rem;
-      font-weight: 500;
+      font-weight: 600;
       color: var(--muted);
       text-decoration: none;
     }
-    .back:hover { color: var(--text); }
+    .back:hover { color: var(--ink); }
 
-    /* UPI logo: intrinsic aspect ratio only — no box, no caption */
     .upi-logo {
       display: block;
       width: auto;
       height: auto;
-      max-width: min(11.5rem, 78vw);
-      margin: 0 auto 1.35rem;
+      max-width: min(10rem, 72vw);
+      margin: 0 auto 1.25rem;
     }
 
-    .panel {
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: calc(var(--radius) + 2px);
-      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
+    .card {
+      background: var(--card);
+      border: 2px solid var(--line);
+      box-shadow: var(--shadow);
     }
 
-    .panel-top {
-      padding: 1.35rem 1.35rem 0.25rem;
+    .card-head {
+      padding: 1.25rem 1.25rem 0.5rem;
       text-align: center;
+      border-bottom: 2px dashed rgba(17, 17, 17, 0.15);
     }
 
-    .panel-top h1 {
-      font-family: var(--font-display);
-      font-size: clamp(1.5rem, 5vw, 1.75rem);
+    .card-head h1 {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 1.5rem;
       font-weight: 700;
-      letter-spacing: -0.03em;
-      line-height: 1.1;
+      letter-spacing: -0.02em;
     }
 
-    .panel-top p {
-      margin-top: 0.45rem;
-      font-size: 0.9rem;
+    .card-head p {
+      margin-top: 0.35rem;
+      font-size: 0.875rem;
       color: var(--muted);
     }
 
-    .body {
-      padding: 1.15rem 1.35rem 1.35rem;
+    .card-body {
+      padding: 1.25rem;
     }
 
-    .qr-block {
+    .qr-wrap {
       text-align: center;
       margin-bottom: 1.25rem;
     }
 
-    .qr-label {
+    .qr-wrap p {
       font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
+      font-weight: 700;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--muted);
       margin-bottom: 0.75rem;
     }
 
-    .qr-frame {
+    .qr-box {
       display: inline-block;
-      padding: 0.7rem;
+      padding: 0.65rem;
       background: #fff;
-      border-radius: var(--radius);
+      border: 2px solid var(--line);
       line-height: 0;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
     }
 
-    .qr-frame canvas {
+    .qr-box img {
       display: block;
-      border-radius: 8px;
+      width: min(240px, calc(100vw - 4.5rem));
+      height: auto;
     }
 
-    .id-row {
-      display: flex;
-      align-items: stretch;
-      gap: 0.5rem;
-      margin-bottom: 1.25rem;
+    .qr-fallback {
+      display: none;
+      font-size: 0.875rem;
+      color: #a33;
+      margin-top: 0.5rem;
     }
-
-    .id-value {
-      flex: 1;
-      min-width: 0;
-      display: flex;
-      align-items: center;
-      padding: 0.72rem 0.9rem;
-      font-family: ui-monospace, "Cascadia Code", "SF Mono", monospace;
-      font-size: 0.9rem;
-      letter-spacing: 0.01em;
-      color: #9ae8be;
-      background: var(--surface-2);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      word-break: break-all;
-    }
-
-    .btn {
-      font-family: inherit;
-      font-size: 0.8125rem;
-      font-weight: 600;
-      cursor: pointer;
-      border-radius: var(--radius);
-      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
-    }
-
-    .btn-copy {
-      padding: 0 1rem;
-      color: var(--text);
-      background: var(--surface-2);
-      border: 1px solid var(--line);
-      white-space: nowrap;
-    }
-    .btn-copy:hover { border-color: var(--orange); color: var(--orange); }
-    .btn-copy.ok { border-color: var(--green); color: #9ae8be; }
-
-    .field-label {
-      font-size: 0.8125rem;
-      font-weight: 500;
-      color: var(--muted);
-      margin-bottom: 0.45rem;
-    }
+    .qr-fallback.show { display: block; }
 
     .amounts {
       display: flex;
       flex-wrap: wrap;
       gap: 0.4rem;
-      margin-bottom: 0.6rem;
+      justify-content: center;
+      margin-bottom: 0.75rem;
     }
 
     .chip {
-      padding: 0.48rem 0.85rem;
-      font-size: 0.875rem;
-      font-weight: 600;
-      color: var(--text);
-      background: var(--surface-2);
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      cursor: pointer;
-    }
-    .chip:hover { border-color: rgba(240, 122, 40, 0.45); }
-    .chip.on {
-      background: var(--orange-soft);
-      border-color: rgba(240, 122, 40, 0.55);
-      color: #ffd9c2;
-    }
-
-    .amount-field {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin-bottom: 1.25rem;
-    }
-
-    .amount-field input {
-      flex: 1;
-      min-width: 0;
-      padding: 0.68rem 0.9rem;
+      padding: 0.45rem 0.8rem;
       font: inherit;
-      font-size: 1rem;
-      color: var(--text);
-      background: var(--surface-2);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-    }
-    .amount-field input:focus {
-      outline: 2px solid rgba(240, 122, 40, 0.35);
-      outline-offset: 0;
-      border-color: var(--orange);
-    }
-    .amount-field input::placeholder { color: var(--muted); }
-    .amount-field span {
       font-size: 0.8125rem;
       font-weight: 600;
+      cursor: pointer;
+      color: var(--ink);
+      background: var(--bg);
+      border: 2px solid var(--line);
+    }
+    .chip.on {
+      background: var(--ink);
+      color: #fff;
+    }
+
+    .amount-row {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .amount-row input {
+      flex: 1;
+      min-width: 0;
+      padding: 0.6rem 0.75rem;
+      font: inherit;
+      font-size: 1rem;
+      border: 2px solid var(--line);
+      background: #fff;
+    }
+    .amount-row input:focus {
+      outline: 2px solid var(--accent);
+      outline-offset: 1px;
+    }
+
+    .amount-row span {
+      display: flex;
+      align-items: center;
+      font-size: 0.8125rem;
+      font-weight: 700;
       color: var(--muted);
     }
 
-    .pay-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.45rem;
-    }
-
-    .pay {
+    .tip-btn {
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 2.7rem;
-      padding: 0.5rem;
-      font-size: 0.8rem;
-      font-weight: 600;
+      width: 100%;
+      min-height: 3.1rem;
+      padding: 0.85rem 1rem;
+      font: inherit;
+      font-size: 1rem;
+      font-weight: 700;
       text-decoration: none;
-      color: var(--text);
-      background: var(--surface-2);
-      border: 1px solid var(--line);
-      border-radius: calc(var(--radius) - 2px);
+      color: #fff;
+      background: var(--accent);
+      border: 2px solid var(--line);
+      box-shadow: 3px 3px 0 var(--line);
+      transition: transform 0.1s ease, background 0.15s ease;
     }
-    .pay:hover {
-      border-color: rgba(255, 255, 255, 0.2);
-      background: #222530;
-    }
-    .pay.primary {
-      grid-column: 1 / -1;
-      min-height: 3rem;
-      font-size: 0.875rem;
-      background: var(--green-soft);
-      border-color: rgba(10, 143, 74, 0.4);
-    }
-    .pay.primary:hover {
-      border-color: rgba(10, 143, 74, 0.65);
-      background: rgba(10, 143, 74, 0.26);
+    .tip-btn:hover {
+      background: var(--accent-hover);
+      transform: translate(1px, 1px);
+      box-shadow: 2px 2px 0 var(--line);
     }
 
-    .foot {
-      padding: 0.9rem 1.35rem 1.1rem;
+    .card-foot {
+      padding: 0.85rem 1.25rem;
       font-size: 0.8125rem;
       color: var(--muted);
       text-align: center;
-      border-top: 1px solid var(--line);
+      border-top: 2px dashed rgba(17, 17, 17, 0.15);
     }
-    .foot strong { color: var(--text); font-weight: 600; }
-
-    .err {
-      display: none;
-      margin: 0 1.35rem 1rem;
-      padding: 0.75rem 0.85rem;
-      font-size: 0.875rem;
-      color: #ffb4b4;
-      background: rgba(255, 80, 80, 0.1);
-      border: 1px solid rgba(255, 80, 80, 0.25);
-      border-radius: var(--radius);
-    }
-    .err.show { display: block; }
-
-    @media (max-width: 360px) {
-      .pay-grid { grid-template-columns: 1fr; }
-      .pay.primary { grid-column: auto; }
-    }
+    .card-foot strong { color: var(--ink); }
   </style>
 </head>
 <body>
-  <div class="bg" aria-hidden="true"></div>
+  <div class="wrap">
+    <a class="back" href="index.html#support">← Back</a>
 
-  <div class="page">
-    <a class="back" href="index.html#support">← Portfolio</a>
+    <img class="upi-logo" src="images/upi-logo.png" width="1165" height="414" alt="UPI" />
 
-    <img
-      class="upi-logo"
-      src="images/upi-logo.png"
-      width="1165"
-      height="414"
-      alt="Unified Payments Interface"
-    />
-
-    <main class="panel">
-      <div class="panel-top">
+    <main class="card">
+      <div class="card-head">
         <h1>Send a tip</h1>
-        <p>Scan, copy ID, or open your UPI app</p>
+        <p>Scan the QR or tap the button on your phone</p>
       </div>
 
-      <p id="load-err" class="err">Could not load payment settings.</p>
-
-      <div class="body" id="main" hidden>
-        <section class="qr-block" aria-label="Payment QR code">
-          <p class="qr-label">Scan to pay</p>
-          <div class="qr-frame">
-            <canvas id="qr" aria-label="UPI QR code"></canvas>
+      <div class="card-body">
+        <div class="qr-wrap">
+          <p>Scan to pay</p>
+          <div class="qr-box">
+            <img id="qr" width="240" height="240" alt="UPI payment QR code" />
           </div>
-        </section>
-
-        <div class="id-row">
-          <code class="id-value" id="vpa"></code>
-          <button type="button" class="btn btn-copy" id="copy">Copy</button>
+          <p id="qr-err" class="qr-fallback">QR could not load. Use the button below on your phone.</p>
         </div>
 
-        <p class="field-label">Amount (optional)</p>
-        <div class="amounts" id="presets">
+        <div class="amounts" id="presets" aria-label="Tip amount">
           <button type="button" class="chip on" data-amt="">Any</button>
           <button type="button" class="chip" data-amt="50">₹50</button>
           <button type="button" class="chip" data-amt="100">₹100</button>
           <button type="button" class="chip" data-amt="200">₹200</button>
           <button type="button" class="chip" data-amt="500">₹500</button>
         </div>
-        <div class="amount-field">
-          <input type="number" id="amount" min="1" max="100000" step="1" placeholder="Other amount" inputmode="decimal" />
+        <div class="amount-row">
+          <input type="number" id="amount" min="1" max="100000" step="1" placeholder="Other (INR)" inputmode="decimal" aria-label="Custom amount in rupees" />
           <span>INR</span>
         </div>
 
-        <nav class="pay-grid" aria-label="Open payment app">
-          <a class="pay primary" id="lnk-upi" href="#">Pay with UPI app</a>
-          <a class="pay" id="lnk-gpay" href="#" rel="noopener">Google Pay</a>
-          <a class="pay" id="lnk-phonepe" href="#" rel="noopener">PhonePe</a>
-          <a class="pay" id="lnk-paytm" href="#" rel="noopener">Paytm</a>
-          <a class="pay" id="lnk-bhim" href="#" rel="noopener">BHIM</a>
-        </nav>
+        <a class="tip-btn" id="tip-btn" href="#">Tip via UPI app</a>
       </div>
 
-      <p class="foot">Payment note: <strong>TIP</strong> · Thank you for your support.</p>
+      <p class="card-foot">Payment note: <strong>TIP</strong></p>
     </main>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>
   <script>
     (function () {
-      var cfg;
+      var cfg = {
+        vpa: "devgnavyas@slc",
+        payeeName: "Devgna Vyas",
+        defaultNote: "TIP"
+      };
       var presetAmt = "";
 
-      function q(params) {
-        return Object.keys(params)
-          .filter(function (k) { return params[k] != null && params[k] !== ""; })
-          .map(function (k) { return k + "=" + encodeURIComponent(String(params[k]).trim()); })
-          .join("&");
-      }
-
-      function params(amount) {
+      function buildParams(amount) {
         var p = {
           pa: cfg.vpa,
           pn: cfg.payeeName,
           tn: cfg.defaultNote,
           cu: "INR"
         };
-        var am = amount != null ? String(amount).trim() : "";
-        if (am && Number(am) > 0) p.am = am;
+        var raw = amount != null ? String(amount).trim() : "";
+        var n = parseFloat(raw);
+        if (raw && !isNaN(n) && n > 0) {
+          p.am = n.toFixed(2);
+        }
         return p;
       }
 
-      function upi(amount) { return "upi://pay?" + q(params(amount)); }
-      function amountNow() {
+      function toQuery(params) {
+        return Object.keys(params)
+          .filter(function (k) { return params[k] != null && params[k] !== ""; })
+          .map(function (k) { return k + "=" + encodeURIComponent(String(params[k])); })
+          .join("&");
+      }
+
+      function upiUri(amount) {
+        return "upi://pay?" + toQuery(buildParams(amount));
+      }
+
+      function currentAmount() {
         var v = document.getElementById("amount").value.trim();
         return v || presetAmt;
       }
 
-      function sync() {
-        var am = amountNow();
-        document.getElementById("lnk-upi").href = upi(am);
-        document.getElementById("lnk-gpay").href = "tez://upi/pay?" + q(params(am));
-        document.getElementById("lnk-phonepe").href = "phonepe://pay?" + q(params(am));
-        document.getElementById("lnk-paytm").href = "paytmmp://pay?" + q(params(am));
-        document.getElementById("lnk-bhim").href = "bhim://upi/pay?" + q(params(am));
+      function syncLinks() {
+        document.getElementById("tip-btn").href = upiUri(currentAmount());
       }
 
-      function drawQr() {
-        var canvas = document.getElementById("qr");
-        var size = Math.min(252, window.innerWidth - 88);
-        if (!window.QRCode) return;
-        QRCode.toCanvas(canvas, upi(amountNow()), {
+      function renderQr() {
+        var img = document.getElementById("qr");
+        var err = document.getElementById("qr-err");
+        var payload = upiUri(currentAmount());
+        var size = Math.min(280, Math.max(200, window.innerWidth - 80));
+
+        function fail() {
+          err.classList.add("show");
+        }
+
+        if (!window.QRCode) {
+          fail();
+          return;
+        }
+
+        QRCode.toDataURL(payload, {
           width: size,
           margin: 2,
           errorCorrectionLevel: "M",
-          color: { dark: "#08090d", light: "#ffffff" }
+          color: { dark: "#111111", light: "#ffffff" }
+        }, function (e, url) {
+          if (e) {
+            fail();
+            return;
+          }
+          err.classList.remove("show");
+          img.src = url;
+          img.width = size;
+          img.height = size;
         });
       }
 
       function bind() {
-        document.getElementById("vpa").textContent = cfg.vpa;
-        document.getElementById("main").hidden = false;
-
         document.querySelectorAll(".chip").forEach(function (el) {
           el.addEventListener("click", function () {
             presetAmt = el.getAttribute("data-amt") || "";
             document.getElementById("amount").value = "";
             document.querySelectorAll(".chip").forEach(function (c) { c.classList.remove("on"); });
             el.classList.add("on");
-            sync();
-            drawQr();
+            syncLinks();
+            renderQr();
           });
         });
 
         document.getElementById("amount").addEventListener("input", function () {
           presetAmt = "";
           document.querySelectorAll(".chip").forEach(function (c) { c.classList.remove("on"); });
-          sync();
-          drawQr();
+          syncLinks();
+          renderQr();
         });
 
-        document.getElementById("copy").addEventListener("click", function () {
-          var btn = this;
-          navigator.clipboard.writeText(cfg.vpa).then(function () {
-            btn.textContent = "Copied";
-            btn.classList.add("ok");
-            setTimeout(function () {
-              btn.textContent = "Copy";
-              btn.classList.remove("ok");
-            }, 1800);
-          });
-        });
-
-        sync();
-        drawQr();
-        window.addEventListener("resize", drawQr);
+        syncLinks();
+        renderQr();
+        window.addEventListener("resize", renderQr);
       }
 
-      fetch("tip-config.json?t=" + Date.now(), { cache: "no-store" })
-        .then(function (r) { if (!r.ok) throw 0; return r.json(); })
-        .then(function (d) {
-          if (!d.vpa || !d.payeeName) throw 0;
-          cfg = {
-            vpa: d.vpa,
-            payeeName: d.payeeName,
-            defaultNote: (d.defaultNote || "TIP").toUpperCase()
-          };
-          if (document.readyState === "loading") {
-            document.addEventListener("DOMContentLoaded", bind);
-          } else {
-            bind();
-          }
-        })
-        .catch(function () {
-          document.getElementById("load-err").classList.add("show");
-        });
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", bind);
+      } else {
+        bind();
+      }
     })();
   </script>
 </body>

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Send a tip</title>
-  <meta name="description" content="Send a tip — secure checkout powered by Razorpay." />
+  <title>Tip via UPI</title>
+  <meta name="description" content="Send a UPI tip — scan the QR or open your UPI app." />
   <meta name="robots" content="noindex" />
   <link rel="icon" href="images/upi-logo.png" type="image/png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -165,7 +165,6 @@
       margin-top: 0.65rem;
     }
     .qr-fallback.show { display: block; }
-    #pay-status.ok { color: var(--accent); }
 
     .pay-label {
       font-size: 0.8125rem;
@@ -227,6 +226,12 @@
       color: var(--muted);
     }
 
+    .pay-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
     .tip-btn {
       display: flex;
       align-items: center;
@@ -244,20 +249,18 @@
       border: 2px solid var(--line);
       box-shadow: 3px 3px 0 var(--line);
       transition: transform 0.1s ease, background 0.15s ease, box-shadow 0.1s ease;
+      cursor: pointer;
     }
-    .tip-btn:hover:not(:disabled) {
+    .tip-btn:hover {
       background: var(--accent-hover);
       transform: translate(1px, 1px);
       box-shadow: 2px 2px 0 var(--line);
     }
-    .tip-btn:disabled {
-      opacity: 0.55;
-      cursor: not-allowed;
-      transform: none;
+    .tip-btn-card {
+      background: var(--ink);
     }
-    .tip-btn svg {
-      flex-shrink: 0;
-      opacity: 0.9;
+    .tip-btn-card:hover {
+      background: #2a2a2a;
     }
 
     .card-foot {
@@ -268,48 +271,6 @@
       border-top: 2px dashed rgba(17, 17, 17, 0.14);
     }
     .card-foot strong { color: var(--ink); }
-
-    .test-creds {
-      width: 100%;
-      max-width: 16rem;
-      margin-top: 1rem;
-      text-align: left;
-      background: #f3f2ef;
-      border: 2px solid var(--line);
-      overflow: hidden;
-    }
-
-    .test-creds-title {
-      padding: 0.5rem 0.65rem;
-      font-size: 0.6875rem;
-      font-weight: 600;
-      color: var(--muted);
-      background: #ebe8e3;
-      border-bottom: 1px solid rgba(17, 17, 17, 0.12);
-    }
-
-    .test-creds-row {
-      padding: 0.55rem 0.65rem;
-      border-bottom: 1px solid rgba(17, 17, 17, 0.1);
-    }
-    .test-creds-row:last-child { border-bottom: 0; }
-
-    .test-creds-label {
-      display: block;
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--ink);
-      margin-bottom: 0.2rem;
-    }
-
-    .test-creds-value {
-      display: block;
-      font-size: 0.6875rem;
-      line-height: 1.45;
-      color: var(--muted);
-      font-family: ui-monospace, "SF Mono", Consolas, monospace;
-      word-break: break-word;
-    }
 
     @media (min-width: 52rem) {
       .topbar {
@@ -357,10 +318,6 @@
         max-width: 16rem;
       }
 
-      .test-creds {
-        max-width: 18rem;
-      }
-
       .amounts {
         justify-content: flex-start;
       }
@@ -385,54 +342,30 @@
   <div class="page">
     <header class="topbar">
       <a class="back" href="index.html#support">← Back</a>
+      <img class="upi-logo" src="images/upi-logo.png" width="1165" height="414" alt="UPI" />
     </header>
 
     <main class="card">
       <div class="card-head">
         <h1>Send a tip</h1>
-        <p>Pick an amount — pay by debit/credit card, UPI, or wallet.</p>
+        <p>Scan the QR on another device, or open your UPI app on this phone.</p>
       </div>
 
       <div class="card-split">
-        <section class="col-qr" aria-label="Secure checkout">
-          <p class="eyebrow">Secure checkout</p>
-          <div class="qr-box" aria-hidden="true">
-            <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="8" y="8" width="104" height="104" stroke="#111" stroke-width="2" fill="#fff"/>
-              <path d="M36 58h48M60 34v48" stroke="#097939" stroke-width="3" stroke-linecap="square"/>
-            </svg>
+        <section class="col-qr" aria-label="Payment QR code">
+          <p class="eyebrow">Scan to pay</p>
+          <div class="qr-box">
+            <img id="qr" width="240" height="240" alt="UPI payment QR code" />
           </div>
-          <p class="qr-hint">UPI: QR on desktop (scan with phone) · app list on mobile · plus cards &amp; wallets</p>
-          <div id="test-creds" class="test-creds" hidden>
-            <p class="test-creds-title">Test mode — use domestic cards only</p>
-            <div class="test-creds-row">
-              <span class="test-creds-label">Visa (domestic)</span>
-              <span class="test-creds-value">4111 1111 1111 1111 · any CVV · any future expiry</span>
-            </div>
-            <div class="test-creds-row">
-              <span class="test-creds-label">Mastercard (domestic)</span>
-              <span class="test-creds-value">5267 3181 8797 5449 · any CVV · any future expiry</span>
-            </div>
-            <div class="test-creds-row">
-              <span class="test-creds-label">Test UPI</span>
-              <span class="test-creds-value">Checkout → UPI → scan QR (desktop) or pick GPay/PhonePe (mobile)</span>
-            </div>
-            <div class="test-creds-row">
-              <span class="test-creds-label">No UPI tab?</span>
-              <span class="test-creds-value">Razorpay Dashboard → Settings → Payment methods → enable UPI</span>
-            </div>
-            <div class="test-creds-row">
-              <span class="test-creds-label">Avoid</span>
-              <span class="test-creds-value">5555… / 4012… — international cards are blocked</span>
-            </div>
-          </div>
-          <p id="pay-status" class="qr-fallback" role="status" aria-live="polite"></p>
+          <p class="qr-hint">Works with GPay, PhonePe, Paytm, BHIM, and other UPI apps</p>
+          <p id="qr-err" class="qr-fallback">QR could not load — use the button to pay on this device.</p>
         </section>
 
         <section class="col-pay" aria-label="Tip amount and payment">
-          <p class="pay-label">Choose amount</p>
+          <p class="pay-label">Choose amount (optional)</p>
           <div class="amounts" id="presets">
-            <button type="button" class="chip on" data-amt="50">₹50</button>
+            <button type="button" class="chip on" data-amt="">Any</button>
+            <button type="button" class="chip" data-amt="50">₹50</button>
             <button type="button" class="chip" data-amt="100">₹100</button>
             <button type="button" class="chip" data-amt="200">₹200</button>
             <button type="button" class="chip" data-amt="500">₹500</button>
@@ -442,10 +375,10 @@
             <span>INR</span>
           </div>
 
-          <button type="button" class="tip-btn" id="tip-btn">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2v20M17 7l-5-5-5 5"/></svg>
-            Pay tip
-          </button>
+          <div class="pay-actions">
+            <a class="tip-btn" id="tip-btn" href="#">Pay via UPI App</a>
+            <button type="button" class="tip-btn tip-btn-card" id="card-btn">Pay by Card</button>
+          </div>
         </section>
       </div>
 
@@ -453,148 +386,150 @@
     </main>
   </div>
 
+  <script src="js/qrcode.min.js"></script>
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <script>
     (function () {
-      var PAYEE = "Devgna Vyas";
-      var presetAmt = "50";
-      var keyId = null;
-      var testMode = false;
-      var paying = false;
-      var statusEl = document.getElementById("pay-status");
-      var tipBtn = document.getElementById("tip-btn");
+      var cfg = {
+        vpa: "devgnavyas@slc",
+        payeeName: "Devgna Vyas",
+        defaultNote: "TIP"
+      };
+      var presetAmt = "";
+      var resizeTimer;
 
-      function api(path, options) {
-        return fetch(path, options).then(function (r) {
-          return r.json().then(function (data) {
-            if (!r.ok) throw new Error(data.error || "Request failed");
-            return data;
-          });
-        });
-      }
+      /* Public key only — set your Razorpay Key ID (rzp_test_… or rzp_live_…) */
+      var RAZORPAY_KEY_ID = "rzp_test_SxgUaLFRQzCUem";
 
-      function setStatus(msg, ok) {
-        statusEl.textContent = msg || "";
-        statusEl.classList.toggle("show", !!msg);
-        statusEl.classList.toggle("ok", !!ok);
-      }
-
-      function amountRupees() {
-        var v = document.getElementById("amount").value.trim();
-        var raw = v || presetAmt;
+      function buildParams(amount) {
+        var p = {
+          pa: cfg.vpa,
+          pn: cfg.payeeName,
+          tn: cfg.defaultNote,
+          cu: "INR"
+        };
+        var raw = amount != null ? String(amount).trim() : "";
         var n = parseFloat(raw);
-        if (!raw || isNaN(n) || n < 1) return null;
-        return n;
+        if (raw && !isNaN(n) && n > 0) {
+          p.am = n.toFixed(2);
+        }
+        return p;
       }
 
-      function amountPaise() {
-        var r = amountRupees();
-        return r == null ? null : Math.round(r * 100);
+      function toQuery(params) {
+        return Object.keys(params)
+          .filter(function (k) { return params[k] != null && params[k] !== ""; })
+          .map(function (k) { return k + "=" + encodeURIComponent(String(params[k])); })
+          .join("&");
       }
 
-      function loadConfig() {
-        return api("/api/config").then(function (d) {
-          keyId = d.key_id;
-          testMode = !!d.test_mode;
-          var testPanel = document.getElementById("test-creds");
-          if (testPanel) {
-            testPanel.hidden = !testMode;
+      function upiUri(amount) {
+        return "upi://pay?" + toQuery(buildParams(amount));
+      }
+
+      function currentAmount() {
+        var v = document.getElementById("amount").value.trim();
+        return v || presetAmt;
+      }
+
+      function qrSize() {
+        var desktop = window.matchMedia("(min-width: 52rem)").matches;
+        if (desktop) return 220;
+        var pad = 120;
+        return Math.min(260, Math.max(200, window.innerWidth - pad));
+      }
+
+      function syncLinks() {
+        document.getElementById("tip-btn").href = upiUri(currentAmount());
+      }
+
+      function renderQr() {
+        var img = document.getElementById("qr");
+        var err = document.getElementById("qr-err");
+        var payload = upiUri(currentAmount());
+        var size = qrSize();
+
+        function fail() {
+          err.classList.add("show");
+        }
+
+        if (!window.QRCode) {
+          fail();
+          return;
+        }
+
+        QRCode.toDataURL(payload, {
+          width: size,
+          margin: 2,
+          errorCorrectionLevel: "M",
+          color: { dark: "#111111", light: "#ffffff" }
+        }, function (e, url) {
+          if (e) {
+            fail();
+            return;
           }
+          err.classList.remove("show");
+          img.src = url;
+          img.width = size;
+          img.height = size;
         });
       }
 
-      function checkoutOptions(order) {
-        return {
-          key: keyId,
-          amount: order.amount,
-          currency: order.currency,
-          name: PAYEE,
+      function cardAmountPaise() {
+        var raw = currentAmount();
+        if (!raw) return null;
+        var n = parseFloat(raw);
+        if (isNaN(n) || n < 1) return null;
+        return Math.round(n * 100);
+      }
+
+      function startCardCheckout() {
+        var paise = cardAmountPaise();
+        if (paise == null || paise < 100) {
+          alert("Choose an amount of at least ₹1 for card payment.");
+          return;
+        }
+        if (!RAZORPAY_KEY_ID || !window.Razorpay) {
+          alert("Card payment is not available.");
+          return;
+        }
+
+        var rzp = new Razorpay({
+          key: RAZORPAY_KEY_ID,
+          amount: paise,
+          currency: "INR",
+          name: cfg.payeeName,
           description: "Tip",
-          order_id: order.order_id,
           notes: { purpose: "TIP" },
           theme: { color: "#097939" },
-          prefill: { name: PAYEE },
           config: {
             display: {
-              hide: [{ method: "upi", flows: ["collect"] }],
-              sequence: ["upi", "card", "netbanking", "wallet"],
-              preferences: { show_default_blocks: true },
-            },
-          },
-        };
-      }
-
-      function startCheckout() {
-        if (paying) return;
-        var paise = amountPaise();
-        if (paise == null || paise < 100) {
-          setStatus("Enter at least ₹1 to continue.");
-          return;
-        }
-        if (!keyId || !window.Razorpay) {
-          setStatus("Payment is unavailable. Use the local tip server.");
-          return;
-        }
-
-        paying = true;
-        tipBtn.disabled = true;
-        setStatus("");
-
-        api("/api/create-order", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ amount: paise }),
-        })
-          .then(function (order) {
-            var opts = checkoutOptions(order);
-            opts.handler = function (res) {
-                api("/api/verify-payment", {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify({
-                    razorpay_order_id: res.razorpay_order_id,
-                    razorpay_payment_id: res.razorpay_payment_id,
-                    razorpay_signature: res.razorpay_signature,
-                  }),
-                })
-                  .then(function () {
-                    setStatus("Thank you — payment verified.", true);
-                  })
-                  .catch(function (err) {
-                    setStatus(err.message || "Verification failed.");
-                  })
-                  .finally(resetPaying);
-            };
-            opts.modal = {
-              ondismiss: function () {
-                setStatus("Payment cancelled.");
-                resetPaying();
+              blocks: {
+                banks: {
+                  name: "Pay by Card",
+                  instruments: [{ method: "card" }]
+                }
               },
-            };
-            var rzp = new Razorpay(opts);
-            rzp.on("payment.failed", function (resp) {
-              var desc =
-                (resp.error && resp.error.description) ||
-                "Payment failed. Please try again.";
-              var hint = "";
-              if (/international/i.test(desc)) {
-                hint =
-                  " Use domestic card 5267 3181 8797 5449, or UPI → scan QR / pick app.";
-              }
-              setStatus(desc + hint);
-              resetPaying();
-            });
-            rzp.open();
-          })
-          .catch(function (err) {
-            setStatus(err.message || "Could not start checkout.");
-            resetPaying();
-          });
-      }
+              sequence: ["block.banks"],
+              preferences: { show_default_blocks: false }
+            }
+          },
+          handler: function () {
+            alert("Thank you for your tip!");
+          },
+          modal: {
+            ondismiss: function () {}
+          }
+        });
 
-      function resetPaying() {
-        paying = false;
-        tipBtn.disabled = false;
+        rzp.on("payment.failed", function (resp) {
+          var msg =
+            (resp.error && resp.error.description) ||
+            "Card payment failed. Please try again.";
+          alert(msg);
+        });
+
+        rzp.open();
       }
 
       function bind() {
@@ -602,26 +537,28 @@
           el.addEventListener("click", function () {
             presetAmt = el.getAttribute("data-amt") || "";
             document.getElementById("amount").value = "";
-            document.querySelectorAll(".chip").forEach(function (c) {
-              c.classList.remove("on");
-            });
+            document.querySelectorAll(".chip").forEach(function (c) { c.classList.remove("on"); });
             el.classList.add("on");
-            setStatus("");
+            syncLinks();
+            renderQr();
           });
         });
 
         document.getElementById("amount").addEventListener("input", function () {
           presetAmt = "";
-          document.querySelectorAll(".chip").forEach(function (c) {
-            c.classList.remove("on");
-          });
-          setStatus("");
+          document.querySelectorAll(".chip").forEach(function (c) { c.classList.remove("on"); });
+          syncLinks();
+          renderQr();
         });
 
-        tipBtn.addEventListener("click", startCheckout);
+        document.getElementById("card-btn").addEventListener("click", startCardCheckout);
 
-        loadConfig().catch(function () {
-          setStatus("Start the tip server (npm start) to enable payments.");
+        syncLinks();
+        renderQr();
+
+        window.addEventListener("resize", function () {
+          clearTimeout(resizeTimer);
+          resizeTimer = setTimeout(renderQr, 150);
         });
       }
 

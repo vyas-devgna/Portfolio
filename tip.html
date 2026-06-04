@@ -344,7 +344,7 @@
     <main class="card">
       <div class="card-head">
         <h1>Send a tip</h1>
-        <p>Pick an amount and pay securely with Razorpay.</p>
+        <p>Pick an amount — pay by debit/credit card, UPI, or wallet.</p>
       </div>
 
       <div class="card-split">
@@ -356,7 +356,7 @@
               <path d="M36 58h48M60 34v48" stroke="#097939" stroke-width="3" stroke-linecap="square"/>
             </svg>
           </div>
-          <p class="qr-hint">Cards, UPI, wallets &amp; netbanking via Razorpay</p>
+          <p class="qr-hint">Visa, Mastercard, RuPay &amp; Amex · UPI · wallets · netbanking</p>
           <p id="pay-status" class="qr-fallback" role="status" aria-live="polite"></p>
         </section>
 
@@ -459,6 +459,12 @@
               order_id: order.order_id,
               notes: { purpose: "TIP" },
               theme: { color: "#097939" },
+              config: {
+                display: {
+                  sequence: ["card", "upi", "netbanking", "wallet"],
+                  preferences: { show_default_blocks: true },
+                },
+              },
               handler: function (res) {
                 api("/api/verify-payment", {
                   method: "POST",

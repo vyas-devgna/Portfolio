@@ -46,6 +46,7 @@ app.post("/api/create-order", async (req, res) => {
       amount,
       currency: "INR",
       receipt: "tip_" + Date.now(),
+      payment_capture: true,
       notes: { purpose: "TIP" },
     });
 

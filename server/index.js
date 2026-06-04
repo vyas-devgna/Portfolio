@@ -32,7 +32,10 @@ app.get("/api/config", (_req, res) => {
   if (!KEY_ID) {
     return res.status(500).json({ error: "Payment not configured" });
   }
-  res.json({ key_id: KEY_ID });
+  res.json({
+    key_id: KEY_ID,
+    test_mode: KEY_ID.startsWith("rzp_test_"),
+  });
 });
 
 app.post("/api/create-order", async (req, res) => {

@@ -269,6 +269,48 @@
     }
     .card-foot strong { color: var(--ink); }
 
+    .test-creds {
+      width: 100%;
+      max-width: 16rem;
+      margin-top: 1rem;
+      text-align: left;
+      background: #f3f2ef;
+      border: 2px solid var(--line);
+      overflow: hidden;
+    }
+
+    .test-creds-title {
+      padding: 0.5rem 0.65rem;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      color: var(--muted);
+      background: #ebe8e3;
+      border-bottom: 1px solid rgba(17, 17, 17, 0.12);
+    }
+
+    .test-creds-row {
+      padding: 0.55rem 0.65rem;
+      border-bottom: 1px solid rgba(17, 17, 17, 0.1);
+    }
+    .test-creds-row:last-child { border-bottom: 0; }
+
+    .test-creds-label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.2rem;
+    }
+
+    .test-creds-value {
+      display: block;
+      font-size: 0.6875rem;
+      line-height: 1.45;
+      color: var(--muted);
+      font-family: ui-monospace, "SF Mono", Consolas, monospace;
+      word-break: break-word;
+    }
+
     @media (min-width: 52rem) {
       .topbar {
         margin-bottom: 1.75rem;
@@ -315,6 +357,10 @@
         max-width: 16rem;
       }
 
+      .test-creds {
+        max-width: 18rem;
+      }
+
       .amounts {
         justify-content: flex-start;
       }
@@ -357,6 +403,17 @@
             </svg>
           </div>
           <p class="qr-hint">Visa, Mastercard, RuPay &amp; Amex · UPI · wallets · netbanking</p>
+          <div id="test-creds" class="test-creds" hidden>
+            <p class="test-creds-title">Use the following test credentials.</p>
+            <div class="test-creds-row">
+              <span class="test-creds-label">Test card</span>
+              <span class="test-creds-value">4111 1111 1111 1111 · CVV: 123 · Expiry: 12/26</span>
+            </div>
+            <div class="test-creds-row">
+              <span class="test-creds-label">Test UPI</span>
+              <span class="test-creds-value">test@razorpay</span>
+            </div>
+          </div>
           <p id="pay-status" class="qr-fallback" role="status" aria-live="polite"></p>
         </section>
 
@@ -425,6 +482,10 @@
       function loadConfig() {
         return api("/api/config").then(function (d) {
           keyId = d.key_id;
+          var testPanel = document.getElementById("test-creds");
+          if (testPanel) {
+            testPanel.hidden = !d.test_mode;
+          }
         });
       }
 

@@ -19,7 +19,11 @@
       --line: #111111;
       --accent: #097939;
       --accent-hover: #066b31;
+      --accent-soft: rgba(9, 121, 57, 0.08);
+      --upi-orange: #f07a28;
       --shadow: 4px 4px 0 #111111;
+      --page-pad: clamp(1rem, 4vw, 2rem);
+      --split-bp: 52rem;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -32,19 +36,31 @@
       line-height: 1.5;
     }
 
-    .wrap {
-      width: min(22rem, 100%);
+    .page {
+      width: min(100%, calc(var(--split-bp) + var(--page-pad) * 2));
       margin: 0 auto;
-      padding: 1.5rem 1rem 2.5rem;
+      padding: var(--page-pad);
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: clamp(1rem, 3vw, 1.5rem);
+      flex-wrap: wrap;
     }
 
     .back {
-      display: inline-block;
-      margin-bottom: 1.25rem;
       font-size: 0.875rem;
       font-weight: 600;
       color: var(--muted);
       text-decoration: none;
+      white-space: nowrap;
     }
     .back:hover { color: var(--ink); }
 
@@ -52,48 +68,64 @@
       display: block;
       width: auto;
       height: auto;
-      max-width: min(10rem, 72vw);
-      margin: 0 auto 1.25rem;
+      max-width: min(9.5rem, 42vw);
+      margin-left: auto;
     }
 
     .card {
       background: var(--card);
       border: 2px solid var(--line);
       box-shadow: var(--shadow);
+      overflow: hidden;
     }
 
     .card-head {
-      padding: 1.25rem 1.25rem 0.5rem;
+      padding: clamp(1.15rem, 3vw, 1.5rem) clamp(1.25rem, 4vw, 2rem);
       text-align: center;
-      border-bottom: 2px dashed rgba(17, 17, 17, 0.15);
+      border-bottom: 2px dashed rgba(17, 17, 17, 0.14);
+      background: linear-gradient(180deg, var(--accent-soft) 0%, transparent 100%);
     }
 
     .card-head h1 {
       font-family: "Playfair Display", Georgia, serif;
-      font-size: 1.5rem;
+      font-size: clamp(1.35rem, 3.5vw, 1.75rem);
       font-weight: 700;
       letter-spacing: -0.02em;
     }
 
     .card-head p {
-      margin-top: 0.35rem;
-      font-size: 0.875rem;
+      margin-top: 0.4rem;
+      font-size: clamp(0.8125rem, 2vw, 0.9375rem);
       color: var(--muted);
+      max-width: 28rem;
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    .card-body {
-      padding: 1.25rem;
+    /* Mobile: stack · Desktop: side-by-side */
+    .card-split {
+      display: flex;
+      flex-direction: column;
     }
 
-    .qr-wrap {
+    .col-qr {
+      padding: clamp(1.15rem, 3vw, 1.75rem);
       text-align: center;
-      margin-bottom: 1.25rem;
+      background: #fafaf8;
     }
 
-    .qr-wrap p {
-      font-size: 0.7rem;
+    .col-pay {
+      padding: clamp(1.15rem, 3vw, 1.75rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0;
+    }
+
+    .eyebrow {
+      font-size: 0.6875rem;
       font-weight: 700;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--muted);
       margin-bottom: 0.75rem;
@@ -101,36 +133,55 @@
 
     .qr-box {
       display: inline-block;
-      padding: 0.65rem;
+      padding: clamp(0.55rem, 2vw, 0.75rem);
       background: #fff;
       border: 2px solid var(--line);
       line-height: 0;
+      box-shadow: 2px 2px 0 rgba(17, 17, 17, 0.12);
     }
 
     .qr-box img {
       display: block;
-      width: min(240px, calc(100vw - 4.5rem));
+      width: 100%;
       height: auto;
+      max-width: min(260px, 72vw);
+      aspect-ratio: 1;
+      object-fit: contain;
+    }
+
+    .qr-hint {
+      margin-top: 0.75rem;
+      font-size: 0.8125rem;
+      color: var(--muted);
+      max-width: 14rem;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .qr-fallback {
       display: none;
       font-size: 0.875rem;
       color: #a33;
-      margin-top: 0.5rem;
+      margin-top: 0.65rem;
     }
     .qr-fallback.show { display: block; }
+
+    .pay-label {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 0.55rem;
+    }
 
     .amounts {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.4rem;
-      justify-content: center;
+      gap: 0.45rem;
       margin-bottom: 0.75rem;
     }
 
     .chip {
-      padding: 0.45rem 0.8rem;
+      padding: 0.5rem 0.9rem;
       font: inherit;
       font-size: 0.8125rem;
       font-weight: 600;
@@ -138,7 +189,9 @@
       color: var(--ink);
       background: var(--bg);
       border: 2px solid var(--line);
+      transition: background 0.12s ease, color 0.12s ease;
     }
+    .chip:hover { background: #eeece8; }
     .chip.on {
       background: var(--ink);
       color: #fff;
@@ -147,13 +200,13 @@
     .amount-row {
       display: flex;
       gap: 0.5rem;
-      margin-bottom: 1rem;
+      margin-bottom: 1.1rem;
     }
 
     .amount-row input {
       flex: 1;
       min-width: 0;
-      padding: 0.6rem 0.75rem;
+      padding: 0.65rem 0.8rem;
       font: inherit;
       font-size: 1rem;
       border: 2px solid var(--line);
@@ -167,6 +220,7 @@
     .amount-row span {
       display: flex;
       align-items: center;
+      padding: 0 0.25rem;
       font-size: 0.8125rem;
       font-weight: 700;
       color: var(--muted);
@@ -176,69 +230,147 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      gap: 0.5rem;
       width: 100%;
-      min-height: 3.1rem;
-      padding: 0.85rem 1rem;
+      min-height: 3.25rem;
+      padding: 0.9rem 1.15rem;
       font: inherit;
-      font-size: 1rem;
+      font-size: clamp(0.9375rem, 2.5vw, 1.0625rem);
       font-weight: 700;
       text-decoration: none;
       color: #fff;
       background: var(--accent);
       border: 2px solid var(--line);
       box-shadow: 3px 3px 0 var(--line);
-      transition: transform 0.1s ease, background 0.15s ease;
+      transition: transform 0.1s ease, background 0.15s ease, box-shadow 0.1s ease;
     }
     .tip-btn:hover {
       background: var(--accent-hover);
       transform: translate(1px, 1px);
       box-shadow: 2px 2px 0 var(--line);
     }
+    .tip-btn svg {
+      flex-shrink: 0;
+      opacity: 0.9;
+    }
 
     .card-foot {
-      padding: 0.85rem 1.25rem;
+      padding: 0.85rem clamp(1.25rem, 4vw, 2rem);
       font-size: 0.8125rem;
       color: var(--muted);
       text-align: center;
-      border-top: 2px dashed rgba(17, 17, 17, 0.15);
+      border-top: 2px dashed rgba(17, 17, 17, 0.14);
     }
     .card-foot strong { color: var(--ink); }
+
+    @media (min-width: 52rem) {
+      .topbar {
+        margin-bottom: 1.75rem;
+      }
+
+      .upi-logo {
+        max-width: 10.5rem;
+      }
+
+      .card-head {
+        text-align: left;
+      }
+
+      .card-head p {
+        margin-left: 0;
+      }
+
+      .card-split {
+        flex-direction: row;
+        align-items: stretch;
+      }
+
+      .col-qr {
+        flex: 0 0 42%;
+        max-width: 22rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-right: 2px dashed rgba(17, 17, 17, 0.14);
+      }
+
+      .col-pay {
+        flex: 1;
+        min-width: 0;
+        padding: 1.75rem 2rem;
+      }
+
+      .qr-box img {
+        max-width: 220px;
+      }
+
+      .qr-hint {
+        max-width: 16rem;
+      }
+
+      .amounts {
+        justify-content: flex-start;
+      }
+    }
+
+    @media (max-width: 22rem) {
+      .amounts {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .amounts .chip:nth-child(4),
+      .amounts .chip:nth-child(5) {
+        grid-column: span 1;
+      }
+      .amounts .chip:first-child {
+        grid-column: 1 / -1;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <a class="back" href="index.html#support">← Back</a>
-
-    <img class="upi-logo" src="images/upi-logo.png" width="1165" height="414" alt="UPI" />
+  <div class="page">
+    <header class="topbar">
+      <a class="back" href="index.html#support">← Back</a>
+      <img class="upi-logo" src="images/upi-logo.png" width="1165" height="414" alt="UPI" />
+    </header>
 
     <main class="card">
       <div class="card-head">
         <h1>Send a tip</h1>
-        <p>Scan the QR or tap the button on your phone</p>
+        <p>Scan the QR on another device, or open your UPI app on this phone.</p>
       </div>
 
-      <div class="card-body">
-        <div class="qr-wrap">
-          <p>Scan to pay</p>
+      <div class="card-split">
+        <section class="col-qr" aria-label="Payment QR code">
+          <p class="eyebrow">Scan to pay</p>
           <div class="qr-box">
             <img id="qr" width="240" height="240" alt="UPI payment QR code" />
           </div>
-          <p id="qr-err" class="qr-fallback">QR could not load. Use the button below on your phone.</p>
-        </div>
+          <p class="qr-hint">Works with GPay, PhonePe, Paytm, BHIM, and other UPI apps</p>
+          <p id="qr-err" class="qr-fallback">QR could not load — use the button to pay on this device.</p>
+        </section>
 
-        <div class="amounts" id="presets" aria-label="Tip amount">
-          <button type="button" class="chip on" data-amt="">Any</button>
-          <button type="button" class="chip" data-amt="50">₹50</button>
-          <button type="button" class="chip" data-amt="100">₹100</button>
-          <button type="button" class="chip" data-amt="200">₹200</button>
-          <button type="button" class="chip" data-amt="500">₹500</button>
-        </div>
-        <div class="amount-row">
-          <input type="number" id="amount" min="1" max="100000" step="1" placeholder="Other (INR)" inputmode="decimal" aria-label="Custom amount in rupees" />
-          <span>INR</span>
-        </div>
+        <section class="col-pay" aria-label="Tip amount and payment">
+          <p class="pay-label">Choose amount (optional)</p>
+          <div class="amounts" id="presets">
+            <button type="button" class="chip on" data-amt="">Any</button>
+            <button type="button" class="chip" data-amt="50">₹50</button>
+            <button type="button" class="chip" data-amt="100">₹100</button>
+            <button type="button" class="chip" data-amt="200">₹200</button>
+            <button type="button" class="chip" data-amt="500">₹500</button>
+          </div>
+          <div class="amount-row">
+            <input type="number" id="amount" min="1" max="100000" step="1" placeholder="Custom amount" inputmode="decimal" aria-label="Custom amount in rupees" />
+            <span>INR</span>
+          </div>
 
-        <a class="tip-btn" id="tip-btn" href="#">Tip via UPI app</a>
+          <a class="tip-btn" id="tip-btn" href="#">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2v20M17 7l-5-5-5 5"/></svg>
+            Tip via UPI app
+          </a>
+        </section>
       </div>
 
       <p class="card-foot">Payment note: <strong>TIP</strong></p>
@@ -254,6 +386,7 @@
         defaultNote: "TIP"
       };
       var presetAmt = "";
+      var resizeTimer;
 
       function buildParams(amount) {
         var p = {
@@ -286,6 +419,13 @@
         return v || presetAmt;
       }
 
+      function qrSize() {
+        var desktop = window.matchMedia("(min-width: 52rem)").matches;
+        if (desktop) return 220;
+        var pad = 120;
+        return Math.min(260, Math.max(200, window.innerWidth - pad));
+      }
+
       function syncLinks() {
         document.getElementById("tip-btn").href = upiUri(currentAmount());
       }
@@ -294,7 +434,7 @@
         var img = document.getElementById("qr");
         var err = document.getElementById("qr-err");
         var payload = upiUri(currentAmount());
-        var size = Math.min(280, Math.max(200, window.innerWidth - 80));
+        var size = qrSize();
 
         function fail() {
           err.classList.add("show");
@@ -343,7 +483,11 @@
 
         syncLinks();
         renderQr();
-        window.addEventListener("resize", renderQr);
+
+        window.addEventListener("resize", function () {
+          clearTimeout(resizeTimer);
+          resizeTimer = setTimeout(renderQr, 150);
+        });
       }
 
       if (document.readyState === "loading") {

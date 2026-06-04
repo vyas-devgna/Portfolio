@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Tip via UPI</title>
-  <meta name="description" content="Send a UPI tip — scan the QR or open your UPI app." />
+  <meta name="description" content="Send a tip — UPI scan or pay on Razorpay." />
   <meta name="robots" content="noindex" />
   <link rel="icon" href="images/upi-logo.png" type="image/png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -377,7 +377,7 @@
 
           <div class="pay-actions">
             <a class="tip-btn" id="tip-btn" href="#">Pay via UPI App</a>
-            <button type="button" class="tip-btn tip-btn-card" id="card-btn">Pay by Card</button>
+            <a class="tip-btn tip-btn-card" id="card-btn" href="https://razorpay.me/@vyasdevgnakeyurkumar" target="_blank" rel="noopener noreferrer">Pay by Card</a>
           </div>
         </section>
       </div>
@@ -387,51 +387,16 @@
   </div>
 
   <script src="js/qrcode.min.js"></script>
-  <script src="js/razorpay-key.js"></script>
-  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <script>
     (function () {
       var cfg = {
         vpa: "devgnavyas@slc",
         payeeName: "Devgna Vyas",
-        defaultNote: "TIP"
+        defaultNote: "TIP",
+        razorpayMe: "https://razorpay.me/@vyasdevgnakeyurkumar"
       };
       var presetAmt = "";
       var resizeTimer;
-      var razorpayKeyId = null;
-      var razorpayTestMode = false;
-      var razorpayUseOrders = false;
-
-      function resolveRazorpayConfig() {
-        if (razorpayKeyId) {
-          return Promise.resolve({
-            key_id: razorpayKeyId,
-            test_mode: razorpayTestMode,
-            use_orders: razorpayUseOrders
-          });
-        }
-        return fetch("/api/config", { cache: "no-store" })
-          .then(function (r) {
-            if (!r.ok) throw new Error("config unavailable");
-            return r.json();
-          })
-          .then(function (data) {
-            razorpayKeyId = data.key_id;
-            razorpayTestMode = !!data.test_mode;
-            razorpayUseOrders = true;
-            return data;
-          })
-          .catch(function () {
-            razorpayKeyId = window.RAZORPAY_KEY_ID || "";
-            razorpayTestMode = /^rzp_test_/i.test(razorpayKeyId);
-            razorpayUseOrders = false;
-            return {
-              key_id: razorpayKeyId,
-              test_mode: razorpayTestMode,
-              use_orders: false
-            };
-          });
-      }
 
       function buildParams(amount) {
         var p = {
@@ -459,6 +424,17 @@
         return "upi://pay?" + toQuery(buildParams(amount));
       }
 
+      function razorpayMeUri(amount) {
+        var params = { description: cfg.defaultNote };
+        var raw = amount != null ? String(amount).trim() : "";
+        var n = parseFloat(raw);
+        if (raw && !isNaN(n) && n > 0) {
+          params.amount = String(Math.round(n * 100) / 100);
+        }
+        var q = toQuery(params);
+        return cfg.razorpayMe + (q ? "?" + q : "");
+      }
+
       function currentAmount() {
         var v = document.getElementById("amount").value.trim();
         return v || presetAmt;
@@ -472,7 +448,9 @@
       }
 
       function syncLinks() {
-        document.getElementById("tip-btn").href = upiUri(currentAmount());
+        var amt = currentAmount();
+        document.getElementById("tip-btn").href = upiUri(amt);
+        document.getElementById("card-btn").href = razorpayMeUri(amt);
       }
 
       function renderQr() {
@@ -507,124 +485,6 @@
         });
       }
 
-      function cardAmountPaise() {
-        var raw = currentAmount();
-        if (!raw) return null;
-        var n = parseFloat(raw);
-        if (isNaN(n) || n < 1) return null;
-        return Math.round(n * 100);
-      }
-
-      function startCardCheckout() {
-        var paise = cardAmountPaise();
-        if (paise == null || paise < 100) {
-          alert("Choose an amount of at least ₹1 for card payment.");
-          return;
-        }
-        if (!window.Razorpay) {
-          alert("Card payment is not available.");
-          return;
-        }
-
-        var btn = document.getElementById("card-btn");
-        if (btn) {
-          btn.disabled = true;
-          btn.textContent = "Opening checkout…";
-        }
-
-        resolveRazorpayConfig()
-          .then(function (conf) {
-            if (!conf.key_id) {
-              throw new Error("not configured");
-            }
-
-            function openCheckout(order) {
-              var options = {
-                key: conf.key_id,
-                currency: "INR",
-                name: cfg.payeeName,
-                description: "Tip",
-                notes: { purpose: "TIP" },
-                theme: { color: "#097939" },
-                config: {
-                  display: {
-                    blocks: {
-                      banks: {
-                        name: "Pay by Card",
-                        instruments: [{ method: "card" }]
-                      }
-                    },
-                    sequence: ["block.banks"],
-                    preferences: { show_default_blocks: false }
-                  }
-                },
-                handler: function (response) {
-                  if (order && response.razorpay_order_id) {
-                    fetch("/api/verify-payment", {
-                      method: "POST",
-                      headers: { "Content-Type": "application/json" },
-                      body: JSON.stringify(response)
-                    })
-                      .then(function (r) { return r.json(); })
-                      .then(function (data) {
-                        if (data.success) {
-                          alert("Thank you for your tip!");
-                        } else {
-                          alert(data.error || "Payment verification failed.");
-                        }
-                      })
-                      .catch(function () {
-                        alert("Thank you — payment received. Verification could not be confirmed.");
-                      });
-                  } else {
-                    alert("Thank you for your tip!");
-                  }
-                },
-                modal: { ondismiss: function () {} }
-              };
-
-              if (order) {
-                options.order_id = order.order_id;
-                options.amount = order.amount;
-              } else {
-                options.amount = paise;
-              }
-
-              var rzp = new Razorpay(options);
-              rzp.on("payment.failed", function (resp) {
-                var msg =
-                  (resp.error && resp.error.description) ||
-                  "Card payment failed. Please try again.";
-                alert(msg);
-              });
-              rzp.open();
-            }
-
-            if (conf.use_orders) {
-              return fetch("/api/create-order", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ amount: paise })
-              })
-                .then(function (r) {
-                  if (!r.ok) throw new Error("order failed");
-                  return r.json();
-                })
-                .then(openCheckout);
-            }
-            openCheckout(null);
-          })
-          .catch(function () {
-            alert("Card payment is not available right now.");
-          })
-          .finally(function () {
-            if (btn) {
-              btn.disabled = false;
-              btn.textContent = "Pay by Card";
-            }
-          });
-      }
-
       function bind() {
         document.querySelectorAll(".chip").forEach(function (el) {
           el.addEventListener("click", function () {
@@ -643,8 +503,6 @@
           syncLinks();
           renderQr();
         });
-
-        document.getElementById("card-btn").addEventListener("click", startCardCheckout);
 
         syncLinks();
         renderQr();

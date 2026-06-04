@@ -402,7 +402,7 @@
               <path d="M36 58h48M60 34v48" stroke="#097939" stroke-width="3" stroke-linecap="square"/>
             </svg>
           </div>
-          <p class="qr-hint">Visa, Mastercard, RuPay &amp; Amex · UPI · wallets · netbanking</p>
+          <p class="qr-hint">UPI: QR on desktop (scan with phone) · app list on mobile · plus cards &amp; wallets</p>
           <div id="test-creds" class="test-creds" hidden>
             <p class="test-creds-title">Test mode — use domestic cards only</p>
             <div class="test-creds-row">
@@ -415,7 +415,11 @@
             </div>
             <div class="test-creds-row">
               <span class="test-creds-label">Test UPI</span>
-              <span class="test-creds-value">success@razorpay (pass) · failure@razorpay (fail)</span>
+              <span class="test-creds-value">Checkout → UPI → scan QR (desktop) or pick GPay/PhonePe (mobile)</span>
+            </div>
+            <div class="test-creds-row">
+              <span class="test-creds-label">No UPI tab?</span>
+              <span class="test-creds-value">Razorpay Dashboard → Settings → Payment methods → enable UPI</span>
             </div>
             <div class="test-creds-row">
               <span class="test-creds-label">Avoid</span>
@@ -499,10 +503,25 @@
         });
       }
 
-      function checkoutSequence() {
-        return testMode
-          ? ["upi", "card", "netbanking", "wallet"]
-          : ["card", "upi", "netbanking", "wallet"];
+      function checkoutOptions(order) {
+        return {
+          key: keyId,
+          amount: order.amount,
+          currency: order.currency,
+          name: PAYEE,
+          description: "Tip",
+          order_id: order.order_id,
+          notes: { purpose: "TIP" },
+          theme: { color: "#097939" },
+          prefill: { name: PAYEE },
+          config: {
+            display: {
+              hide: [{ method: "upi", flows: ["collect"] }],
+              sequence: ["upi", "card", "netbanking", "wallet"],
+              preferences: { show_default_blocks: true },
+            },
+          },
+        };
       }
 
       function startCheckout() {
@@ -527,22 +546,8 @@
           body: JSON.stringify({ amount: paise }),
         })
           .then(function (order) {
-            var rzp = new Razorpay({
-              key: keyId,
-              amount: order.amount,
-              currency: order.currency,
-              name: PAYEE,
-              description: "Tip",
-              order_id: order.order_id,
-              notes: { purpose: "TIP" },
-              theme: { color: "#097939" },
-              config: {
-                display: {
-                  sequence: checkoutSequence(),
-                  preferences: { show_default_blocks: true },
-                },
-              },
-              handler: function (res) {
+            var opts = checkoutOptions(order);
+            opts.handler = function (res) {
                 api("/api/verify-payment", {
                   method: "POST",
                   headers: { "Content-Type": "application/json" },
@@ -559,14 +564,14 @@
                     setStatus(err.message || "Verification failed.");
                   })
                   .finally(resetPaying);
+            };
+            opts.modal = {
+              ondismiss: function () {
+                setStatus("Payment cancelled.");
+                resetPaying();
               },
-              modal: {
-                ondismiss: function () {
-                  setStatus("Payment cancelled.");
-                  resetPaying();
-                },
-              },
-            });
+            };
+            var rzp = new Razorpay(opts);
             rzp.on("payment.failed", function (resp) {
               var desc =
                 (resp.error && resp.error.description) ||
@@ -574,7 +579,7 @@
               var hint = "";
               if (/international/i.test(desc)) {
                 hint =
-                  " Use domestic test card 5267 3181 8797 5449 or UPI success@razorpay.";
+                  " Use domestic card 5267 3181 8797 5449, or UPI → scan QR / pick app.";
               }
               setStatus(desc + hint);
               resetPaying();

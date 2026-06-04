@@ -377,7 +377,7 @@
 
           <div class="pay-actions">
             <a class="tip-btn" id="tip-btn" href="#">Pay via UPI App</a>
-            <a class="tip-btn tip-btn-card" id="card-btn" href="https://razorpay.me/@vyasdevgnakeyurkumar" target="_blank" rel="noopener noreferrer">Pay by Card</a>
+            <a class="tip-btn tip-btn-card" id="card-btn" href="https://razorpay.me/@vyasdevgnakeyurkumar" target="_blank" rel="noopener noreferrer" title="Opens Razorpay — enter amount and pay by card, UPI, or netbanking">Pay by Card</a>
           </div>
         </section>
       </div>
@@ -424,15 +424,10 @@
         return "upi://pay?" + toQuery(buildParams(amount));
       }
 
-      function razorpayMeUri(amount) {
-        var params = { description: cfg.defaultNote };
-        var raw = amount != null ? String(amount).trim() : "";
-        var n = parseFloat(raw);
-        if (raw && !isNaN(n) && n > 0) {
-          params.amount = String(Math.round(n * 100) / 100);
-        }
-        var q = toQuery(params);
-        return cfg.razorpayMe + (q ? "?" + q : "");
+      function razorpayMeUri() {
+        /* Razorpay.me only accepts base handle URLs or app-generated amount tokens.
+           Plain ?amount= or ?description= returns a broken error page. */
+        return cfg.razorpayMe;
       }
 
       function currentAmount() {
@@ -450,7 +445,7 @@
       function syncLinks() {
         var amt = currentAmount();
         document.getElementById("tip-btn").href = upiUri(amt);
-        document.getElementById("card-btn").href = razorpayMeUri(amt);
+        document.getElementById("card-btn").href = razorpayMeUri();
       }
 
       function renderQr() {

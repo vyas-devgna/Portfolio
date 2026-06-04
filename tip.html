@@ -404,14 +404,22 @@
           </div>
           <p class="qr-hint">Visa, Mastercard, RuPay &amp; Amex · UPI · wallets · netbanking</p>
           <div id="test-creds" class="test-creds" hidden>
-            <p class="test-creds-title">Use the following test credentials.</p>
+            <p class="test-creds-title">Test mode — use domestic cards only</p>
             <div class="test-creds-row">
-              <span class="test-creds-label">Test card</span>
-              <span class="test-creds-value">4111 1111 1111 1111 · CVV: 123 · Expiry: 12/26</span>
+              <span class="test-creds-label">Visa (domestic)</span>
+              <span class="test-creds-value">4111 1111 1111 1111 · any CVV · any future expiry</span>
+            </div>
+            <div class="test-creds-row">
+              <span class="test-creds-label">Mastercard (domestic)</span>
+              <span class="test-creds-value">5267 3181 8797 5449 · any CVV · any future expiry</span>
             </div>
             <div class="test-creds-row">
               <span class="test-creds-label">Test UPI</span>
-              <span class="test-creds-value">test@razorpay</span>
+              <span class="test-creds-value">success@razorpay (pass) · failure@razorpay (fail)</span>
+            </div>
+            <div class="test-creds-row">
+              <span class="test-creds-label">Avoid</span>
+              <span class="test-creds-value">5555… / 4012… — international cards are blocked</span>
             </div>
           </div>
           <p id="pay-status" class="qr-fallback" role="status" aria-live="polite"></p>
@@ -447,6 +455,7 @@
       var PAYEE = "Devgna Vyas";
       var presetAmt = "50";
       var keyId = null;
+      var testMode = false;
       var paying = false;
       var statusEl = document.getElementById("pay-status");
       var tipBtn = document.getElementById("tip-btn");
@@ -482,11 +491,18 @@
       function loadConfig() {
         return api("/api/config").then(function (d) {
           keyId = d.key_id;
+          testMode = !!d.test_mode;
           var testPanel = document.getElementById("test-creds");
           if (testPanel) {
-            testPanel.hidden = !d.test_mode;
+            testPanel.hidden = !testMode;
           }
         });
+      }
+
+      function checkoutSequence() {
+        return testMode
+          ? ["upi", "card", "netbanking", "wallet"]
+          : ["card", "upi", "netbanking", "wallet"];
       }
 
       function startCheckout() {
@@ -522,7 +538,7 @@
               theme: { color: "#097939" },
               config: {
                 display: {
-                  sequence: ["card", "upi", "netbanking", "wallet"],
+                  sequence: checkoutSequence(),
                   preferences: { show_default_blocks: true },
                 },
               },
@@ -552,10 +568,15 @@
               },
             });
             rzp.on("payment.failed", function (resp) {
-              var msg =
+              var desc =
                 (resp.error && resp.error.description) ||
                 "Payment failed. Please try again.";
-              setStatus(msg);
+              var hint = "";
+              if (/international/i.test(desc)) {
+                hint =
+                  " Use domestic test card 5267 3181 8797 5449 or UPI success@razorpay.";
+              }
+              setStatus(desc + hint);
               resetPaying();
             });
             rzp.open();

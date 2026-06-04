@@ -4,427 +4,470 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Tip via UPI — Devgna Vyas</title>
-  <meta name="description" content="Send a UPI tip to support Devgna Vyas — scan QR or open your UPI app." />
+  <meta name="description" content="Send a UPI tip — scan QR or pay with your UPI app." />
   <meta name="robots" content="noindex" />
   <link rel="icon" href="images/upi-logo.png" type="image/png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js" defer></script>
   <style>
     :root {
-      --bg: #0b0c12;
-      --card: #161722;
-      --fg: #f3f4f6;
-      --muted: #9ca3af;
-      --accent: #5b8def;
-      --green: #1ed760;
-      --border: rgba(243, 244, 246, 0.2);
+      --bg: #08090d;
+      --surface: #12141b;
+      --surface-2: #1a1d27;
+      --text: #f2f0f7;
+      --muted: #9490a3;
+      --line: rgba(255, 255, 255, 0.09);
+      --green: #0a8f4a;
+      --green-soft: rgba(10, 143, 74, 0.18);
+      --orange: #f07a28;
+      --orange-soft: rgba(240, 122, 40, 0.14);
       --radius: 16px;
-      --shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+      --font-display: "Fraunces", Georgia, serif;
+      --font-ui: "DM Sans", system-ui, sans-serif;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: "Inter", system-ui, sans-serif;
-      min-height: 100vh;
-      color: var(--fg);
+      font-family: var(--font-ui);
+      font-size: 1rem;
+      line-height: 1.55;
+      color: var(--text);
+      min-height: 100dvh;
       background: var(--bg);
-      background-image:
-        radial-gradient(ellipse 80% 60% at 20% 0%, rgba(91, 141, 239, 0.18), transparent),
-        radial-gradient(ellipse 70% 50% at 90% 100%, rgba(30, 215, 96, 0.12), transparent);
-      padding: clamp(1rem, 4vw, 2rem);
-      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
     }
 
-    .wrap {
-      max-width: 28rem;
+    .bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 100% 80% at 50% -30%, rgba(10, 143, 74, 0.2), transparent 60%),
+        radial-gradient(ellipse 70% 50% at 100% 80%, rgba(240, 122, 40, 0.1), transparent 55%),
+        var(--bg);
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      width: min(24rem, 100%);
       margin: 0 auto;
+      padding: clamp(1.5rem, 6vw, 2.25rem) clamp(1rem, 4vw, 1.25rem) 2.75rem;
     }
 
     .back {
       display: inline-flex;
       align-items: center;
       gap: 0.35rem;
+      margin-bottom: 1.75rem;
+      font-size: 0.875rem;
+      font-weight: 500;
       color: var(--muted);
       text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 500;
-      margin-bottom: 1.25rem;
-      padding: 0.35rem 0;
     }
-    .back:hover { color: var(--fg); }
+    .back:hover { color: var(--text); }
 
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: clamp(1.25rem, 4vw, 1.75rem);
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 0.85rem;
-      margin-bottom: 1.25rem;
-    }
-    .brand img {
-      width: 52px;
-      height: 52px;
-      object-fit: contain;
-      background: #fff;
-      border-radius: 12px;
-      padding: 6px;
-    }
-    .brand h1 {
-      font-family: "Outfit", sans-serif;
-      font-size: 1.35rem;
-      font-weight: 700;
-      line-height: 1.2;
-    }
-    .brand p {
-      font-size: 0.88rem;
-      color: var(--muted);
-      margin-top: 0.15rem;
-    }
-
-    .vpa-box {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      padding: 0.75rem 0.9rem;
-      background: rgba(0, 0, 0, 0.35);
-      border: 1px dashed var(--border);
-      border-radius: 10px;
-      margin-bottom: 1.25rem;
-    }
-    .vpa-box code {
-      font-family: ui-monospace, monospace;
-      font-size: 0.95rem;
-      color: var(--green);
-      word-break: break-all;
-      flex: 1;
-      min-width: 10rem;
-    }
-    .btn-copy {
-      flex-shrink: 0;
-      padding: 0.45rem 0.85rem;
-      font-size: 0.82rem;
-      font-weight: 600;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      background: transparent;
-      color: var(--fg);
-      cursor: pointer;
-    }
-    .btn-copy:hover { background: rgba(255, 255, 255, 0.06); }
-    .btn-copy.copied { border-color: var(--green); color: var(--green); }
-
-    .amount-row {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0.5rem;
-      margin-bottom: 0.75rem;
-    }
-    .amount-btn {
-      padding: 0.55rem 0.25rem;
-      font-size: 0.88rem;
-      font-weight: 600;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      background: transparent;
-      color: var(--fg);
-      cursor: pointer;
-    }
-    .amount-btn:hover,
-    .amount-btn.active {
-      border-color: var(--accent);
-      background: rgba(91, 141, 239, 0.15);
-    }
-
-    .amount-custom {
-      display: flex;
-      gap: 0.5rem;
-      margin-bottom: 1.25rem;
-    }
-    .amount-custom input {
-      flex: 1;
-      min-width: 0;
-      padding: 0.65rem 0.85rem;
-      font-size: 1rem;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      background: rgba(0, 0, 0, 0.3);
-      color: var(--fg);
-    }
-    .amount-custom input::placeholder { color: var(--muted); }
-    .amount-custom span {
-      align-self: center;
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
-
-    .qr-wrap {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 1rem;
-      background: #fff;
-      border-radius: 12px;
-      margin-bottom: 1.25rem;
-    }
-    .qr-wrap canvas,
-    .qr-wrap img {
+    /* UPI logo: intrinsic aspect ratio only — no box, no caption */
+    .upi-logo {
       display: block;
-      max-width: 100%;
+      width: auto;
       height: auto;
-      border-radius: 8px;
+      max-width: min(11.5rem, 78vw);
+      margin: 0 auto 1.35rem;
     }
-    .qr-hint {
-      margin-top: 0.65rem;
-      font-size: 0.82rem;
-      color: #555;
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: calc(var(--radius) + 2px);
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
+    }
+
+    .panel-top {
+      padding: 1.35rem 1.35rem 0.25rem;
       text-align: center;
     }
 
-    .apps {
+    .panel-top h1 {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 5vw, 1.75rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+
+    .panel-top p {
+      margin-top: 0.45rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .body {
+      padding: 1.15rem 1.35rem 1.35rem;
+    }
+
+    .qr-block {
+      text-align: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .qr-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .qr-frame {
+      display: inline-block;
+      padding: 0.7rem;
+      background: #fff;
+      border-radius: var(--radius);
+      line-height: 0;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    }
+
+    .qr-frame canvas {
+      display: block;
+      border-radius: 8px;
+    }
+
+    .id-row {
+      display: flex;
+      align-items: stretch;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .id-value {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      padding: 0.72rem 0.9rem;
+      font-family: ui-monospace, "Cascadia Code", "SF Mono", monospace;
+      font-size: 0.9rem;
+      letter-spacing: 0.01em;
+      color: #9ae8be;
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      word-break: break-all;
+    }
+
+    .btn {
+      font-family: inherit;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: var(--radius);
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .btn-copy {
+      padding: 0 1rem;
+      color: var(--text);
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      white-space: nowrap;
+    }
+    .btn-copy:hover { border-color: var(--orange); color: var(--orange); }
+    .btn-copy.ok { border-color: var(--green); color: #9ae8be; }
+
+    .field-label {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 0.45rem;
+    }
+
+    .amounts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .chip {
+      padding: 0.48rem 0.85rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text);
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      cursor: pointer;
+    }
+    .chip:hover { border-color: rgba(240, 122, 40, 0.45); }
+    .chip.on {
+      background: var(--orange-soft);
+      border-color: rgba(240, 122, 40, 0.55);
+      color: #ffd9c2;
+    }
+
+    .amount-field {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .amount-field input {
+      flex: 1;
+      min-width: 0;
+      padding: 0.68rem 0.9rem;
+      font: inherit;
+      font-size: 1rem;
+      color: var(--text);
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+    .amount-field input:focus {
+      outline: 2px solid rgba(240, 122, 40, 0.35);
+      outline-offset: 0;
+      border-color: var(--orange);
+    }
+    .amount-field input::placeholder { color: var(--muted); }
+    .amount-field span {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .pay-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 0.55rem;
+      gap: 0.45rem;
     }
-    .app-btn {
+
+    .pay {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.4rem;
-      min-height: 2.75rem;
-      padding: 0.5rem 0.65rem;
-      font-size: 0.88rem;
+      min-height: 2.7rem;
+      padding: 0.5rem;
+      font-size: 0.8rem;
       font-weight: 600;
       text-decoration: none;
-      color: var(--fg);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: calc(var(--radius) - 2px);
     }
-    .app-btn:hover {
-      border-color: var(--accent);
-      background: rgba(91, 141, 239, 0.12);
+    .pay:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+      background: #222530;
     }
-    .app-btn.full { grid-column: 1 / -1; }
+    .pay.primary {
+      grid-column: 1 / -1;
+      min-height: 3rem;
+      font-size: 0.875rem;
+      background: var(--green-soft);
+      border-color: rgba(10, 143, 74, 0.4);
+    }
+    .pay.primary:hover {
+      border-color: rgba(10, 143, 74, 0.65);
+      background: rgba(10, 143, 74, 0.26);
+    }
 
-    .note {
-      margin-top: 1.25rem;
-      font-size: 0.82rem;
+    .foot {
+      padding: 0.9rem 1.35rem 1.1rem;
+      font-size: 0.8125rem;
       color: var(--muted);
       text-align: center;
+      border-top: 1px solid var(--line);
     }
+    .foot strong { color: var(--text); font-weight: 600; }
 
     .err {
-      color: #ff6b6b;
-      font-size: 0.9rem;
-      margin-bottom: 1rem;
       display: none;
+      margin: 0 1.35rem 1rem;
+      padding: 0.75rem 0.85rem;
+      font-size: 0.875rem;
+      color: #ffb4b4;
+      background: rgba(255, 80, 80, 0.1);
+      border: 1px solid rgba(255, 80, 80, 0.25);
+      border-radius: var(--radius);
     }
     .err.show { display: block; }
 
     @media (max-width: 360px) {
-      .amount-row { grid-template-columns: repeat(2, 1fr); }
+      .pay-grid { grid-template-columns: 1fr; }
+      .pay.primary { grid-column: auto; }
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <a class="back" href="index.html#support">← Back to portfolio</a>
+  <div class="bg" aria-hidden="true"></div>
 
-    <main class="card">
-      <div class="brand">
-        <img src="images/upi-logo.png" width="52" height="52" alt="UPI" />
-        <div>
-          <h1>Tip via UPI</h1>
-          <p>Scan the QR or open your payment app</p>
+  <div class="page">
+    <a class="back" href="index.html#support">← Portfolio</a>
+
+    <img
+      class="upi-logo"
+      src="images/upi-logo.png"
+      width="1165"
+      height="414"
+      alt="Unified Payments Interface"
+    />
+
+    <main class="panel">
+      <div class="panel-top">
+        <h1>Send a tip</h1>
+        <p>Scan, copy ID, or open your UPI app</p>
+      </div>
+
+      <p id="load-err" class="err">Could not load payment settings.</p>
+
+      <div class="body" id="main" hidden>
+        <section class="qr-block" aria-label="Payment QR code">
+          <p class="qr-label">Scan to pay</p>
+          <div class="qr-frame">
+            <canvas id="qr" aria-label="UPI QR code"></canvas>
+          </div>
+        </section>
+
+        <div class="id-row">
+          <code class="id-value" id="vpa"></code>
+          <button type="button" class="btn btn-copy" id="copy">Copy</button>
         </div>
+
+        <p class="field-label">Amount (optional)</p>
+        <div class="amounts" id="presets">
+          <button type="button" class="chip on" data-amt="">Any</button>
+          <button type="button" class="chip" data-amt="50">₹50</button>
+          <button type="button" class="chip" data-amt="100">₹100</button>
+          <button type="button" class="chip" data-amt="200">₹200</button>
+          <button type="button" class="chip" data-amt="500">₹500</button>
+        </div>
+        <div class="amount-field">
+          <input type="number" id="amount" min="1" max="100000" step="1" placeholder="Other amount" inputmode="decimal" />
+          <span>INR</span>
+        </div>
+
+        <nav class="pay-grid" aria-label="Open payment app">
+          <a class="pay primary" id="lnk-upi" href="#">Pay with UPI app</a>
+          <a class="pay" id="lnk-gpay" href="#" rel="noopener">Google Pay</a>
+          <a class="pay" id="lnk-phonepe" href="#" rel="noopener">PhonePe</a>
+          <a class="pay" id="lnk-paytm" href="#" rel="noopener">Paytm</a>
+          <a class="pay" id="lnk-bhim" href="#" rel="noopener">BHIM</a>
+        </nav>
       </div>
 
-      <p id="load-err" class="err">Could not load payment details. Check <code>tip-config.json</code>.</p>
-
-      <div class="vpa-box" id="vpa-row" hidden>
-        <code id="vpa-display"></code>
-        <button type="button" class="btn-copy" id="copy-vpa">Copy UPI ID</button>
-      </div>
-
-      <p style="font-size:0.9rem;color:var(--muted);margin-bottom:0.5rem;">Amount (₹, optional)</p>
-      <div class="amount-row" id="presets">
-        <button type="button" class="amount-btn" data-amt="">Any</button>
-        <button type="button" class="amount-btn" data-amt="50">₹50</button>
-        <button type="button" class="amount-btn" data-amt="100">₹100</button>
-        <button type="button" class="amount-btn" data-amt="200">₹200</button>
-      </div>
-      <div class="amount-custom">
-        <input type="number" id="amount-input" min="1" max="100000" step="1" placeholder="Custom amount" inputmode="numeric" />
-        <span>INR</span>
-      </div>
-
-      <div class="qr-wrap">
-        <canvas id="qr-canvas" aria-label="UPI payment QR code"></canvas>
-        <p class="qr-hint">Scan with any UPI app (GPay, PhonePe, Paytm, BHIM…)</p>
-      </div>
-
-      <div class="apps" id="apps" hidden>
-        <a class="app-btn" id="open-upi" href="#">Open UPI app</a>
-        <a class="app-btn" id="open-gpay" href="#" rel="noopener">Google Pay</a>
-        <a class="app-btn" id="open-phonepe" href="#" rel="noopener">PhonePe</a>
-        <a class="app-btn" id="open-paytm" href="#" rel="noopener">Paytm</a>
-        <a class="app-btn full" id="open-bhim" href="#" rel="noopener">BHIM / other UPI app</a>
-      </div>
-
-      <p class="note">Thank you for supporting open-source work, mods, and experiments.<br />
-        UPI logo: <a href="https://commons.wikimedia.org/wiki/File:UPI-Logo.png" style="color:var(--muted);">Wikimedia Commons</a></p>
+      <p class="foot">Payment note: <strong>TIP</strong> · Thank you for your support.</p>
     </main>
   </div>
 
   <script>
     (function () {
-      var cfg = null;
-      var selectedAmount = "";
+      var cfg;
+      var presetAmt = "";
 
-      function enc(s) {
-        return encodeURIComponent(String(s || "").trim());
-      }
-
-      function buildParams(amount) {
-        var p = {
-          pa: cfg.vpa,
-          pn: cfg.payeeName,
-          tn: cfg.defaultNote || "Tip",
-          cu: "INR"
-        };
-        var am = amount !== "" && amount != null ? String(amount).trim() : "";
-        if (am && !isNaN(Number(am)) && Number(am) > 0) {
-          p.am = am;
-        }
-        return p;
-      }
-
-      function toQuery(params) {
+      function q(params) {
         return Object.keys(params)
-          .map(function (k) { return k + "=" + enc(params[k]); })
+          .filter(function (k) { return params[k] != null && params[k] !== ""; })
+          .map(function (k) { return k + "=" + encodeURIComponent(String(params[k]).trim()); })
           .join("&");
       }
 
-      function upiPayUrl(amount) {
-        return "upi://pay?" + toQuery(buildParams(amount));
+      function params(amount) {
+        var p = {
+          pa: cfg.vpa,
+          pn: cfg.payeeName,
+          tn: cfg.defaultNote,
+          cu: "INR"
+        };
+        var am = amount != null ? String(amount).trim() : "";
+        if (am && Number(am) > 0) p.am = am;
+        return p;
       }
 
-      function gpayUrl(amount) {
-        return "tez://upi/pay?" + toQuery(buildParams(amount));
+      function upi(amount) { return "upi://pay?" + q(params(amount)); }
+      function amountNow() {
+        var v = document.getElementById("amount").value.trim();
+        return v || presetAmt;
       }
 
-      function phonePeUrl(amount) {
-        return "phonepe://pay?" + toQuery(buildParams(amount));
+      function sync() {
+        var am = amountNow();
+        document.getElementById("lnk-upi").href = upi(am);
+        document.getElementById("lnk-gpay").href = "tez://upi/pay?" + q(params(am));
+        document.getElementById("lnk-phonepe").href = "phonepe://pay?" + q(params(am));
+        document.getElementById("lnk-paytm").href = "paytmmp://pay?" + q(params(am));
+        document.getElementById("lnk-bhim").href = "bhim://upi/pay?" + q(params(am));
       }
 
-      function paytmUrl(amount) {
-        return "paytmmp://pay?" + toQuery(buildParams(amount));
-      }
-
-      function bhimUrl(amount) {
-        return "bhim://upi/pay?" + toQuery(buildParams(amount));
-      }
-
-      function currentAmount() {
-        var custom = document.getElementById("amount-input").value.trim();
-        if (custom) return custom;
-        return selectedAmount;
-      }
-
-      function setActivePreset(btn) {
-        document.querySelectorAll(".amount-btn").forEach(function (b) {
-          b.classList.toggle("active", b === btn);
-        });
-      }
-
-      function updateLinks() {
-        var amt = currentAmount();
-        document.getElementById("open-upi").href = upiPayUrl(amt);
-        document.getElementById("open-gpay").href = gpayUrl(amt);
-        document.getElementById("open-phonepe").href = phonePeUrl(amt);
-        document.getElementById("open-paytm").href = paytmUrl(amt);
-        document.getElementById("open-bhim").href = bhimUrl(amt);
-      }
-
-      function renderQr() {
-        var canvas = document.getElementById("qr-canvas");
-        var url = upiPayUrl(currentAmount());
+      function drawQr() {
+        var canvas = document.getElementById("qr");
+        var size = Math.min(252, window.innerWidth - 88);
         if (!window.QRCode) return;
-        QRCode.toCanvas(canvas, url, {
-          width: Math.min(280, window.innerWidth - 80),
+        QRCode.toCanvas(canvas, upi(amountNow()), {
+          width: size,
           margin: 2,
-          color: { dark: "#0b0c12", light: "#ffffff" }
-        }, function (err) {
-          if (err) console.error(err);
+          errorCorrectionLevel: "M",
+          color: { dark: "#08090d", light: "#ffffff" }
         });
       }
 
-      function initUi() {
-        document.getElementById("vpa-display").textContent = cfg.vpa;
-        document.getElementById("vpa-row").hidden = false;
-        document.getElementById("apps").hidden = false;
-        document.getElementById("load-err").classList.remove("show");
+      function bind() {
+        document.getElementById("vpa").textContent = cfg.vpa;
+        document.getElementById("main").hidden = false;
 
-        document.querySelectorAll(".amount-btn").forEach(function (btn) {
-          btn.addEventListener("click", function () {
-            selectedAmount = btn.getAttribute("data-amt") || "";
-            document.getElementById("amount-input").value = "";
-            setActivePreset(btn);
-            updateLinks();
-            renderQr();
+        document.querySelectorAll(".chip").forEach(function (el) {
+          el.addEventListener("click", function () {
+            presetAmt = el.getAttribute("data-amt") || "";
+            document.getElementById("amount").value = "";
+            document.querySelectorAll(".chip").forEach(function (c) { c.classList.remove("on"); });
+            el.classList.add("on");
+            sync();
+            drawQr();
           });
         });
 
-        document.getElementById("amount-input").addEventListener("input", function () {
-          selectedAmount = "";
-          document.querySelectorAll(".amount-btn").forEach(function (b) { b.classList.remove("active"); });
-          updateLinks();
-          renderQr();
+        document.getElementById("amount").addEventListener("input", function () {
+          presetAmt = "";
+          document.querySelectorAll(".chip").forEach(function (c) { c.classList.remove("on"); });
+          sync();
+          drawQr();
         });
 
-        document.getElementById("copy-vpa").addEventListener("click", function () {
+        document.getElementById("copy").addEventListener("click", function () {
           var btn = this;
           navigator.clipboard.writeText(cfg.vpa).then(function () {
-            btn.textContent = "Copied!";
-            btn.classList.add("copied");
+            btn.textContent = "Copied";
+            btn.classList.add("ok");
             setTimeout(function () {
-              btn.textContent = "Copy UPI ID";
-              btn.classList.remove("copied");
-            }, 2000);
+              btn.textContent = "Copy";
+              btn.classList.remove("ok");
+            }, 1800);
           });
         });
 
-        setActivePreset(document.querySelector('.amount-btn[data-amt=""]'));
-        updateLinks();
-        renderQr();
+        sync();
+        drawQr();
+        window.addEventListener("resize", drawQr);
       }
 
-      fetch("tip-config.json?t=" + Date.now())
-        .then(function (r) {
-          if (!r.ok) throw new Error("config");
-          return r.json();
-        })
-        .then(function (data) {
-          if (!data.vpa || !data.payeeName) throw new Error("invalid");
+      fetch("tip-config.json?t=" + Date.now(), { cache: "no-store" })
+        .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+        .then(function (d) {
+          if (!d.vpa || !d.payeeName) throw 0;
           cfg = {
-            vpa: data.vpa,
-            payeeName: data.payeeName,
-            defaultNote: data.defaultNote || "Tip"
+            vpa: d.vpa,
+            payeeName: d.payeeName,
+            defaultNote: (d.defaultNote || "TIP").toUpperCase()
           };
           if (document.readyState === "loading") {
-            document.addEventListener("DOMContentLoaded", initUi);
+            document.addEventListener("DOMContentLoaded", bind);
           } else {
-            initUi();
+            bind();
           }
         })
         .catch(function () {

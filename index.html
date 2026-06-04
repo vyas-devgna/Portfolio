@@ -49,7 +49,6 @@
         "url": "https://vyas-devgna.github.io/Portfolio/",
         "image": "https://vyas-devgna.github.io/Portfolio/images/hero.png",
         "email": "vyasdevgna@gmail.com",
-        "telephone": "+919510292044",
         "address": {
           "@type": "PostalAddress",
           "addressLocality": "Nadiad",
@@ -86,9 +85,6 @@
                     <li><a href="#work" class="nav-link">Work</a></li>
                     <li><a href="#research" class="nav-link">Research</a></li>
                     <li><a href="#skills" class="nav-link">Skills</a></li>
-                    <li><a href="#photography" class="nav-link">Photos</a></li>
-                    <li><a href="#animals" class="nav-link">Animals</a></li>
-                    <li><a href="#writing" class="nav-link">Writing</a></li>
                     <li><a href="#support" class="nav-link">Support</a></li>
                     <li><a href="#contact" class="nav-link">Contact</a></li>
                 </ul>
@@ -109,9 +105,6 @@
                 <a href="#work" class="mobile-link">Work</a>
                 <a href="#research" class="mobile-link">Research</a>
                 <a href="#skills" class="mobile-link">Skills</a>
-                <a href="#photography" class="mobile-link">Photos</a>
-                <a href="#animals" class="mobile-link">Animals</a>
-                <a href="#writing" class="mobile-link">Writing</a>
                 <a href="#support" class="mobile-link">Support</a>
                 <a href="#contact" class="mobile-link">Contact</a>
                 <a id="resume-mobile-btn" href="resume.pdf" target="_blank" class="mobile-link" style="display:none;">Resume ↗</a>
@@ -404,54 +397,6 @@
             </div>
         </section>
 
-        <!-- Photography Section -->
-        <section id="photography" class="section section-alt">
-            <div class="container">
-                <p class="section-label reveal">Gallery</p>
-                <h2 class="section-heading reveal">Through my lens.</h2>
-                <div class="gallery-wrapper reveal">
-                    <button class="gallery-nav gallery-nav-prev" aria-label="Scroll gallery left">‹</button>
-                    <div id="photo-gallery" class="media-gallery is-loading" data-autoscroll="true" aria-live="polite" role="region" aria-label="Photography gallery">
-                    </div>
-                    <button class="gallery-nav gallery-nav-next" aria-label="Scroll gallery right">›</button>
-                    <div class="gallery-progress" role="progressbar" aria-label="Gallery scroll progress"><div class="gallery-progress-bar"></div></div>
-                </div>
-                <p id="photo-empty" class="empty-state" style="display:none;">New photos coming to this gallery soon.</p>
-            </div>
-        </section>
-
-        <!-- Animals Section -->
-        <section id="animals" class="section">
-            <div class="container">
-                <p class="section-label reveal">Affinity</p>
-                <h2 class="section-heading reveal">Creatures I adore.</h2>
-                <div class="gallery-wrapper reveal">
-                    <button class="gallery-nav gallery-nav-prev" aria-label="Scroll gallery left">‹</button>
-                    <div id="animals-gallery" class="media-gallery is-loading" data-autoscroll="true" aria-live="polite" role="region" aria-label="Animals gallery">
-                    </div>
-                    <button class="gallery-nav gallery-nav-next" aria-label="Scroll gallery right">›</button>
-                    <div class="gallery-progress" role="progressbar" aria-label="Gallery scroll progress"><div class="gallery-progress-bar"></div></div>
-                </div>
-                <p id="animals-empty" class="empty-state" style="display:none;">Animal pics and videos coming soon.</p>
-            </div>
-        </section>
-
-        <!-- Writing / Poetry Section -->
-        <section id="writing" class="section section-alt">
-            <div class="container">
-                <p class="section-label reveal">Field Notes</p>
-                <h2 class="section-heading reveal">Words I keep.</h2>
-                <div class="gallery-wrapper writing-gallery-wrapper reveal">
-                    <button class="gallery-nav gallery-nav-prev" aria-label="Previous writing">‹</button>
-                    <div id="poetry-container" class="writing-carousel" aria-live="polite" role="region" aria-label="Writing gallery">
-                    </div>
-                    <button class="gallery-nav gallery-nav-next" aria-label="Next writing">›</button>
-                    <div class="gallery-progress" role="progressbar" aria-label="Writing scroll progress"><div class="gallery-progress-bar"></div></div>
-                </div>
-                <p id="poetry-empty" class="empty-state" style="display:none;">New writings will appear here soon.</p>
-            </div>
-        </section>
-
         <!-- Support Section -->
         <section id="support" class="section section-alt">
             <div class="container">
@@ -511,24 +456,6 @@
         </section>
     </main>
 
-    <!-- Photo Lightbox -->
-    <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
-        <button class="lightbox-close" id="lightbox-close" aria-label="Close image viewer">✕</button>
-        <button class="lightbox-prev" id="lightbox-prev" aria-label="Previous image">‹</button>
-        <button class="lightbox-next" id="lightbox-next" aria-label="Next image">›</button>
-        <img id="lightbox-img" src="" alt="" />
-        <p id="lightbox-caption" class="lightbox-caption"></p>
-    </div>
-
-    <!-- Writing Lightbox -->
-    <div id="writing-lightbox" class="writing-lightbox" role="dialog" aria-modal="true" aria-label="Writing viewer">
-        <button class="lightbox-close" id="writing-lb-close" aria-label="Close writing viewer">✕</button>
-        <button class="lightbox-prev" id="writing-lb-prev" aria-label="Previous writing">‹</button>
-        <button class="lightbox-next" id="writing-lb-next" aria-label="Next writing">›</button>
-        <div id="writing-lb-content" class="writing-lb-content"></div>
-        <p id="writing-lb-meta" class="lightbox-caption"></p>
-    </div>
-
     <!-- Back to Top -->
     <button id="back-to-top" class="back-to-top" aria-label="Back to top">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
@@ -537,7 +464,8 @@
     <!-- Footer -->
     <footer class="footer" role="contentinfo">
         <div class="container">
-            <p class="footer-text">Designed &amp; built by Devgna Vyas · Vol. 01 Edition · 2026</p>
+            <p class="footer-text">Designed &amp; built by Devgna Vyas · <span id="footer-year"></span></p>
+            <script>document.getElementById('footer-year').textContent = new Date().getFullYear();</script>
         </div>
     </footer>
 

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Tip via UPI</title>
-  <meta name="description" content="Send a UPI tip — scan the QR or open your UPI app." />
+  <title>Send a tip</title>
+  <meta name="description" content="Send a tip — secure checkout powered by Razorpay." />
   <meta name="robots" content="noindex" />
   <link rel="icon" href="images/upi-logo.png" type="image/png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -165,6 +165,7 @@
       margin-top: 0.65rem;
     }
     .qr-fallback.show { display: block; }
+    #pay-status.ok { color: var(--accent); }
 
     .pay-label {
       font-size: 0.8125rem;
@@ -244,10 +245,15 @@
       box-shadow: 3px 3px 0 var(--line);
       transition: transform 0.1s ease, background 0.15s ease, box-shadow 0.1s ease;
     }
-    .tip-btn:hover {
+    .tip-btn:hover:not(:disabled) {
       background: var(--accent-hover);
       transform: translate(1px, 1px);
       box-shadow: 2px 2px 0 var(--line);
+    }
+    .tip-btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      transform: none;
     }
     .tip-btn svg {
       flex-shrink: 0;
@@ -333,30 +339,31 @@
   <div class="page">
     <header class="topbar">
       <a class="back" href="index.html#support">← Back</a>
-      <img class="upi-logo" src="images/upi-logo.png" width="1165" height="414" alt="UPI" />
     </header>
 
     <main class="card">
       <div class="card-head">
         <h1>Send a tip</h1>
-        <p>Scan the QR on another device, or open your UPI app on this phone.</p>
+        <p>Pick an amount and pay securely with Razorpay.</p>
       </div>
 
       <div class="card-split">
-        <section class="col-qr" aria-label="Payment QR code">
-          <p class="eyebrow">Scan to pay</p>
-          <div class="qr-box">
-            <img id="qr" width="240" height="240" alt="UPI payment QR code" />
+        <section class="col-qr" aria-label="Secure checkout">
+          <p class="eyebrow">Secure checkout</p>
+          <div class="qr-box" aria-hidden="true">
+            <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="8" y="8" width="104" height="104" stroke="#111" stroke-width="2" fill="#fff"/>
+              <path d="M36 58h48M60 34v48" stroke="#097939" stroke-width="3" stroke-linecap="square"/>
+            </svg>
           </div>
-          <p class="qr-hint">Works with GPay, PhonePe, Paytm, BHIM, and other UPI apps</p>
-          <p id="qr-err" class="qr-fallback">QR could not load — use the button to pay on this device.</p>
+          <p class="qr-hint">Cards, UPI, wallets &amp; netbanking via Razorpay</p>
+          <p id="pay-status" class="qr-fallback" role="status" aria-live="polite"></p>
         </section>
 
         <section class="col-pay" aria-label="Tip amount and payment">
-          <p class="pay-label">Choose amount (optional)</p>
+          <p class="pay-label">Choose amount</p>
           <div class="amounts" id="presets">
-            <button type="button" class="chip on" data-amt="">Any</button>
-            <button type="button" class="chip" data-amt="50">₹50</button>
+            <button type="button" class="chip on" data-amt="50">₹50</button>
             <button type="button" class="chip" data-amt="100">₹100</button>
             <button type="button" class="chip" data-amt="200">₹200</button>
             <button type="button" class="chip" data-amt="500">₹500</button>
@@ -366,10 +373,10 @@
             <span>INR</span>
           </div>
 
-          <a class="tip-btn" id="tip-btn" href="#">
+          <button type="button" class="tip-btn" id="tip-btn">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2v20M17 7l-5-5-5 5"/></svg>
-            Tip via UPI app
-          </a>
+            Pay tip
+          </button>
         </section>
       </div>
 
@@ -377,89 +384,124 @@
     </main>
   </div>
 
-  <script src="js/qrcode.min.js"></script>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <script>
     (function () {
-      var cfg = {
-        vpa: "devgnavyas@slc",
-        payeeName: "Devgna Vyas",
-        defaultNote: "TIP"
-      };
-      var presetAmt = "";
-      var resizeTimer;
+      var PAYEE = "Devgna Vyas";
+      var presetAmt = "50";
+      var keyId = null;
+      var paying = false;
+      var statusEl = document.getElementById("pay-status");
+      var tipBtn = document.getElementById("tip-btn");
 
-      function buildParams(amount) {
-        var p = {
-          pa: cfg.vpa,
-          pn: cfg.payeeName,
-          tn: cfg.defaultNote,
-          cu: "INR"
-        };
-        var raw = amount != null ? String(amount).trim() : "";
-        var n = parseFloat(raw);
-        if (raw && !isNaN(n) && n > 0) {
-          p.am = n.toFixed(2);
-        }
-        return p;
+      function api(path, options) {
+        return fetch(path, options).then(function (r) {
+          return r.json().then(function (data) {
+            if (!r.ok) throw new Error(data.error || "Request failed");
+            return data;
+          });
+        });
       }
 
-      function toQuery(params) {
-        return Object.keys(params)
-          .filter(function (k) { return params[k] != null && params[k] !== ""; })
-          .map(function (k) { return k + "=" + encodeURIComponent(String(params[k])); })
-          .join("&");
+      function setStatus(msg, ok) {
+        statusEl.textContent = msg || "";
+        statusEl.classList.toggle("show", !!msg);
+        statusEl.classList.toggle("ok", !!ok);
       }
 
-      function upiUri(amount) {
-        return "upi://pay?" + toQuery(buildParams(amount));
-      }
-
-      function currentAmount() {
+      function amountRupees() {
         var v = document.getElementById("amount").value.trim();
-        return v || presetAmt;
+        var raw = v || presetAmt;
+        var n = parseFloat(raw);
+        if (!raw || isNaN(n) || n < 1) return null;
+        return n;
       }
 
-      function qrSize() {
-        var desktop = window.matchMedia("(min-width: 52rem)").matches;
-        if (desktop) return 220;
-        var pad = 120;
-        return Math.min(260, Math.max(200, window.innerWidth - pad));
+      function amountPaise() {
+        var r = amountRupees();
+        return r == null ? null : Math.round(r * 100);
       }
 
-      function syncLinks() {
-        document.getElementById("tip-btn").href = upiUri(currentAmount());
+      function loadConfig() {
+        return api("/api/config").then(function (d) {
+          keyId = d.key_id;
+        });
       }
 
-      function renderQr() {
-        var img = document.getElementById("qr");
-        var err = document.getElementById("qr-err");
-        var payload = upiUri(currentAmount());
-        var size = qrSize();
-
-        function fail() {
-          err.classList.add("show");
+      function startCheckout() {
+        if (paying) return;
+        var paise = amountPaise();
+        if (paise == null || paise < 100) {
+          setStatus("Enter at least ₹1 to continue.");
+          return;
         }
-
-        if (!window.QRCode) {
-          fail();
+        if (!keyId || !window.Razorpay) {
+          setStatus("Payment is unavailable. Use the local tip server.");
           return;
         }
 
-        QRCode.toDataURL(payload, {
-          width: size,
-          margin: 2,
-          errorCorrectionLevel: "M",
-          color: { dark: "#111111", light: "#ffffff" }
-        }, function (e, url) {
-          if (e) {
-            fail();
-            return;
-          }
-          err.classList.remove("show");
-          img.src = url;
-          img.width = size;
-          img.height = size;
-        });
+        paying = true;
+        tipBtn.disabled = true;
+        setStatus("");
+
+        api("/api/create-order", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ amount: paise }),
+        })
+          .then(function (order) {
+            var rzp = new Razorpay({
+              key: keyId,
+              amount: order.amount,
+              currency: order.currency,
+              name: PAYEE,
+              description: "Tip",
+              order_id: order.order_id,
+              notes: { purpose: "TIP" },
+              theme: { color: "#097939" },
+              handler: function (res) {
+                api("/api/verify-payment", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({
+                    razorpay_order_id: res.razorpay_order_id,
+                    razorpay_payment_id: res.razorpay_payment_id,
+                    razorpay_signature: res.razorpay_signature,
+                  }),
+                })
+                  .then(function () {
+                    setStatus("Thank you — payment verified.", true);
+                  })
+                  .catch(function (err) {
+                    setStatus(err.message || "Verification failed.");
+                  })
+                  .finally(resetPaying);
+              },
+              modal: {
+                ondismiss: function () {
+                  setStatus("Payment cancelled.");
+                  resetPaying();
+                },
+              },
+            });
+            rzp.on("payment.failed", function (resp) {
+              var msg =
+                (resp.error && resp.error.description) ||
+                "Payment failed. Please try again.";
+              setStatus(msg);
+              resetPaying();
+            });
+            rzp.open();
+          })
+          .catch(function (err) {
+            setStatus(err.message || "Could not start checkout.");
+            resetPaying();
+          });
+      }
+
+      function resetPaying() {
+        paying = false;
+        tipBtn.disabled = false;
       }
 
       function bind() {
@@ -467,26 +509,26 @@
           el.addEventListener("click", function () {
             presetAmt = el.getAttribute("data-amt") || "";
             document.getElementById("amount").value = "";
-            document.querySelectorAll(".chip").forEach(function (c) { c.classList.remove("on"); });
+            document.querySelectorAll(".chip").forEach(function (c) {
+              c.classList.remove("on");
+            });
             el.classList.add("on");
-            syncLinks();
-            renderQr();
+            setStatus("");
           });
         });
 
         document.getElementById("amount").addEventListener("input", function () {
           presetAmt = "";
-          document.querySelectorAll(".chip").forEach(function (c) { c.classList.remove("on"); });
-          syncLinks();
-          renderQr();
+          document.querySelectorAll(".chip").forEach(function (c) {
+            c.classList.remove("on");
+          });
+          setStatus("");
         });
 
-        syncLinks();
-        renderQr();
+        tipBtn.addEventListener("click", startCheckout);
 
-        window.addEventListener("resize", function () {
-          clearTimeout(resizeTimer);
-          resizeTimer = setTimeout(renderQr, 150);
+        loadConfig().catch(function () {
+          setStatus("Start the tip server (npm start) to enable payments.");
         });
       }
 

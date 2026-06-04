@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tip via UPI — Devgna Vyas</title>
+  <meta name="description" content="Send a UPI tip to support Devgna Vyas — scan QR or open your UPI app." />
+  <meta name="robots" content="noindex" />
+  <link rel="icon" href="images/upi-logo.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js" defer></script>
+  <style>
+    :root {
+      --bg: #0b0c12;
+      --card: #161722;
+      --fg: #f3f4f6;
+      --muted: #9ca3af;
+      --accent: #5b8def;
+      --green: #1ed760;
+      --border: rgba(243, 244, 246, 0.2);
+      --radius: 16px;
+      --shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Inter", system-ui, sans-serif;
+      min-height: 100vh;
+      color: var(--fg);
+      background: var(--bg);
+      background-image:
+        radial-gradient(ellipse 80% 60% at 20% 0%, rgba(91, 141, 239, 0.18), transparent),
+        radial-gradient(ellipse 70% 50% at 90% 100%, rgba(30, 215, 96, 0.12), transparent);
+      padding: clamp(1rem, 4vw, 2rem);
+      line-height: 1.5;
+    }
+
+    .wrap {
+      max-width: 28rem;
+      margin: 0 auto;
+    }
+
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-bottom: 1.25rem;
+      padding: 0.35rem 0;
+    }
+    .back:hover { color: var(--fg); }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: clamp(1.25rem, 4vw, 1.75rem);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      margin-bottom: 1.25rem;
+    }
+    .brand img {
+      width: 52px;
+      height: 52px;
+      object-fit: contain;
+      background: #fff;
+      border-radius: 12px;
+      padding: 6px;
+    }
+    .brand h1 {
+      font-family: "Outfit", sans-serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .brand p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-top: 0.15rem;
+    }
+
+    .vpa-box {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      padding: 0.75rem 0.9rem;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px dashed var(--border);
+      border-radius: 10px;
+      margin-bottom: 1.25rem;
+    }
+    .vpa-box code {
+      font-family: ui-monospace, monospace;
+      font-size: 0.95rem;
+      color: var(--green);
+      word-break: break-all;
+      flex: 1;
+      min-width: 10rem;
+    }
+    .btn-copy {
+      flex-shrink: 0;
+      padding: 0.45rem 0.85rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: transparent;
+      color: var(--fg);
+      cursor: pointer;
+    }
+    .btn-copy:hover { background: rgba(255, 255, 255, 0.06); }
+    .btn-copy.copied { border-color: var(--green); color: var(--green); }
+
+    .amount-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .amount-btn {
+      padding: 0.55rem 0.25rem;
+      font-size: 0.88rem;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: transparent;
+      color: var(--fg);
+      cursor: pointer;
+    }
+    .amount-btn:hover,
+    .amount-btn.active {
+      border-color: var(--accent);
+      background: rgba(91, 141, 239, 0.15);
+    }
+
+    .amount-custom {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .amount-custom input {
+      flex: 1;
+      min-width: 0;
+      padding: 0.65rem 0.85rem;
+      font-size: 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.3);
+      color: var(--fg);
+    }
+    .amount-custom input::placeholder { color: var(--muted); }
+    .amount-custom span {
+      align-self: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .qr-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem;
+      background: #fff;
+      border-radius: 12px;
+      margin-bottom: 1.25rem;
+    }
+    .qr-wrap canvas,
+    .qr-wrap img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+    .qr-hint {
+      margin-top: 0.65rem;
+      font-size: 0.82rem;
+      color: #555;
+      text-align: center;
+    }
+
+    .apps {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.55rem;
+    }
+    .app-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      min-height: 2.75rem;
+      padding: 0.5rem 0.65rem;
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-decoration: none;
+      color: var(--fg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.04);
+    }
+    .app-btn:hover {
+      border-color: var(--accent);
+      background: rgba(91, 141, 239, 0.12);
+    }
+    .app-btn.full { grid-column: 1 / -1; }
+
+    .note {
+      margin-top: 1.25rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .err {
+      color: #ff6b6b;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      display: none;
+    }
+    .err.show { display: block; }
+
+    @media (max-width: 360px) {
+      .amount-row { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="back" href="index.html#support">← Back to portfolio</a>
+
+    <main class="card">
+      <div class="brand">
+        <img src="images/upi-logo.png" width="52" height="52" alt="UPI" />
+        <div>
+          <h1>Tip via UPI</h1>
+          <p>Scan the QR or open your payment app</p>
+        </div>
+      </div>
+
+      <p id="load-err" class="err">Could not load payment details. Check <code>tip-config.json</code>.</p>
+
+      <div class="vpa-box" id="vpa-row" hidden>
+        <code id="vpa-display"></code>
+        <button type="button" class="btn-copy" id="copy-vpa">Copy UPI ID</button>
+      </div>
+
+      <p style="font-size:0.9rem;color:var(--muted);margin-bottom:0.5rem;">Amount (₹, optional)</p>
+      <div class="amount-row" id="presets">
+        <button type="button" class="amount-btn" data-amt="">Any</button>
+        <button type="button" class="amount-btn" data-amt="50">₹50</button>
+        <button type="button" class="amount-btn" data-amt="100">₹100</button>
+        <button type="button" class="amount-btn" data-amt="200">₹200</button>
+      </div>
+      <div class="amount-custom">
+        <input type="number" id="amount-input" min="1" max="100000" step="1" placeholder="Custom amount" inputmode="numeric" />
+        <span>INR</span>
+      </div>
+
+      <div class="qr-wrap">
+        <canvas id="qr-canvas" aria-label="UPI payment QR code"></canvas>
+        <p class="qr-hint">Scan with any UPI app (GPay, PhonePe, Paytm, BHIM…)</p>
+      </div>
+
+      <div class="apps" id="apps" hidden>
+        <a class="app-btn" id="open-upi" href="#">Open UPI app</a>
+        <a class="app-btn" id="open-gpay" href="#" rel="noopener">Google Pay</a>
+        <a class="app-btn" id="open-phonepe" href="#" rel="noopener">PhonePe</a>
+        <a class="app-btn" id="open-paytm" href="#" rel="noopener">Paytm</a>
+        <a class="app-btn full" id="open-bhim" href="#" rel="noopener">BHIM / other UPI app</a>
+      </div>
+
+      <p class="note">Thank you for supporting open-source work, mods, and experiments.<br />
+        UPI logo: <a href="https://commons.wikimedia.org/wiki/File:UPI-Logo.png" style="color:var(--muted);">Wikimedia Commons</a></p>
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      var cfg = null;
+      var selectedAmount = "";
+
+      function enc(s) {
+        return encodeURIComponent(String(s || "").trim());
+      }
+
+      function buildParams(amount) {
+        var p = {
+          pa: cfg.vpa,
+          pn: cfg.payeeName,
+          tn: cfg.defaultNote || "Tip",
+          cu: "INR"
+        };
+        var am = amount !== "" && amount != null ? String(amount).trim() : "";
+        if (am && !isNaN(Number(am)) && Number(am) > 0) {
+          p.am = am;
+        }
+        return p;
+      }
+
+      function toQuery(params) {
+        return Object.keys(params)
+          .map(function (k) { return k + "=" + enc(params[k]); })
+          .join("&");
+      }
+
+      function upiPayUrl(amount) {
+        return "upi://pay?" + toQuery(buildParams(amount));
+      }
+
+      function gpayUrl(amount) {
+        return "tez://upi/pay?" + toQuery(buildParams(amount));
+      }
+
+      function phonePeUrl(amount) {
+        return "phonepe://pay?" + toQuery(buildParams(amount));
+      }
+
+      function paytmUrl(amount) {
+        return "paytmmp://pay?" + toQuery(buildParams(amount));
+      }
+
+      function bhimUrl(amount) {
+        return "bhim://upi/pay?" + toQuery(buildParams(amount));
+      }
+
+      function currentAmount() {
+        var custom = document.getElementById("amount-input").value.trim();
+        if (custom) return custom;
+        return selectedAmount;
+      }
+
+      function setActivePreset(btn) {
+        document.querySelectorAll(".amount-btn").forEach(function (b) {
+          b.classList.toggle("active", b === btn);
+        });
+      }
+
+      function updateLinks() {
+        var amt = currentAmount();
+        document.getElementById("open-upi").href = upiPayUrl(amt);
+        document.getElementById("open-gpay").href = gpayUrl(amt);
+        document.getElementById("open-phonepe").href = phonePeUrl(amt);
+        document.getElementById("open-paytm").href = paytmUrl(amt);
+        document.getElementById("open-bhim").href = bhimUrl(amt);
+      }
+
+      function renderQr() {
+        var canvas = document.getElementById("qr-canvas");
+        var url = upiPayUrl(currentAmount());
+        if (!window.QRCode) return;
+        QRCode.toCanvas(canvas, url, {
+          width: Math.min(280, window.innerWidth - 80),
+          margin: 2,
+          color: { dark: "#0b0c12", light: "#ffffff" }
+        }, function (err) {
+          if (err) console.error(err);
+        });
+      }
+
+      function initUi() {
+        document.getElementById("vpa-display").textContent = cfg.vpa;
+        document.getElementById("vpa-row").hidden = false;
+        document.getElementById("apps").hidden = false;
+        document.getElementById("load-err").classList.remove("show");
+
+        document.querySelectorAll(".amount-btn").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            selectedAmount = btn.getAttribute("data-amt") || "";
+            document.getElementById("amount-input").value = "";
+            setActivePreset(btn);
+            updateLinks();
+            renderQr();
+          });
+        });
+
+        document.getElementById("amount-input").addEventListener("input", function () {
+          selectedAmount = "";
+          document.querySelectorAll(".amount-btn").forEach(function (b) { b.classList.remove("active"); });
+          updateLinks();
+          renderQr();
+        });
+
+        document.getElementById("copy-vpa").addEventListener("click", function () {
+          var btn = this;
+          navigator.clipboard.writeText(cfg.vpa).then(function () {
+            btn.textContent = "Copied!";
+            btn.classList.add("copied");
+            setTimeout(function () {
+              btn.textContent = "Copy UPI ID";
+              btn.classList.remove("copied");
+            }, 2000);
+          });
+        });
+
+        setActivePreset(document.querySelector('.amount-btn[data-amt=""]'));
+        updateLinks();
+        renderQr();
+      }
+
+      fetch("tip-config.json?t=" + Date.now())
+        .then(function (r) {
+          if (!r.ok) throw new Error("config");
+          return r.json();
+        })
+        .then(function (data) {
+          if (!data.vpa || !data.payeeName) throw new Error("invalid");
+          cfg = {
+            vpa: data.vpa,
+            payeeName: data.payeeName,
+            defaultNote: data.defaultNote || "Tip"
+          };
+          if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", initUi);
+          } else {
+            initUi();
+          }
+        })
+        .catch(function () {
+          document.getElementById("load-err").classList.add("show");
+        });
+    })();
+  </script>
+</body>
+</html>

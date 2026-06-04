@@ -1360,22 +1360,41 @@ ul { list-style: none; }
   flex-shrink: 0;
 }
 
-.chai-support-link {
-  display: inline-block;
-  line-height: 0;
+.upi-tip-link {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.65rem 1rem;
   text-decoration: none;
-  transition: transform var(--ease-tactile);
+  color: var(--text-primary);
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  border-radius: 14px;
+  box-shadow: var(--shadow-brutal-sm);
+  transition: background var(--ease-tactile), border-color var(--ease-tactile);
 }
 
-.chai-support-link:hover {
-  transform: translateY(-2px);
+.upi-tip-link:hover {
+  border-color: var(--accent);
+  background: var(--bg-hover);
 }
 
-.chai-support-link img {
+.upi-tip-link img {
   display: block;
+  width: 56px;
   height: 56px;
-  width: auto;
-  border: 0;
+  object-fit: contain;
+  background: #fff;
+  border-radius: 12px;
+  padding: 4px;
+}
+
+.upi-tip-label {
+  font-family: var(--font-ui);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
 }
 
 .footer {

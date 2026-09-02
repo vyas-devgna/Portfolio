@@ -1,771 +1,308 @@
-<!DOCTYPE html>
-<html lang="en" data-theme="light">
+<!doctype html>
+<html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-    <title>Devgna Vyas — Systems-First Engineer</title>
-    <meta name="description" content="Portfolio of Devgna Vyas — Systems-First Engineer specializing in backend development, networking, Linux, cybersecurity, and AI-assisted engineering. Published researcher at icSoftComp 2025.">
-    <meta name="author" content="Devgna Vyas">
-    <meta name="keywords" content="Devgna Vyas, Systems Engineer, Backend Developer, Cybersecurity, HERMES, CHARUSAT, Flutter, Python, Java">
-    <meta name="theme-color" content="#f8f8fa" id="meta-theme-color">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="theme-color" content="#07080a" />
+  <title>Devgna Vyas — Systems, Security & Open Source</title>
+  <meta name="description" content="Devgna Vyas builds systems, networking tools, security research, local-first software and open-source engineering experiments." />
+  <meta name="author" content="Devgna Vyas" />
+  <link rel="canonical" href="https://vyasdevgna.online/" />
+  <meta property="og:title" content="Devgna Vyas — Systems, Security & Open Source" />
+  <meta property="og:description" content="Systems-first engineering, local-first software, networking, security and ambitious open-source experiments." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://vyasdevgna.online/" />
+  <meta property="og:image" content="https://vyasdevgna.online/images/hero2.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
 
-    <!-- Canonical -->
-    <link rel="canonical" href="https://vyasdevgna.online//Portfolio/">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://api.github.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
 
-    <!-- Open Graph -->
-    <meta property="og:title" content="Devgna Vyas — Systems-First Engineer">
-    <meta property="og:description" content="Backend, Networking, Linux, Cybersecurity. Published researcher. Building robust systems.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://vyasdevgna.online//Portfolio/">
-    <meta property="og:image" content="https://vyasdevgna.online/images/hero2.jpg">
+  <script type="importmap">
+    {
+      "imports": {
+        "motion": "https://cdn.jsdelivr.net/npm/motion@13.1.1/+esm",
+        "lenis": "https://cdn.jsdelivr.net/npm/lenis@1.3.26/+esm"
+      }
+    }
+  </script>
 
-    <!-- Favicon -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
-
-    <!-- DNS Prefetch & Preconnect -->
-    <link rel="dns-prefetch" href="//fonts.googleapis.com">
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link rel="dns-prefetch" href="//api.github.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <!-- Critical Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Outfit:wght@400;700;900&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;1,400&family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
-
-    <link id="app-style" rel="stylesheet" href="css/style.css">
-
-    <!-- Structured Data -->
-    <script type="application/ld+json">
+  <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "ProfilePage",
       "mainEntity": {
         "@type": "Person",
         "name": "Devgna Vyas",
-        "jobTitle": "Systems-First Engineer",
-        "url": "https://vyasdevgna.online//Portfolio/",
+        "url": "https://vyasdevgna.online/",
         "image": "https://vyasdevgna.online/images/hero.png",
-        "email": "vyasdevgna@gmail.com",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Nadiad",
-          "addressRegion": "Gujarat",
-          "addressCountry": "IN"
-        },
-        "alumniOf": {
-          "@type": "CollegeOrUniversity",
-          "name": "CHARUSAT University"
-        },
-        "knowsAbout": ["Backend Development", "Networking", "Linux", "Cybersecurity", "AI Engineering", "Flutter", "Python", "Java"],
-        "sameAs": [
-          "https://github.com/vyas-devgna",
-          "https://linkedin.com/in/devgna-vyas"
-        ]
+        "email": "mailto:vyasdevgna@gmail.com",
+        "alumniOf": {"@type":"CollegeOrUniversity","name":"CHARUSAT University"},
+        "knowsAbout": ["Systems Engineering","Networking","Cybersecurity","Open Source","Linux","WebRTC","Flutter","AI Engineering"],
+        "sameAs": ["https://github.com/vyas-devgna","https://linkedin.com/in/devgna-vyas"]
       }
     }
-    </script>
-    <script type="text/javascript">
-        (function(c,l,a,r,i,t,y){
-            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-        })(window, document, "clarity", "script", "x3yj42hvxy");
-    </script>
+  </script>
 </head>
 <body>
-    <!-- Scroll Progress Bar -->
-    <div id="scroll-progress" class="scroll-progress" aria-hidden="true"><div class="scroll-progress-fill"></div></div>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="noise" aria-hidden="true"></div>
+  <div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
+  <div class="scroll-rail" aria-hidden="true"><span id="scroll-progress"></span></div>
 
-    <!-- Sakura / Pencil Dust Canvas -->
-    <canvas id="sakura-canvas" aria-hidden="true"></canvas>
+  <header class="site-header" id="site-header">
+    <a class="brand" href="#top" aria-label="Devgna Vyas, home">
+      <span class="brand-mark">DV</span>
+      <span class="brand-copy"><strong>DEVGNA VYAS</strong><small>SYS // 2026</small></span>
+    </a>
 
-    <!-- Navigation Header -->
-    <header role="banner">
-        <nav id="navbar" aria-label="Primary navigation">
-            <div class="nav-inner">
-                <a href="#hero" class="nav-logo" aria-label="Devgna Vyas — Home">DV</a>
-                <ul class="nav-links" role="list">
-                    <li><a href="#about" class="nav-link">About</a></li>
-                    <li><a href="#work" class="nav-link">Work</a></li>
-                    <li><a href="#open-source" class="nav-link">Open Source</a></li>
-                    <li><a href="#research" class="nav-link">Research</a></li>
-                    <li><a href="#skills" class="nav-link">Skills</a></li>
-                    <li><a href="#support" class="nav-link">Support</a></li>
-                    <li><a href="#contact" class="nav-link">Contact</a></li>
-                </ul>
-                <div class="nav-actions">
-                    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle light/dark theme" title="Toggle theme">
-                        <svg class="theme-icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-                        <svg class="theme-icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-                    </button>
-                    <a href="#contact" class="btn-brutal btn-brutal-accent">Get in Touch</a>
-                    <a id="resume-nav-btn" href="resume.pdf" target="_blank" class="btn-brutal" style="display:none;">Resume</a>
-                </div>
-                <button class="nav-hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-menu">
-                    <span></span><span></span><span></span>
-                </button>
-            </div>
-            <div class="mobile-menu" id="mobile-menu" role="navigation" aria-label="Mobile navigation">
-                <a href="#about" class="mobile-link">About</a>
-                <a href="#work" class="mobile-link">Work</a>
-                <a href="#open-source" class="mobile-link">Open Source</a>
-                <a href="#research" class="mobile-link">Research</a>
-                <a href="#skills" class="mobile-link">Skills</a>
-                <a href="#support" class="mobile-link">Support</a>
-                <a href="#contact" class="mobile-link">Contact</a>
-                <a id="resume-mobile-btn" href="resume.pdf" target="_blank" class="mobile-link" style="display:none;">Resume ↗</a>
-            </div>
-        </nav>
-    </header>
+    <nav class="desktop-nav" aria-label="Primary">
+      <a href="#work">01 / WORK</a>
+      <a href="#lab">02 / LAB</a>
+      <a href="#research">03 / RESEARCH</a>
+      <a href="#contact">04 / CONTACT</a>
+    </nav>
 
-    <!-- Main Content -->
-    <main id="main-content">
-        <!-- Hero Section -->
-        <section id="hero">
-            <div class="hero-scanline" aria-hidden="true"></div>
-            <div class="hero-content">
-                <div class="hero-text">
-                    <div class="editorial-meta-strip">
-                        <span>Vol. 01</span>
-                        <span>Nadiad, India</span>
-                        <span>Updated 2026</span>
-                    </div>
-                    <p class="hero-greeting reveal">Systems-First Engineering</p>
-                    <h1 class="hero-name reveal">Devgna <em>Vyas</em></h1>
-                    <p class="hero-title reveal">Backend Security & Systems Engineer</p>
-                    <p class="hero-subtitle reveal" id="hero-typed">I build robust backend systems, think in networking fundamentals, live in Linux, explore cybersecurity, and use AI to accelerate — not replace — engineering depth.</p>
-                    <div class="hero-ctas reveal">
-                        <div class="btn-brutal-wrap">
-                            <a href="#work" class="btn-brutal btn-brutal-accent">View Projects</a>
-                        </div>
-                        <a href="https://github.com/vyas-devgna" target="_blank" rel="noopener" class="btn-brutal">GitHub ↗</a>
-                        <a id="resume-hero-btn" href="resume.pdf" target="_blank" class="btn-brutal" style="display:none;">Resume ↗</a>
-                    </div>
-                    <!-- GitHub Stats -->
-                    <div id="github-stats" class="github-stats reveal" style="display:none;"></div>
-                </div>
-                <div class="hero-image reveal">
-                    <div class="hero-img-wrapper">
-                        <img src="images/hero.png" alt="Devgna Vyas" loading="eager" decoding="async" fetchpriority="high" />
-                    </div>
-                </div>
-            </div>
-            <div class="hero-scroll-indicator" aria-hidden="true">
-                <span>Scroll</span>
-                <div class="scroll-line"></div>
-            </div>
-        </section>
+    <div class="header-actions">
+      <button class="icon-button" id="theme-toggle" type="button" aria-label="Toggle theme">◐</button>
+      <button class="command-trigger" id="command-trigger" type="button" aria-haspopup="dialog" aria-controls="command-palette">
+        <span>COMMAND</span><kbd>⌘K</kbd>
+      </button>
+      <button class="menu-trigger" id="menu-trigger" type="button" aria-expanded="false" aria-controls="mobile-nav">MENU</button>
+    </div>
 
-        <!-- About Section -->
-        <section id="about" class="section">
-            <div class="container">
-                <p class="section-label reveal">Profile</p>
-                <h2 class="section-heading reveal">Systems that hold up.</h2>
-                <div class="about-grid">
-                    <div class="about-text reveal">
-                        <p class="editorial-paragraph">I am a backend and systems engineer specializing in robust architecture, network performance, and cybersecurity protocols.</p>
-                        <p>My approach is first-principles driven: I believe in understanding standard RFC specifications, parsing data streams, evaluating packet flows, and studying systems failure paths before writing code. I utilize AI tools and automated agents as execution multipliers to accelerate design cycles, but keep complete logical ownership of architecture.</p>
-                        <p>Cybersecurity is a serious area of focus for me, especially network intrusion, Linux kernels hardening, and local protocol validation. I build code that holds up under load and prevents vectors of abuse.</p>
-                    </div>
-                    <div class="about-details reveal">
-                        <div class="detail-item">
-                            <span class="detail-label">Location Coordinates</span>
-                            <span class="detail-value">Nadiad, Gujarat, India</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label">Primary Fields</span>
-                            <span class="detail-value">Backend Engineering · Network Security · Linux Internals<br>Quantized AI Models · Mobile Systems</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label">Verified Certifications</span>
-                            <span class="detail-value">
-                                Google Crash Course on Python<br>
-                                Oracle Java Foundations<br>
-                                Tools of the Trade: Linux &amp; SQL (Google)
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation" hidden>
+      <a href="#work">WORK</a><a href="#lab">LAB</a><a href="#research">RESEARCH</a><a href="#contact">CONTACT</a>
+    </nav>
+  </header>
 
-        <!-- Education Section -->
-        <section id="education" class="section section-alt">
-            <div class="container">
-                <p class="section-label reveal">Academics</p>
-                <h2 class="section-heading reveal">Formal Foundation.</h2>
+  <main id="main">
+    <section class="hero" id="top">
+      <canvas id="signal-field" class="signal-field" aria-hidden="true"></canvas>
+      <div class="hero-grid" aria-hidden="true"></div>
 
-                <article class="project-card reveal">
-                    <div class="project-card-header">
-                        <span class="project-tag">Bachelor of Computer Applications (2023 — 2026)</span>
-                        <h3 class="project-title">CHARUSAT University</h3>
-                        <p class="project-summary">Smt. Chandaben Mohanbhai Patel Institute of Computer Applications (CMPICA)</p>
-                    </div>
-                    <div class="project-details">
-                        <div class="project-section">
-                            <h4>Academic Standing</h4>
-                            <p>Graduated with a cumulative GPA of <strong>8.25</strong>.</p>
-                        </div>
-                        <div class="project-section">
-                            <h4>Core Focus</h4>
-                            <p>Computer Architecture, Operating Systems, Relational Databases, and Network Protocols.</p>
-                        </div>
-                    </div>
-                </article>
-            </div>
-        </section>
-
-        <!-- Work Section -->
-        <section id="work" class="section">
-            <div class="container">
-                <p class="section-label reveal">Case Studies</p>
-                <h2 class="section-heading reveal">Projects built with depth.</h2>
-
-                <!-- Featured Project: EzBoard -->
-                <article class="project-card project-card-featured reveal">
-                    <div class="project-card-header">
-                        <span class="project-tag">Local-First Collaborative Systems Tool</span>
-                        <h3 class="project-title">EzBoard</h3>
-                        <p class="project-summary">A private infinite canvas where people and AI agents build architecture diagrams, brainstorm, and wireframe together in real time—without accounts or a hosted board database.</p>
-                    </div>
-                    <div class="project-details">
-                        <div class="project-section">
-                            <h4>The Collaboration Model</h4>
-                            <p>Encrypted WebRTC data channels carry scene updates, live cursors, profiles, and presence directly between browsers. Public Nostr relays handle discovery only; IndexedDB keeps boards local.</p>
-                        </div>
-                        <div class="project-section">
-                            <h4>The AI Interface</h4>
-                            <p>A provider-neutral NDJSON protocol lets local models, hosted models, CLI tools, and IDE agents join a room as peers, reason over the current scene, and draw validated Excalidraw elements.</p>
-                        </div>
-                        <div class="project-section">
-                            <h4>Reliability &amp; UX</h4>
-                            <p>Version-aware scene merging, join-time snapshots, offline persistence, responsive controls, exports, backgrounds, and 30 featured libraries make the tool practical beyond a demo.</p>
-                        </div>
-                    </div>
-                    <div class="project-tech">
-                        <span class="tech-badge">React</span>
-                        <span class="tech-badge">TypeScript</span>
-                        <span class="tech-badge">Excalidraw</span>
-                        <span class="tech-badge">WebRTC</span>
-                        <span class="tech-badge">Nostr</span>
-                        <span class="tech-badge">AI Agents</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://ezboard.vyasdevgna.online" target="_blank" rel="noopener" class="btn-small">Open Live Canvas ↗</a>
-                        <a href="https://github.com/vyas-devgna/ezboard" target="_blank" rel="noopener" class="btn-small">Inspect Repository ↗</a>
-                    </div>
-                </article>
-
-                <!-- Project Case Study 1 -->
-                <article class="project-card reveal">
-                    <div class="project-card-header">
-                        <span class="project-tag">Featured Mobile Engineering Case Study</span>
-                        <h3 class="project-title">Same.Energy Android Client</h3>
-                        <p class="project-summary">An elegant, gesture-driven client built using Flutter and Dart for Same.Energy's semantic visual search engine. Replicates custom web-platform aesthetics in a highly-optimized mobile framework.</p>
-                    </div>
-                    <div class="project-details">
-                        <div class="project-section">
-                            <h4>The Challenge</h4>
-                            <p>Translate a complex semantic image query web search into a physics-driven responsive mobile grid, handling asynchronous image pre-fetching and encrypted local caching on strict memory boundaries.</p>
-                        </div>
-                        <div class="project-section">
-                            <h4>What Was Built</h4>
-                            <p>A full client integrating masonry visual grids, curated user feeds, and collections folders. It leverages physics-based scrolling and custom gestures with full-screen viewer overlays.</p>
-                        </div>
-                        <div class="project-section">
-                            <h4>The Architecture</h4>
-                            <p>Decoupled Clean Architecture. Employs Riverpod for predictable reactive state boundaries, Dio client for network request intercepts/timeouts, GoRouter for type-safe navigations, and secure local keychain storage.</p>
-                        </div>
-                    </div>
-                    <div class="project-tech">
-                        <span class="tech-badge">Flutter</span>
-                        <span class="tech-badge">Dart</span>
-                        <span class="tech-badge">Riverpod</span>
-                        <span class="tech-badge">GoRouter</span>
-                        <span class="tech-badge">Dio Client</span>
-                        <span class="tech-badge">Clean Architecture</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/vyas-devgna/same-energy-android" target="_blank" rel="noopener" class="btn-small">Inspect Repository Code ↗</a>
-                    </div>
-                </article>
-
-                <!-- Project Case Study 2 -->
-                <article class="project-card reveal">
-                    <div class="project-card-header">
-                        <span class="project-tag">Biometric IoT Systems Study</span>
-                        <h3 class="project-title">Smart Attendance System</h3>
-                        <p class="project-summary">A secure, centralized, multi-factor attendance verification platform designed for academic institutions to eliminate proxy marking and location spoofing.</p>
-                    </div>
-                    <div class="project-details">
-                        <div class="project-section">
-                            <h4>The Architecture</h4>
-                            <p>Built a high-performance backend using Go and Gin, leveraging PostgreSQL for durable records and Redis for fast transient session state. Facilitated real-time bidirectional communication via Gorilla WebSockets for live attendance dashboard updates.</p>
-                        </div>
-                        <div class="project-section">
-                            <h4>Tri-Factor Verification</h4>
-                            <p>Engineered a robust anti-spoofing pipeline combining rapidly rotating HMAC-SHA256 signed QR codes, on-device Google ML Kit face liveness checks (blink/smile detection), and BLE beacon proximity handshakes via a cross-platform Flutter application.</p>
-                        </div>
-                        <div class="project-section">
-                            <h4>Security & Cryptography</h4>
-                            <p>Implemented RS256 asymmetric JWT token signing, Argon2id password hashing, and mDNS/UDP LAN auto-discovery. Designed an audit-ready architecture with automated PDF/Excel report generation ensuring tamper-evident attendance validation.</p>
-                        </div>
-                    </div>
-                    <div class="project-tech">
-                        <span class="tech-badge">Go</span>
-                        <span class="tech-badge">Flutter</span>
-                        <span class="tech-badge">PostgreSQL</span>
-                        <span class="tech-badge">Redis</span>
-                        <span class="tech-badge">Google ML Kit</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/vyas-devgna" target="_blank" rel="noopener" class="btn-small">Inspect Repository Code ↗</a>
-                    </div>
-                </article>
-
-                <!-- Project Case Study 3 -->
-                <article class="project-card reveal">
-                    <div class="project-card-header">
-                        <span class="project-tag">Peer-to-Peer Networking Utility</span>
-                        <h3 class="project-title">ez-drop</h3>
-                        <p class="project-summary">A zero-cost, serverless, peer-to-peer secure file and text transfer utility. Connect directly browser-to-browser with no limits and no intermediate storage.</p>
-                    </div>
-                    <div class="project-details">
-                        <div class="project-section">
-                            <h4>The Architecture</h4>
-                            <p>Leverages WebRTC data channels for high-bandwidth, direct connection streams between browsers. Implements public IP hashing with Mosquitto MQTT for seamless local network auto-discovery.</p>
-                        </div>
-                    </div>
-                    <div class="project-tech">
-                        <span class="tech-badge">Vanilla JS</span>
-                        <span class="tech-badge">WebRTC</span>
-                        <span class="tech-badge">PeerJS</span>
-                        <span class="tech-badge">MQTT</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://ezdrop.vyasdevgna.online/" target="_blank" rel="noopener" class="btn-small">Live Application ↗</a>
-                        <a href="https://github.com/vyas-devgna/ez-drop" target="_blank" rel="noopener" class="btn-small">Inspect Code ↗</a>
-                    </div>
-                </article>
-
-                <!-- Project Case Study 4 -->
-                <article class="project-card reveal">
-                    <div class="project-card-header">
-                        <span class="project-tag">Game Modding & IPC</span>
-                        <h3 class="project-title">BeatBlocks Control</h3>
-                        <p class="project-summary">A Fabric mod for Minecraft Java 1.21 that provides in-game control for Spotify with overlay, HUD, and hotkeys. Communicates locally with a Spicetify bridge without needing API keys.</p>
-                    </div>
-                    <div class="project-details">
-                        <div class="project-section">
-                            <h4>The Architecture</h4>
-                            <p>Built using the Fabric Modloader with a custom Java WebSocket client to securely communicate with the local Spicetify WebSocket server, providing real-time playback state sync.</p>
-                        </div>
-                    </div>
-                    <div class="project-tech">
-                        <span class="tech-badge">Java</span>
-                        <span class="tech-badge">Fabric API</span>
-                        <span class="tech-badge">WebSocket</span>
-                        <span class="tech-badge">Spicetify</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://blockbeats.vyasdevgna.online/" target="_blank" rel="noopener" class="btn-small">Documentation & Install ↗</a>
-                        <a href="https://github.com/vyas-devgna/beatblocks-control" target="_blank" rel="noopener" class="btn-small">Inspect Code ↗</a>
-                    </div>
-                </article>
-            </div>
-        </section>
-
-        <!-- Open Source Contributions Section -->
-        <section id="open-source" class="section section-alt">
-            <div class="container">
-                <p class="section-label reveal">Community &amp; Impact</p>
-                <h2 class="section-heading reveal">Open Source contributions.</h2>
-
-                <article class="project-card reveal">
-                    <div class="project-card-header">
-                        <span class="project-tag">Open Source Systems &amp; Utilities</span>
-                        <h3 class="project-title">ChrisTitusTech / winutil</h3>
-                        <p class="project-summary">Active open-source contributor to WinUtil (18k+ stars), one of GitHub's leading Windows utility and configuration tools, alongside core shell integration improvements.</p>
-                    </div>
-                    <div class="project-details">
-                        <div class="project-section">
-                            <h4>Drift Detection &amp; State Management</h4>
-                            <p>Engineered launch-time system drift detection to recognize registry changes made outside the utility (<a href="https://github.com/ChrisTitusTech/winutil/pull/4582" target="_blank" rel="noopener">#4582</a>, <a href="https://github.com/ChrisTitusTech/winutil/pull/4636" target="_blank" rel="noopener">#4636</a>), and refactored background runspace UI synchronization (<a href="https://github.com/ChrisTitusTech/winutil/pull/4885" target="_blank" rel="noopener">#4885</a>).</p>
-                        </div>
-                        <div class="project-section">
-                            <h4>Accessibility &amp; System Features</h4>
-                            <p>Implemented dynamic keyboard and mouse shortcut font scaling for high-DPI displays (<a href="https://github.com/ChrisTitusTech/winutil/pull/4781" target="_blank" rel="noopener">#4781</a>), improved install app visual hierarchies (<a href="https://github.com/ChrisTitusTech/winutil/pull/4771" target="_blank" rel="noopener">#4771</a>), and integrated storage optimization tweaks (<a href="https://github.com/ChrisTitusTech/winutil/pull/4664" target="_blank" rel="noopener">#4664</a>).</p>
-                        </div>
-                        <div class="project-section">
-                            <h4>PowerShell Profile Integration</h4>
-                            <p>Added native argument forwarding to <a href="https://github.com/ChrisTitusTech/powershell-profile" target="_blank" rel="noopener">powershell-profile</a> (<a href="https://github.com/ChrisTitusTech/powershell-profile/pull/206" target="_blank" rel="noopener">#206</a>), seamlessly passing CLI flags from shell wrappers to background automation tasks.</p>
-                        </div>
-                    </div>
-
-                    <!-- Collapsible Comprehensive Contribution Breakdown -->
-                    <details class="pr-collapse">
-                        <summary><span>Detailed Contributions Breakdown (WinUtil &amp; PowerShell Profile)</span></summary>
-                        <div class="pr-list">
-                            <a href="https://github.com/ChrisTitusTech/winutil/pull/4885" target="_blank" rel="noopener" class="pr-item">
-                                <div class="pr-header">
-                                    <span class="pr-title">Refactor UI checkbox and toggle state synchronization</span>
-                                    <div class="pr-meta">
-                                        <span class="pr-number">winutil #4885</span>
-                                        <span class="pr-tag pr-tag-refactor">Refactor</span>
-                                    </div>
-                                </div>
-                                <p class="pr-desc">Refactored background runspace state sync across UI checkboxes and toggles, eliminating race conditions during live modification.</p>
-                            </a>
-                            <a href="https://github.com/ChrisTitusTech/winutil/pull/4781" target="_blank" rel="noopener" class="pr-item">
-                                <div class="pr-header">
-                                    <span class="pr-title">Add font scaling keyboard and mouse shortcuts</span>
-                                    <div class="pr-meta">
-                                        <span class="pr-number">winutil #4781</span>
-                                        <span class="pr-tag pr-tag-feature">New Feature</span>
-                                    </div>
-                                </div>
-                                <p class="pr-desc">Implemented responsive real-time keyboard (Ctrl++/Ctrl+-) and mouse wheel UI scaling for high-DPI and accessibility monitors.</p>
-                            </a>
-                            <a href="https://github.com/ChrisTitusTech/winutil/pull/4771" target="_blank" rel="noopener" class="pr-item">
-                                <div class="pr-header">
-                                    <span class="pr-title">Improve install app card UI</span>
-                                    <div class="pr-meta">
-                                        <span class="pr-number">winutil #4771</span>
-                                        <span class="pr-tag pr-tag-ui">UI Update</span>
-                                    </div>
-                                </div>
-                                <p class="pr-desc">Enhanced application catalog selection visual hierarchy, button contrasts, and grid spacing for improved usability.</p>
-                            </a>
-                            <a href="https://github.com/ChrisTitusTech/winutil/pull/4664" target="_blank" rel="noopener" class="pr-item">
-                                <div class="pr-header">
-                                    <span class="pr-title">feat: add advanced tweak to disable reserved storage</span>
-                                    <div class="pr-meta">
-                                        <span class="pr-number">winutil #4664</span>
-                                        <span class="pr-tag pr-tag-feature">New Feature</span>
-                                    </div>
-                                </div>
-                                <p class="pr-desc">Integrated deep storage optimization tweak allowing power users to safely reclaim multi-gigabyte Windows OS reserved storage spaces.</p>
-                            </a>
-                            <a href="https://github.com/ChrisTitusTech/winutil/pull/4636" target="_blank" rel="noopener" class="pr-item">
-                                <div class="pr-header">
-                                    <span class="pr-title">fix: add registry tracking to WPFTweaksRightClickMenu for drift detection</span>
-                                    <div class="pr-meta">
-                                        <span class="pr-number">winutil #4636</span>
-                                        <span class="pr-tag pr-tag-bug">Bug Fix</span>
-                                    </div>
-                                </div>
-                                <p class="pr-desc">Fixed right-click menu context actions to register system modification state cleanly within the drift tracking validation pipeline.</p>
-                            </a>
-                            <a href="https://github.com/ChrisTitusTech/winutil/pull/4582" target="_blank" rel="noopener" class="pr-item">
-                                <div class="pr-header">
-                                    <span class="pr-title">Detect reverted tweaks on launch</span>
-                                    <div class="pr-meta">
-                                        <span class="pr-number">winutil #4582</span>
-                                        <span class="pr-tag pr-tag-feature">New Feature</span>
-                                    </div>
-                                </div>
-                                <p class="pr-desc">Engineered startup registry audit mechanism that dynamically detects when system tweaks have been externally modified or reverted by Windows updates.</p>
-                            </a>
-                            <a href="https://github.com/ChrisTitusTech/powershell-profile/pull/206" target="_blank" rel="noopener" class="pr-item">
-                                <div class="pr-header">
-                                    <span class="pr-title">Support argument forwarding in winutil functions</span>
-                                    <div class="pr-meta">
-                                        <span class="pr-number">powershell-profile #206</span>
-                                        <span class="pr-tag pr-tag-feature">New Feature</span>
-                                    </div>
-                                </div>
-                                <p class="pr-desc">Added parameter splatting and argument forwarding to WinUtil profile shell wrappers, allowing CLI switch execution without breaking shell defaults.</p>
-                            </a>
-                        </div>
-                    </details>
-
-                    <div class="project-tech">
-                        <span class="tech-badge">PowerShell</span>
-                        <span class="tech-badge">WPF &amp; XAML</span>
-                        <span class="tech-badge">Windows Registry &amp; APIs</span>
-                        <span class="tech-badge">Pester</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/ChrisTitusTech/winutil/pulls?q=is%3Apr+author%3Avyas-devgna+is%3Amerged" target="_blank" rel="noopener" class="btn-small">View Merged PRs ↗</a>
-                        <a href="https://github.com/ChrisTitusTech/winutil" target="_blank" rel="noopener" class="btn-small">winutil Repo ↗</a>
-                    </div>
-                </article>
-            </div>
-        </section>
-
-        <!-- Research Section -->
-        <section id="research" class="section">
-            <div class="container">
-                <p class="section-label reveal">Academic Publication</p>
-                <h2 class="section-heading reveal">Research under constraint.</h2>
-
-                <!-- Research Clipping Card -->
-                <article class="publication-card reveal">
-                    <!-- Premium Gold Corner Element -->
-                    <div class="pub-gold-corner"></div>
-                    <span class="pub-tag">Springer CCIS Series Publication</span>
-                    <h3 class="pub-title">HERMES: Design and Deployment of a Hybrid AI/ML Network Security System on ARM Clusters for Edge Environments</h3>
-                    <p class="pub-authors">Arpankumar G. Raval &amp; <strong>Devgna Vyas</strong></p>
-                    <p class="pub-venue">Presented at 7th International Conference on Soft Computing and Its Engineering Applications (icSoftComp 2025)</p>
-                    <div class="pub-meta">
-                        <span>📅 Dec 2025</span>
-                        <span>📚 Springer CCIS Volume</span>
-                        <span>🏛️ CHARUSAT Research Lab</span>
-                    </div>
-                    <p class="pub-abstract"><strong>Abstract:</strong> Designed and deployed a lightweight, cooperative intrusion detection system (IDS) combining signature-based filtering with a quantized 3-layer Deep Neural Network (DNN) classifier. Optimized specifically to run inline on low-power ARM edge nodes, securing local edge topologies without compute bottlenecks.</p>
-                    
-                    <br/>
-                    <!-- Performance Metrics Table -->
-                    <table width="100%" style="border-collapse: collapse; text-align: left; background-color: var(--bg-card); border: 2px solid var(--border); margin-top: 20px;">
-                        <thead>
-                          <tr style="border-bottom: 2px solid var(--border); background-color: var(--surface);">
-                            <th style="padding: 12px; font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; color: var(--accent);">Evaluation Metric</th>
-                            <th style="padding: 12px; font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; color: var(--text-primary);">Benchmarked Outcome</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr style="border-bottom: 1px solid var(--surface);">
-                            <td style="padding: 12px; font-family: var(--font-ui); font-size: 14px;">Detection Accuracy</td>
-                            <td style="padding: 12px; font-family: var(--font-mono); font-size: 14px; font-weight: bold; color: var(--accent);">94.7% (Novel attack identification)</td>
-                          </tr>
-                          <tr style="border-bottom: 1px solid var(--surface);">
-                            <td style="padding: 12px; font-family: var(--font-ui); font-size: 14px;">Low-Power Envelope</td>
-                            <td style="padding: 12px; font-family: var(--font-mono); font-size: 14px; font-weight: bold;">4.2W per ARM active node</td>
-                          </tr>
-                          <tr style="border-bottom: 1px solid var(--surface);">
-                            <td style="padding: 12px; font-family: var(--font-ui); font-size: 14px;">Packet Throughput</td>
-                            <td style="padding: 12px; font-family: var(--font-mono); font-size: 14px; font-weight: bold;">15 kpps inline detection</td>
-                          </tr>
-                          <tr>
-                            <td style="padding: 12px; font-family: var(--font-ui); font-size: 14px;">Energy Efficiency</td>
-                            <td style="padding: 12px; font-family: var(--font-mono); font-size: 14px; font-weight: bold; color: var(--brand-blue);">67% reduction compared to standard x86 IDS</td>
-                          </tr>
-                        </tbody>
-                    </table>
-                </article>
-            </div>
-        </section>
-
-        <!-- Skills Section -->
-        <section id="skills" class="section section-alt">
-            <div class="container">
-                <p class="section-label reveal">Tools I Trust</p>
-                <h2 class="section-heading reveal">Practical engineering stack.</h2>
-                <div class="skills-grid reveal">
-                    <div class="skill-category">
-                        <h4 class="skill-cat-title">Languages</h4>
-                        <ul class="skill-list">
-                            <li>Java <span>Proficient</span></li>
-                            <li>Dart <span>Proficient</span></li>
-                            <li>Go <span>Intermediate</span></li>
-                            <li>Python <span>Intermediate</span></li>
-                            <li>JavaScript <span>Intermediate</span></li>
-                            <li>SQL <span>Intermediate</span></li>
-                        </ul>
-                    </div>
-                    <div class="skill-category">
-                        <h4 class="skill-cat-title">Backend &amp; Systems</h4>
-                        <ul class="skill-list">
-                            <li>PostgreSQL &amp; Redis <span>Used in Prod</span></li>
-                            <li>WebSockets <span>Used in Prod</span></li>
-                            <li>WebRTC &amp; MQTT <span>Used in Prod</span></li>
-                            <li>REST API Design <span>Familiar</span></li>
-                            <li>Clean Architecture <span>Familiar</span></li>
-                        </ul>
-                    </div>
-                    <div class="skill-category">
-                        <h4 class="skill-cat-title">Networking &amp; Security</h4>
-                        <ul class="skill-list">
-                            <li>JWT &amp; Auth flows <span>Applied</span></li>
-                            <li>TCP/IP &amp; mDNS <span>Applied</span></li>
-                            <li>Intrusion Detection <span>Research</span></li>
-                            <li>Vulnerability Audits <span>Academic</span></li>
-                        </ul>
-                    </div>
-                    <div class="skill-category">
-                        <h4 class="skill-cat-title">Linux &amp; Tooling</h4>
-                        <ul class="skill-list">
-                            <li>Git / Version Control <span>Daily Use</span></li>
-                            <li>Linux Administration <span>Daily Use</span></li>
-                            <li>Docker Containers <span>Intermediate</span></li>
-                            <li>GitHub Actions <span>Intermediate</span></li>
-                        </ul>
-                    </div>
-                    <div class="skill-category">
-                        <h4 class="skill-cat-title">AI &amp; Edge Inference</h4>
-                        <ul class="skill-list">
-                            <li>Deep Neural Networks <span>Research</span></li>
-                            <li>Model Quantization <span>Research</span></li>
-                            <li>Google ML Kit <span>Applied</span></li>
-                        </ul>
-                    </div>
-                    <div class="skill-category">
-                        <h4 class="skill-cat-title">Mobile &amp; Frontend</h4>
-                        <ul class="skill-list">
-                            <li>Flutter &amp; Riverpod <span>Advanced</span></li>
-                            <li>Vanilla JS &amp; DOM <span>Intermediate</span></li>
-                            <li>Material Design <span>Intermediate</span></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Philosophy Section -->
-        <section id="philosophy" class="section">
-            <div class="container">
-                <div class="philosophy-block reveal">
-                    <p class="section-label">Engineering Ethos</p>
-                    <h2 class="philosophy-quote">"Being weak is nothing to be ashamed of… Staying weak is!"</h2>
-                    <p class="philosophy-author">— Fuegoleon Vermillion</p>
-                    <p class="philosophy-text">I believe in thinking from first principles — understanding data flow, control paths, and failure modes before writing a single line of code. I value performance, clarity, and maintainability over novelty. Given sufficient time and access, I focus on understanding the problem deeply and then building reliable, maintainable solutions.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Support Section -->
-        <section id="support" class="section section-alt">
-            <div class="container">
-                <p class="section-label reveal">Support</p>
-                <h2 class="section-heading reveal">Help keep the work going.</h2>
-                <p class="contact-text reveal" style="max-width: 36rem;">Open-source mods, research, and experiments — sponsorship and tips fund hosting and new features.</p>
-                <div class="support-embed-row support-compact reveal">
-                    <iframe src="https://github.com/sponsors/vyas-devgna/button" title="Sponsor vyas-devgna" height="32" width="114" style="border: 0; border-radius: 6px;"></iframe>
-                    <a class="upi-tip-link" href="tip.html" title="Tip via UPI — QR code and payment apps"><img src="images/upi-logo.png" alt="Tip via UPI" width="1165" height="414" /></a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="section">
-            <div class="container">
-                <p class="section-label reveal">Collaboration</p>
-                <h2 class="section-heading reveal">Let's build something reliable.</h2>
-                <div class="contact-grid">
-                    <div class="contact-info">
-                        <p class="contact-text reveal">I'm always open to discussing new projects, backend systems, security research, internships, or engineering discussions.</p>
-                        <div class="contact-links reveal">
-                            <a href="mailto:vyasdevgna@gmail.com" class="contact-item" id="contact-email" aria-label="Send email to vyasdevgna@gmail.com">
-                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                                <span>vyasdevgna@gmail.com</span>
-                            </a>
-                            <a href="https://github.com/vyas-devgna" target="_blank" rel="noopener" class="contact-item" id="contact-github" aria-label="Visit GitHub profile">
-                                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                                <span>github.com/vyas-devgna</span>
-                            </a>
-                            <a href="https://linkedin.com/in/devgna-vyas" target="_blank" rel="noopener" class="contact-item" id="contact-linkedin" aria-label="Visit LinkedIn profile">
-                                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                                <span>linkedin.com/in/devgna-vyas</span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="contact-form-wrapper reveal">
-                        <form id="contact-form" action="https://formspree.io/f/xvzylwel" method="POST" class="brutal-form">
-                            <div class="form-group">
-                                <label for="contact-name">Name</label>
-                                <input type="text" name="name" id="contact-name" placeholder="John Doe" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="contact-email-input">Email</label>
-                                <input type="email" name="_replyto" id="contact-email-input" placeholder="john@example.com" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="contact-message">Message</label>
-                                <textarea name="message" id="contact-message" placeholder="Let's build something..." required rows="4"></textarea>
-                            </div>
-                            <button type="submit" class="btn-brutal btn-brutal-accent">Send Message</button>
-                            <p id="form-status" class="form-status"></p>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Back to Top -->
-    <button id="back-to-top" class="back-to-top" aria-label="Back to top">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
-    </button>
-
-    <!-- Footer -->
-    <footer class="footer" role="contentinfo">
-        <div class="container">
-            <p class="footer-text">Designed &amp; built by Devgna Vyas · <span id="footer-year"></span></p>
-            <script>document.getElementById('footer-year').textContent = new Date().getFullYear();</script>
+      <div class="hero-copy">
+        <div class="eyebrow reveal-row">
+          <span><i class="status-dot"></i> AVAILABLE FOR INTERESTING PROBLEMS</span>
+          <span>NADIAD / INDIA</span>
         </div>
-    </footer>
 
-    <script>
-      (function () {
-        'use strict';
+        <h1 class="hero-title" aria-label="I build systems that hold up">
+          <span class="hero-line" data-scramble="I BUILD">I BUILD</span>
+          <span class="hero-line outline" data-scramble="SYSTEMS">SYSTEMS</span>
+          <span class="hero-line" data-scramble="THAT HOLD UP">THAT HOLD UP</span>
+        </h1>
 
-        var VERSION_FILE = 'version.json';
-        var VERSION_STORAGE_KEY = 'portfolio_asset_version';
+        <div class="hero-bottom reveal-row">
+          <p class="hero-intro">Systems-first engineer working across networking, security, local-first software, AI tooling and open source. I like products that remain interesting after you inspect the architecture.</p>
+          <div class="hero-actions">
+            <a class="action primary magnetic" href="#work">EXPLORE WORK <span>↘</span></a>
+            <a class="action magnetic" href="https://github.com/vyas-devgna" target="_blank" rel="noopener">GITHUB <span>↗</span></a>
+          </div>
+        </div>
+      </div>
 
-        function safeGetStoredVersion() {
-          try { return localStorage.getItem(VERSION_STORAGE_KEY); } catch (_) { return null; }
-        }
+      <div class="hero-visual" id="hero-visual">
+        <div class="portrait-shell">
+          <div class="portrait-meta portrait-meta-top"><span>IDENT // DV-01</span><span>HUMAN OPERATED</span></div>
+          <img class="portrait portrait-a" src="images/hero.png" alt="Portrait of Devgna Vyas" fetchpriority="high" decoding="async" />
+          <img class="portrait portrait-b" src="images/hero2.jpg" alt="" aria-hidden="true" decoding="async" />
+          <div class="portrait-scan" aria-hidden="true"></div>
+          <div class="portrait-crosshair" aria-hidden="true"></div>
+          <div class="portrait-meta portrait-meta-bottom"><span>SYS.FOCUS / 94%</span><span>NO TEMPLATE MODE</span></div>
+        </div>
+      </div>
 
-        function safeSetStoredVersion(version) {
-          try { localStorage.setItem(VERSION_STORAGE_KEY, version); } catch (_) {}
-        }
+      <div class="telemetry" aria-label="Live portfolio telemetry">
+        <div class="telemetry-item"><span>LOCAL TIME</span><strong id="local-time">--:--:--</strong></div>
+        <div class="telemetry-item"><span>GITHUB</span><strong id="github-status">CONNECTING</strong></div>
+        <div class="telemetry-item"><span>RUNTIME</span><strong id="runtime-status">STATIC / EDGE</strong></div>
+        <div class="telemetry-item wide"><span>NOW EXPLORING</span><strong id="rotating-role">NETWORK SYSTEMS</strong></div>
+      </div>
+    </section>
 
-        function loadApp(version) {
-          var safeVersion = encodeURIComponent(version || Date.now().toString());
-          window.__APP_VERSION__ = safeVersion;
+    <section class="manifesto section-pad" id="about">
+      <div class="section-index">00</div>
+      <p class="kicker">OPERATING PRINCIPLES</p>
+      <div class="manifesto-grid">
+        <h2 class="display-copy reveal-text">I care less about how clever the code looks and more about what happens when the network is bad, state drifts, a device disappears, or someone uses the system incorrectly.</h2>
+        <div class="manifesto-side reveal-row">
+          <p>First principles before frameworks. Failure paths before happy paths. Measure before optimizing. Automate repetitive work, not judgment.</p>
+          <div class="principle-list">
+            <span>01 // SYSTEMS THINKING</span>
+            <span>02 // PERFORMANCE</span>
+            <span>03 // SECURITY</span>
+            <span>04 // LOCAL-FIRST</span>
+            <span>05 // OPEN SOURCE</span>
+          </div>
+        </div>
+      </div>
+    </section>
 
-          var styleEl = document.getElementById('app-style');
-          if (styleEl) styleEl.href = 'css/style.css?v=' + safeVersion;
+    <section class="work section-pad" id="work">
+      <div class="section-head">
+        <div><span class="section-index">01</span><p class="kicker">SELECTED BUILDS</p></div>
+        <h2>Projects with an architecture, not just a screenshot.</h2>
+      </div>
 
-          ['js/main.js', 'js/sakura.js'].forEach(function (src) {
-            var script = document.createElement('script');
-            script.src = src + '?v=' + safeVersion;
-            document.body.appendChild(script);
-          });
-        }
+      <div class="project-stack">
+        <article class="project-card featured" data-project="EzBoard" data-accent="cyan">
+          <div class="project-number">01</div>
+          <div class="project-main">
+            <div class="project-topline"><span>LOCAL-FIRST COLLABORATION</span><span>2026</span></div>
+            <h3>EzBoard</h3>
+            <p>A private infinite canvas where humans and AI agents collaborate directly. WebRTC carries scene state and presence peer-to-peer, Nostr handles discovery, and the board stays local instead of becoming somebody else’s database.</p>
+            <div class="architecture-strip"><span>React</span><span>TypeScript</span><span>Excalidraw</span><span>WebRTC</span><span>Nostr</span><span>IndexedDB</span></div>
+          </div>
+          <div class="project-aside">
+            <div class="mini-terminal" aria-hidden="true"><span>$ transport</span><strong>P2P / ENCRYPTED</strong><span>$ persistence</span><strong>LOCAL / OFFLINE</strong></div>
+            <a class="project-link magnetic" href="https://ezboard.vyasdevgna.online" target="_blank" rel="noopener">LIVE ↗</a>
+            <a class="project-link subtle" href="https://github.com/vyas-devgna/ezboard" target="_blank" rel="noopener">SOURCE ↗</a>
+          </div>
+        </article>
 
-        function forceFreshHtmlLoad(version) {
-          var url = new URL(window.location.href);
-          if (url.searchParams.get('appv') === version) return false;
-          url.searchParams.set('appv', version);
-          window.location.replace(url.toString());
-          return true;
-        }
+        <article class="project-card" data-project="Same.Energy Android" data-accent="violet">
+          <div class="project-number">02</div>
+          <div class="project-main">
+            <div class="project-topline"><span>MOBILE / VISUAL SEARCH</span><span>FLUTTER</span></div>
+            <h3>Same.Energy Android</h3>
+            <p>A gesture-driven mobile client for semantic visual search, engineered around responsive masonry layouts, image prefetching, local caching and predictable state boundaries.</p>
+            <div class="architecture-strip"><span>Flutter</span><span>Dart</span><span>Riverpod</span><span>GoRouter</span><span>Dio</span></div>
+          </div>
+          <div class="project-aside"><div class="signal-orb" aria-hidden="true"></div><a class="project-link magnetic" href="https://github.com/vyas-devgna/same-energy-android" target="_blank" rel="noopener">SOURCE ↗</a></div>
+        </article>
 
-        (function cleanUrl() {
-          var url = new URL(window.location.href);
-          if (url.searchParams.has('appv')) {
-            url.searchParams.delete('appv');
-            var clean = url.pathname + (url.search || '') + (url.hash || '');
-            history.replaceState(null, '', clean || '/');
-          }
-        })();
+        <article class="project-card" data-project="Smart Attendance" data-accent="lime">
+          <div class="project-number">03</div>
+          <div class="project-main">
+            <div class="project-topline"><span>SECURITY / PRESENCE</span><span>MULTI-FACTOR</span></div>
+            <h3>Smart Attendance</h3>
+            <p>Attendance verification designed around rotating signed QR tokens, BLE proximity, on-device liveness and an auditable backend instead of trusting a single location signal.</p>
+            <div class="architecture-strip"><span>Go</span><span>Flutter</span><span>PostgreSQL</span><span>Redis</span><span>BLE</span><span>HMAC</span></div>
+          </div>
+          <div class="project-aside"><div class="radar" aria-hidden="true"><i></i><i></i><i></i></div><a class="project-link magnetic" href="https://github.com/vyas-devgna" target="_blank" rel="noopener">GITHUB ↗</a></div>
+        </article>
 
-        fetch(VERSION_FILE + '?t=' + Date.now(), { cache: 'no-store' })
-          .then(function (res) {
-            if (!res.ok) throw new Error('version fetch failed');
-            return res.json();
-          })
-          .then(function (payload) {
-            var version = String((payload && payload.version) || '').trim();
-            if (!version) {
-              loadApp(Date.now().toString());
-              return;
-            }
+        <article class="project-card" data-project="ez-drop" data-accent="orange">
+          <div class="project-number">04</div>
+          <div class="project-main">
+            <div class="project-topline"><span>P2P FILE TRANSFER</span><span>SERVERLESS</span></div>
+            <h3>ez-drop</h3>
+            <p>Direct browser-to-browser file and text transfer using WebRTC data channels, with discovery built around lightweight public signaling instead of file storage infrastructure.</p>
+            <div class="architecture-strip"><span>WebRTC</span><span>PeerJS</span><span>MQTT</span><span>Vanilla JS</span></div>
+          </div>
+          <div class="project-aside"><div class="packet-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div><a class="project-link magnetic" href="https://ezdrop.vyasdevgna.online/" target="_blank" rel="noopener">LIVE ↗</a><a class="project-link subtle" href="https://github.com/vyas-devgna/ez-drop" target="_blank" rel="noopener">SOURCE ↗</a></div>
+        </article>
 
-            var previous = safeGetStoredVersion();
-            safeSetStoredVersion(version);
+        <article class="project-card" data-project="BeatBlocks Control" data-accent="pink">
+          <div class="project-number">05</div>
+          <div class="project-main">
+            <div class="project-topline"><span>GAME MODDING / IPC</span><span>MINECRAFT</span></div>
+            <h3>BeatBlocks Control</h3>
+            <p>A Minecraft Fabric mod that controls Spotify through a local Spicetify bridge, giving the game a real-time playback HUD and hotkeys without requiring third-party API credentials.</p>
+            <div class="architecture-strip"><span>Java</span><span>Fabric API</span><span>WebSocket</span><span>Spicetify</span></div>
+          </div>
+          <div class="project-aside"><div class="equalizer" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div><a class="project-link magnetic" href="https://blockbeats.vyasdevgna.online/" target="_blank" rel="noopener">DOCS ↗</a></div>
+        </article>
+      </div>
+    </section>
 
-            if (previous !== version && forceFreshHtmlLoad(version)) return;
-            loadApp(version);
-          })
-          .catch(function () {
-            loadApp(Date.now().toString());
-          });
-      })();
-    </script>
+    <section class="lab section-pad" id="lab">
+      <div class="section-head">
+        <div><span class="section-index">02</span><p class="kicker">LIVE GITHUB FEED</p></div>
+        <h2>The lab changes faster than this portfolio should.</h2>
+      </div>
+      <div class="lab-console">
+        <div class="console-head"><span>github://vyas-devgna/repos?sort=updated</span><span id="repo-fetch-state">WAITING</span></div>
+        <div class="repo-grid" id="repo-grid" aria-live="polite">
+          <div class="repo-skeleton"></div><div class="repo-skeleton"></div><div class="repo-skeleton"></div><div class="repo-skeleton"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="open-source section-pad" id="open-source">
+      <div class="oss-layout">
+        <div>
+          <span class="section-index">OSS</span>
+          <p class="kicker">UPSTREAM WORK</p>
+          <h2 class="display-copy small reveal-text">Shipping into other people’s codebases is a different kind of engineering.</h2>
+        </div>
+        <article class="oss-card reveal-row">
+          <div class="oss-header"><span>ChrisTitusTech / winutil</span><span>MERGED WORK</span></div>
+          <p>Contributions across state drift detection, WPF UI synchronization, accessibility scaling, storage controls and PowerShell argument forwarding.</p>
+          <div class="pr-grid">
+            <a href="https://github.com/ChrisTitusTech/winutil/pull/4885" target="_blank" rel="noopener"><span>#4885</span> UI state synchronization</a>
+            <a href="https://github.com/ChrisTitusTech/winutil/pull/4781" target="_blank" rel="noopener"><span>#4781</span> DPI / font scaling</a>
+            <a href="https://github.com/ChrisTitusTech/winutil/pull/4664" target="_blank" rel="noopener"><span>#4664</span> Reserved storage control</a>
+            <a href="https://github.com/ChrisTitusTech/winutil/pull/4582" target="_blank" rel="noopener"><span>#4582</span> Drift detection</a>
+          </div>
+          <a class="text-link" href="https://github.com/ChrisTitusTech/winutil/pulls?q=is%3Apr+author%3Avyas-devgna+is%3Amerged" target="_blank" rel="noopener">VIEW MERGED PULL REQUESTS ↗</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="research section-pad" id="research">
+      <div class="section-head">
+        <div><span class="section-index">03</span><p class="kicker">PUBLISHED RESEARCH</p></div>
+        <h2>Security when compute and power are part of the threat model.</h2>
+      </div>
+      <article class="research-console reveal-row">
+        <div class="research-copy">
+          <span class="research-tag">SPRINGER CCIS // icSoftComp 2025</span>
+          <h3>HERMES</h3>
+          <h4>Design and Deployment of a Hybrid AI/ML Network Security System on ARM Clusters for Edge Environments</h4>
+          <p>With Arpankumar G. Raval. A cooperative intrusion-detection architecture combining signature filtering with a quantized neural classifier for low-power ARM edge nodes.</p>
+        </div>
+        <div class="metrics" aria-label="Research metrics">
+          <div><span>DETECTION</span><strong>94.7%</strong><small>novel attack identification</small></div>
+          <div><span>POWER</span><strong>4.2W</strong><small>per active ARM node</small></div>
+          <div><span>THROUGHPUT</span><strong>15k</strong><small>packets / sec inline</small></div>
+          <div><span>EFFICIENCY</span><strong>−67%</strong><small>energy vs standard x86 IDS</small></div>
+        </div>
+      </article>
+    </section>
+
+    <section class="stack section-pad" id="stack">
+      <div class="section-head compact">
+        <div><span class="section-index">STACK</span><p class="kicker">TOOLS, NOT IDENTITY</p></div>
+        <h2>I choose the layer that fits the failure mode.</h2>
+      </div>
+      <div class="stack-map reveal-row">
+        <div class="stack-node core"><span>CORE</span><strong>Linux · Git · Networking · SQL</strong></div>
+        <div class="stack-node"><span>LANGUAGES</span><strong>Java · Dart · Go · Python · JavaScript</strong></div>
+        <div class="stack-node"><span>SYSTEMS</span><strong>WebRTC · WebSockets · MQTT · Redis · PostgreSQL</strong></div>
+        <div class="stack-node"><span>CLIENT</span><strong>Flutter · Riverpod · DOM · PWA</strong></div>
+        <div class="stack-node"><span>SECURITY</span><strong>Auth flows · HMAC · JWT · Threat modelling · IDS</strong></div>
+        <div class="stack-node"><span>AI</span><strong>Agentic workflows · Quantization · Edge inference</strong></div>
+      </div>
+    </section>
+
+    <section class="contact section-pad" id="contact">
+      <div class="contact-orbit" aria-hidden="true"><i></i><i></i><i></i></div>
+      <p class="kicker">04 / OPEN CHANNEL</p>
+      <h2 class="contact-title reveal-text">HAVE A WEIRD,<br />DIFFICULT PROBLEM?</h2>
+      <p class="contact-copy">Backend systems, networking, security, open source, experiments, research, or something that does not fit neatly into a job title.</p>
+      <div class="contact-actions reveal-row">
+        <a class="action primary magnetic" href="mailto:vyasdevgna@gmail.com">EMAIL ME <span>↗</span></a>
+        <a class="action magnetic" href="https://linkedin.com/in/devgna-vyas" target="_blank" rel="noopener">LINKEDIN <span>↗</span></a>
+        <a class="action magnetic" href="tip.html">SUPPORT THE LAB <span>↗</span></a>
+      </div>
+      <div class="contact-footer"><span>© <span id="year"></span> DEVGNA VYAS</span><span>STATIC BY DESIGN // GITHUB PAGES</span><span>PRESS ⌘K ANYTIME</span></div>
+    </section>
+  </main>
+
+  <dialog class="command-palette" id="command-palette" aria-label="Command palette">
+    <form method="dialog" class="command-shell">
+      <div class="command-input-row"><span>›</span><input id="command-input" autocomplete="off" spellcheck="false" placeholder="Jump to a section or open a project…" aria-label="Search commands" /><button value="cancel" aria-label="Close command palette">ESC</button></div>
+      <div class="command-results" id="command-results" role="listbox"></div>
+      <div class="command-help"><span>↑↓ NAVIGATE</span><span>↵ OPEN</span><span>ESC CLOSE</span></div>
+    </form>
+  </dialog>
+
+  <script type="module" src="js/main.js"></script>
 </body>
 </html>

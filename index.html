@@ -1,308 +1,197 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="color-scheme" content="dark light" />
-  <meta name="theme-color" content="#07080a" />
-  <title>Devgna Vyas — Systems, Security & Open Source</title>
-  <meta name="description" content="Devgna Vyas builds systems, networking tools, security research, local-first software and open-source engineering experiments." />
-  <meta name="author" content="Devgna Vyas" />
-  <link rel="canonical" href="https://vyasdevgna.online/" />
-  <meta property="og:title" content="Devgna Vyas — Systems, Security & Open Source" />
-  <meta property="og:description" content="Systems-first engineering, local-first software, networking, security and ambitious open-source experiments." />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0d0d0d" />
+  <title>Devgna Vyas — Systems, AI, Open Source</title>
+  <meta name="description" content="Devgna Vyas builds systems, agent infrastructure, local-first software, security research, and open-source engineering tools." />
+  <meta property="og:title" content="Devgna Vyas — Systems, AI, Open Source" />
+  <meta property="og:description" content="Selected engineering work, research, open source, and experiments." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://vyasdevgna.online/" />
   <meta property="og:image" content="https://vyasdevgna.online/images/hero2.jpg" />
-  <meta name="twitter:card" content="summary_large_image" />
-
+  <link rel="canonical" href="https://vyasdevgna.online/" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preconnect" href="https://api.github.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Manrope:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
-
-  <script type="importmap">
-    {
-      "imports": {
-        "motion": "https://cdn.jsdelivr.net/npm/motion@13.1.1/+esm",
-        "lenis": "https://cdn.jsdelivr.net/npm/lenis@1.3.26/+esm"
-      }
-    }
-  </script>
-
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "ProfilePage",
-      "mainEntity": {
-        "@type": "Person",
-        "name": "Devgna Vyas",
-        "url": "https://vyasdevgna.online/",
-        "image": "https://vyasdevgna.online/images/hero.png",
-        "email": "mailto:vyasdevgna@gmail.com",
-        "alumniOf": {"@type":"CollegeOrUniversity","name":"CHARUSAT University"},
-        "knowsAbout": ["Systems Engineering","Networking","Cybersecurity","Open Source","Linux","WebRTC","Flutter","AI Engineering"],
-        "sameAs": ["https://github.com/vyas-devgna","https://linkedin.com/in/devgna-vyas"]
-      }
-    }
-  </script>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
-  <div class="noise" aria-hidden="true"></div>
-  <div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
-  <div class="scroll-rail" aria-hidden="true"><span id="scroll-progress"></span></div>
+  <a class="skip" href="#scene-home">Skip to content</a>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="ambient" aria-hidden="true"><i></i><i></i><i></i></div>
 
-  <header class="site-header" id="site-header">
-    <a class="brand" href="#top" aria-label="Devgna Vyas, home">
-      <span class="brand-mark">DV</span>
-      <span class="brand-copy"><strong>DEVGNA VYAS</strong><small>SYS // 2026</small></span>
+  <header class="topbar">
+    <a class="identity" href="#home" data-scene-link="0" aria-label="Home">
+      <span class="sigil">DV</span>
+      <span><strong>DEVGNA VYAS</strong><small>SYSTEMS / AGENTS / OPEN SOURCE</small></span>
     </a>
-
-    <nav class="desktop-nav" aria-label="Primary">
-      <a href="#work">01 / WORK</a>
-      <a href="#lab">02 / LAB</a>
-      <a href="#research">03 / RESEARCH</a>
-      <a href="#contact">04 / CONTACT</a>
+    <nav class="nav" aria-label="Primary">
+      <button data-scene-link="0" class="active">INDEX</button>
+      <button data-scene-link="1">WORK</button>
+      <button data-scene-link="2">RESEARCH</button>
+      <button data-scene-link="3">ABOUT</button>
+      <button data-scene-link="4">CONTACT</button>
     </nav>
-
-    <div class="header-actions">
-      <button class="icon-button" id="theme-toggle" type="button" aria-label="Toggle theme">◐</button>
-      <button class="command-trigger" id="command-trigger" type="button" aria-haspopup="dialog" aria-controls="command-palette">
-        <span>COMMAND</span><kbd>⌘K</kbd>
-      </button>
-      <button class="menu-trigger" id="menu-trigger" type="button" aria-expanded="false" aria-controls="mobile-nav">MENU</button>
-    </div>
-
-    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation" hidden>
-      <a href="#work">WORK</a><a href="#lab">LAB</a><a href="#research">RESEARCH</a><a href="#contact">CONTACT</a>
-    </nav>
+    <a class="github-link" href="https://github.com/vyas-devgna" target="_blank" rel="noopener">GITHUB ↗</a>
   </header>
 
-  <main id="main">
-    <section class="hero" id="top">
-      <canvas id="signal-field" class="signal-field" aria-hidden="true"></canvas>
-      <div class="hero-grid" aria-hidden="true"></div>
-
-      <div class="hero-copy">
-        <div class="eyebrow reveal-row">
-          <span><i class="status-dot"></i> AVAILABLE FOR INTERESTING PROBLEMS</span>
-          <span>NADIAD / INDIA</span>
-        </div>
-
-        <h1 class="hero-title" aria-label="I build systems that hold up">
-          <span class="hero-line" data-scramble="I BUILD">I BUILD</span>
-          <span class="hero-line outline" data-scramble="SYSTEMS">SYSTEMS</span>
-          <span class="hero-line" data-scramble="THAT HOLD UP">THAT HOLD UP</span>
-        </h1>
-
-        <div class="hero-bottom reveal-row">
-          <p class="hero-intro">Systems-first engineer working across networking, security, local-first software, AI tooling and open source. I like products that remain interesting after you inspect the architecture.</p>
-          <div class="hero-actions">
-            <a class="action primary magnetic" href="#work">EXPLORE WORK <span>↘</span></a>
-            <a class="action magnetic" href="https://github.com/vyas-devgna" target="_blank" rel="noopener">GITHUB <span>↗</span></a>
+  <main class="stage" id="stage" aria-live="polite">
+    <section class="scene active" id="scene-home" data-scene="0" aria-label="Introduction">
+      <div class="art art-fallen" aria-hidden="true"></div>
+      <div class="art-veil" aria-hidden="true"></div>
+      <div class="scene-grid home-grid">
+        <div class="home-copy">
+          <p class="eyebrow">ENGINEER / RESEARCHER / BUILDER</p>
+          <h1>I build things<br><em>that have to hold up.</em></h1>
+          <p class="lede">Systems, local-first software, agent infrastructure, networking, security, and the occasional strange idea worth testing properly.</p>
+          <div class="home-actions">
+            <button class="text-link" data-scene-link="1">Selected work <span>→</span></button>
+            <a class="text-link muted" href="mailto:vyasdevgna@gmail.com">Talk to me <span>↗</span></a>
           </div>
         </div>
-      </div>
 
-      <div class="hero-visual" id="hero-visual">
-        <div class="portrait-shell">
-          <div class="portrait-meta portrait-meta-top"><span>IDENT // DV-01</span><span>HUMAN OPERATED</span></div>
-          <img class="portrait portrait-a" src="images/hero.png" alt="Portrait of Devgna Vyas" fetchpriority="high" decoding="async" />
-          <img class="portrait portrait-b" src="images/hero2.jpg" alt="" aria-hidden="true" decoding="async" />
-          <div class="portrait-scan" aria-hidden="true"></div>
-          <div class="portrait-crosshair" aria-hidden="true"></div>
-          <div class="portrait-meta portrait-meta-bottom"><span>SYS.FOCUS / 94%</span><span>NO TEMPLATE MODE</span></div>
-        </div>
-      </div>
+        <aside class="artifact-note">
+          <span>01 / FALLEN ANGEL</span>
+          <p>Cabanel, 1847</p>
+          <small>Public-domain study used as atmosphere, not decoration.</small>
+        </aside>
 
-      <div class="telemetry" aria-label="Live portfolio telemetry">
-        <div class="telemetry-item"><span>LOCAL TIME</span><strong id="local-time">--:--:--</strong></div>
-        <div class="telemetry-item"><span>GITHUB</span><strong id="github-status">CONNECTING</strong></div>
-        <div class="telemetry-item"><span>RUNTIME</span><strong id="runtime-status">STATIC / EDGE</strong></div>
-        <div class="telemetry-item wide"><span>NOW EXPLORING</span><strong id="rotating-role">NETWORK SYSTEMS</strong></div>
-      </div>
-    </section>
-
-    <section class="manifesto section-pad" id="about">
-      <div class="section-index">00</div>
-      <p class="kicker">OPERATING PRINCIPLES</p>
-      <div class="manifesto-grid">
-        <h2 class="display-copy reveal-text">I care less about how clever the code looks and more about what happens when the network is bad, state drifts, a device disappears, or someone uses the system incorrectly.</h2>
-        <div class="manifesto-side reveal-row">
-          <p>First principles before frameworks. Failure paths before happy paths. Measure before optimizing. Automate repetitive work, not judgment.</p>
-          <div class="principle-list">
-            <span>01 // SYSTEMS THINKING</span>
-            <span>02 // PERFORMANCE</span>
-            <span>03 // SECURITY</span>
-            <span>04 // LOCAL-FIRST</span>
-            <span>05 // OPEN SOURCE</span>
-          </div>
+        <div class="home-orbit" aria-hidden="true">
+          <svg viewBox="0 0 260 260" role="img">
+            <circle cx="130" cy="130" r="94"/>
+            <circle cx="130" cy="130" r="57"/>
+            <path d="M36 130h188M130 36v188"/>
+            <path class="orbit-dash" d="M68 59c55-38 126-10 145 43 18 51-17 109-70 123-54 15-109-20-120-73-8-39 8-72 45-93z"/>
+            <circle class="node" cx="198" cy="82" r="5"/>
+            <circle class="node" cx="75" cy="190" r="4"/>
+          </svg>
         </div>
       </div>
     </section>
 
-    <section class="work section-pad" id="work">
-      <div class="section-head">
-        <div><span class="section-index">01</span><p class="kicker">SELECTED BUILDS</p></div>
-        <h2>Projects with an architecture, not just a screenshot.</h2>
-      </div>
+    <section class="scene" id="scene-work" data-scene="1" aria-label="Selected work">
+      <div class="art art-icarus" aria-hidden="true"></div>
+      <div class="art-veil stronger" aria-hidden="true"></div>
+      <div class="scene-grid work-grid">
+        <header class="scene-heading">
+          <p class="eyebrow">SELECTED WORK / 05</p>
+          <h2>Not everything.<br><em>Only the work worth opening.</em></h2>
+        </header>
 
-      <div class="project-stack">
-        <article class="project-card featured" data-project="EzBoard" data-accent="cyan">
-          <div class="project-number">01</div>
-          <div class="project-main">
-            <div class="project-topline"><span>LOCAL-FIRST COLLABORATION</span><span>2026</span></div>
-            <h3>EzBoard</h3>
-            <p>A private infinite canvas where humans and AI agents collaborate directly. WebRTC carries scene state and presence peer-to-peer, Nostr handles discovery, and the board stays local instead of becoming somebody else’s database.</p>
-            <div class="architecture-strip"><span>React</span><span>TypeScript</span><span>Excalidraw</span><span>WebRTC</span><span>Nostr</span><span>IndexedDB</span></div>
-          </div>
-          <div class="project-aside">
-            <div class="mini-terminal" aria-hidden="true"><span>$ transport</span><strong>P2P / ENCRYPTED</strong><span>$ persistence</span><strong>LOCAL / OFFLINE</strong></div>
-            <a class="project-link magnetic" href="https://ezboard.vyasdevgna.online" target="_blank" rel="noopener">LIVE ↗</a>
-            <a class="project-link subtle" href="https://github.com/vyas-devgna/ezboard" target="_blank" rel="noopener">SOURCE ↗</a>
-          </div>
-        </article>
-
-        <article class="project-card" data-project="Same.Energy Android" data-accent="violet">
-          <div class="project-number">02</div>
-          <div class="project-main">
-            <div class="project-topline"><span>MOBILE / VISUAL SEARCH</span><span>FLUTTER</span></div>
-            <h3>Same.Energy Android</h3>
-            <p>A gesture-driven mobile client for semantic visual search, engineered around responsive masonry layouts, image prefetching, local caching and predictable state boundaries.</p>
-            <div class="architecture-strip"><span>Flutter</span><span>Dart</span><span>Riverpod</span><span>GoRouter</span><span>Dio</span></div>
-          </div>
-          <div class="project-aside"><div class="signal-orb" aria-hidden="true"></div><a class="project-link magnetic" href="https://github.com/vyas-devgna/same-energy-android" target="_blank" rel="noopener">SOURCE ↗</a></div>
-        </article>
-
-        <article class="project-card" data-project="Smart Attendance" data-accent="lime">
-          <div class="project-number">03</div>
-          <div class="project-main">
-            <div class="project-topline"><span>SECURITY / PRESENCE</span><span>MULTI-FACTOR</span></div>
-            <h3>Smart Attendance</h3>
-            <p>Attendance verification designed around rotating signed QR tokens, BLE proximity, on-device liveness and an auditable backend instead of trusting a single location signal.</p>
-            <div class="architecture-strip"><span>Go</span><span>Flutter</span><span>PostgreSQL</span><span>Redis</span><span>BLE</span><span>HMAC</span></div>
-          </div>
-          <div class="project-aside"><div class="radar" aria-hidden="true"><i></i><i></i><i></i></div><a class="project-link magnetic" href="https://github.com/vyas-devgna" target="_blank" rel="noopener">GITHUB ↗</a></div>
-        </article>
-
-        <article class="project-card" data-project="ez-drop" data-accent="orange">
-          <div class="project-number">04</div>
-          <div class="project-main">
-            <div class="project-topline"><span>P2P FILE TRANSFER</span><span>SERVERLESS</span></div>
-            <h3>ez-drop</h3>
-            <p>Direct browser-to-browser file and text transfer using WebRTC data channels, with discovery built around lightweight public signaling instead of file storage infrastructure.</p>
-            <div class="architecture-strip"><span>WebRTC</span><span>PeerJS</span><span>MQTT</span><span>Vanilla JS</span></div>
-          </div>
-          <div class="project-aside"><div class="packet-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div><a class="project-link magnetic" href="https://ezdrop.vyasdevgna.online/" target="_blank" rel="noopener">LIVE ↗</a><a class="project-link subtle" href="https://github.com/vyas-devgna/ez-drop" target="_blank" rel="noopener">SOURCE ↗</a></div>
-        </article>
-
-        <article class="project-card" data-project="BeatBlocks Control" data-accent="pink">
-          <div class="project-number">05</div>
-          <div class="project-main">
-            <div class="project-topline"><span>GAME MODDING / IPC</span><span>MINECRAFT</span></div>
-            <h3>BeatBlocks Control</h3>
-            <p>A Minecraft Fabric mod that controls Spotify through a local Spicetify bridge, giving the game a real-time playback HUD and hotkeys without requiring third-party API credentials.</p>
-            <div class="architecture-strip"><span>Java</span><span>Fabric API</span><span>WebSocket</span><span>Spicetify</span></div>
-          </div>
-          <div class="project-aside"><div class="equalizer" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div><a class="project-link magnetic" href="https://blockbeats.vyasdevgna.online/" target="_blank" rel="noopener">DOCS ↗</a></div>
-        </article>
-      </div>
-    </section>
-
-    <section class="lab section-pad" id="lab">
-      <div class="section-head">
-        <div><span class="section-index">02</span><p class="kicker">LIVE GITHUB FEED</p></div>
-        <h2>The lab changes faster than this portfolio should.</h2>
-      </div>
-      <div class="lab-console">
-        <div class="console-head"><span>github://vyas-devgna/repos?sort=updated</span><span id="repo-fetch-state">WAITING</span></div>
-        <div class="repo-grid" id="repo-grid" aria-live="polite">
-          <div class="repo-skeleton"></div><div class="repo-skeleton"></div><div class="repo-skeleton"></div><div class="repo-skeleton"></div>
+        <div class="project-index" role="tablist" aria-label="Projects">
+          <button role="tab" aria-selected="true" data-project="0"><span>01</span>BRAIDS</button>
+          <button role="tab" aria-selected="false" data-project="1"><span>02</span>LIWM</button>
+          <button role="tab" aria-selected="false" data-project="2"><span>03</span>EZBOARD</button>
+          <button role="tab" aria-selected="false" data-project="3"><span>04</span>WINUTIL</button>
+          <button role="tab" aria-selected="false" data-project="4"><span>05</span>HERMES</button>
         </div>
-      </div>
-    </section>
 
-    <section class="open-source section-pad" id="open-source">
-      <div class="oss-layout">
-        <div>
-          <span class="section-index">OSS</span>
-          <p class="kicker">UPSTREAM WORK</p>
-          <h2 class="display-copy small reveal-text">Shipping into other people’s codebases is a different kind of engineering.</h2>
-        </div>
-        <article class="oss-card reveal-row">
-          <div class="oss-header"><span>ChrisTitusTech / winutil</span><span>MERGED WORK</span></div>
-          <p>Contributions across state drift detection, WPF UI synchronization, accessibility scaling, storage controls and PowerShell argument forwarding.</p>
-          <div class="pr-grid">
-            <a href="https://github.com/ChrisTitusTech/winutil/pull/4885" target="_blank" rel="noopener"><span>#4885</span> UI state synchronization</a>
-            <a href="https://github.com/ChrisTitusTech/winutil/pull/4781" target="_blank" rel="noopener"><span>#4781</span> DPI / font scaling</a>
-            <a href="https://github.com/ChrisTitusTech/winutil/pull/4664" target="_blank" rel="noopener"><span>#4664</span> Reserved storage control</a>
-            <a href="https://github.com/ChrisTitusTech/winutil/pull/4582" target="_blank" rel="noopener"><span>#4582</span> Drift detection</a>
+        <article class="project-display" id="project-display">
+          <div class="project-visual" aria-hidden="true">
+            <svg class="braid-graphic" viewBox="0 0 520 300">
+              <defs>
+                <filter id="soft"><feGaussianBlur stdDeviation="0.7"/></filter>
+              </defs>
+              <path d="M70 18c80 70 110 82 190 136s111 74 190 128"/>
+              <path d="M160 10c52 65 46 114 96 149s85 50 111 130"/>
+              <path d="M282 5c-4 63-43 99-26 154s61 73 47 135"/>
+              <path d="M405 16c-73 50-86 94-144 140s-91 67-134 126"/>
+              <g filter="url(#soft)"><circle cx="258" cy="155" r="8"/><circle cx="302" cy="214" r="5"/><circle cx="178" cy="100" r="5"/></g>
+            </svg>
+            <div class="project-code" id="project-code">governance / evidence / fallbacks / verification</div>
           </div>
-          <a class="text-link" href="https://github.com/ChrisTitusTech/winutil/pulls?q=is%3Apr+author%3Avyas-devgna+is%3Amerged" target="_blank" rel="noopener">VIEW MERGED PULL REQUESTS ↗</a>
+          <div class="project-copy">
+            <div class="project-meta"><span id="project-kind">AI ENGINEERING GOVERNANCE</span><span id="project-year">2026</span></div>
+            <h3 id="project-title">Braids</h3>
+            <p id="project-desc">Adaptive engineering governance for AI coding agents. It forces engineering work to consider evidence, edge cases, failure paths, verification, and resource trade-offs instead of mistaking less code for better code.</p>
+            <div class="project-tags" id="project-tags"><span>PYTHON</span><span>AGENT SKILLS</span><span>ENGINEERING GOVERNANCE</span></div>
+            <a id="project-link" class="project-open" href="https://github.com/vyas-devgna/braids" target="_blank" rel="noopener">OPEN PROJECT ↗</a>
+          </div>
         </article>
       </div>
     </section>
 
-    <section class="research section-pad" id="research">
-      <div class="section-head">
-        <div><span class="section-index">03</span><p class="kicker">PUBLISHED RESEARCH</p></div>
-        <h2>Security when compute and power are part of the threat model.</h2>
-      </div>
-      <article class="research-console reveal-row">
-        <div class="research-copy">
-          <span class="research-tag">SPRINGER CCIS // icSoftComp 2025</span>
+    <section class="scene" id="scene-research" data-scene="2" aria-label="Research and open source">
+      <div class="scene-grid research-grid">
+        <header class="scene-heading compact">
+          <p class="eyebrow">RESEARCH / OPEN SOURCE</p>
+          <h2>Proof over posture.</h2>
+        </header>
+
+        <div class="research-card hermes-card">
+          <div class="research-number">94.7<sup>%</sup></div>
+          <p class="research-label">NOVEL ATTACK DETECTION</p>
           <h3>HERMES</h3>
-          <h4>Design and Deployment of a Hybrid AI/ML Network Security System on ARM Clusters for Edge Environments</h4>
-          <p>With Arpankumar G. Raval. A cooperative intrusion-detection architecture combining signature filtering with a quantized neural classifier for low-power ARM edge nodes.</p>
+          <p>Hybrid AI/ML network security on low-power ARM clusters, presented at icSoftComp 2025. Quantized inference, inline detection, and edge deployment under real compute constraints.</p>
+          <div class="metric-row"><span>4.2W / NODE</span><span>15 KPPS</span><span>EDGE IDS</span></div>
         </div>
-        <div class="metrics" aria-label="Research metrics">
-          <div><span>DETECTION</span><strong>94.7%</strong><small>novel attack identification</small></div>
-          <div><span>POWER</span><strong>4.2W</strong><small>per active ARM node</small></div>
-          <div><span>THROUGHPUT</span><strong>15k</strong><small>packets / sec inline</small></div>
-          <div><span>EFFICIENCY</span><strong>−67%</strong><small>energy vs standard x86 IDS</small></div>
-        </div>
-      </article>
-    </section>
 
-    <section class="stack section-pad" id="stack">
-      <div class="section-head compact">
-        <div><span class="section-index">STACK</span><p class="kicker">TOOLS, NOT IDENTITY</p></div>
-        <h2>I choose the layer that fits the failure mode.</h2>
-      </div>
-      <div class="stack-map reveal-row">
-        <div class="stack-node core"><span>CORE</span><strong>Linux · Git · Networking · SQL</strong></div>
-        <div class="stack-node"><span>LANGUAGES</span><strong>Java · Dart · Go · Python · JavaScript</strong></div>
-        <div class="stack-node"><span>SYSTEMS</span><strong>WebRTC · WebSockets · MQTT · Redis · PostgreSQL</strong></div>
-        <div class="stack-node"><span>CLIENT</span><strong>Flutter · Riverpod · DOM · PWA</strong></div>
-        <div class="stack-node"><span>SECURITY</span><strong>Auth flows · HMAC · JWT · Threat modelling · IDS</strong></div>
-        <div class="stack-node"><span>AI</span><strong>Agentic workflows · Quantization · Edge inference</strong></div>
+        <div class="research-card upstream-card">
+          <svg viewBox="0 0 340 140" class="line-art" aria-hidden="true">
+            <path d="M8 111C48 16 105 136 154 55s96 69 178-39"/>
+            <circle cx="154" cy="55" r="5"/><circle cx="284" cy="49" r="4"/>
+          </svg>
+          <p class="research-label">UPSTREAM ENGINEERING</p>
+          <h3>ChrisTitusTech / WinUtil</h3>
+          <p>Contributions across drift detection, state synchronization, accessibility, storage controls, and shell integration—work inside a mature project where regressions matter more than novelty.</p>
+          <a href="https://github.com/ChrisTitusTech/winutil/pulls?q=is%3Apr+author%3Avyas-devgna+is%3Amerged" target="_blank" rel="noopener">VIEW MERGED WORK ↗</a>
+        </div>
+
+        <aside class="research-note">
+          <span>WORKING PRINCIPLE</span>
+          <blockquote>Architecture is not the diagram. It is what still works when one assumption stops being true.</blockquote>
+        </aside>
       </div>
     </section>
 
-    <section class="contact section-pad" id="contact">
-      <div class="contact-orbit" aria-hidden="true"><i></i><i></i><i></i></div>
-      <p class="kicker">04 / OPEN CHANNEL</p>
-      <h2 class="contact-title reveal-text">HAVE A WEIRD,<br />DIFFICULT PROBLEM?</h2>
-      <p class="contact-copy">Backend systems, networking, security, open source, experiments, research, or something that does not fit neatly into a job title.</p>
-      <div class="contact-actions reveal-row">
-        <a class="action primary magnetic" href="mailto:vyasdevgna@gmail.com">EMAIL ME <span>↗</span></a>
-        <a class="action magnetic" href="https://linkedin.com/in/devgna-vyas" target="_blank" rel="noopener">LINKEDIN <span>↗</span></a>
-        <a class="action magnetic" href="tip.html">SUPPORT THE LAB <span>↗</span></a>
+    <section class="scene" id="scene-about" data-scene="3" aria-label="About">
+      <div class="scene-grid about-grid">
+        <div class="about-portrait">
+          <img src="images/hero.png" alt="Portrait of Devgna Vyas" />
+          <div class="portrait-wash"></div>
+          <span>DEVGNA / INDIA / 2026</span>
+        </div>
+        <div class="about-copy">
+          <p class="eyebrow">ABOUT / OUTSIDE THE TERMINAL</p>
+          <h2>I like systems.<br><em>I also like things that feel human.</em></h2>
+          <p>I care about engineering depth, but I do not want technology to look like a dashboard everywhere. I like art, photography, philosophy, strange interfaces, old machines, music, Linux, and projects that begin with “what if this worked differently?”</p>
+          <p>Most of my work sits somewhere between infrastructure and experimentation: networking, AI agents, local-first software, cybersecurity, mobile systems, open source, and research.</p>
+          <div class="about-links"><a href="https://github.com/vyas-devgna" target="_blank" rel="noopener">GitHub ↗</a><a href="https://linkedin.com/in/devgna-vyas" target="_blank" rel="noopener">LinkedIn ↗</a></div>
+        </div>
+        <div class="art-caption">
+          <small>02 / ICARUS</small>
+          <p>Failure is interesting when it teaches you exactly where the system stopped being true.</p>
+        </div>
       </div>
-      <div class="contact-footer"><span>© <span id="year"></span> DEVGNA VYAS</span><span>STATIC BY DESIGN // GITHUB PAGES</span><span>PRESS ⌘K ANYTIME</span></div>
+    </section>
+
+    <section class="scene" id="scene-contact" data-scene="4" aria-label="Contact">
+      <div class="art art-fallen contact-art" aria-hidden="true"></div>
+      <div class="art-veil contact-veil" aria-hidden="true"></div>
+      <div class="scene-grid contact-grid">
+        <p class="eyebrow">CONTACT / OPEN CHANNEL</p>
+        <h2>Have an idea that is<br><em>actually worth obsessing over?</em></h2>
+        <div class="contact-row">
+          <a href="mailto:vyasdevgna@gmail.com">vyasdevgna@gmail.com <span>↗</span></a>
+          <a href="https://github.com/vyas-devgna" target="_blank" rel="noopener">github.com/vyas-devgna <span>↗</span></a>
+        </div>
+        <footer><span>DEVGNA VYAS</span><span>BUILT AS A STATIC GITHUB PAGES SITE</span><span id="year"></span></footer>
+      </div>
     </section>
   </main>
 
-  <dialog class="command-palette" id="command-palette" aria-label="Command palette">
-    <form method="dialog" class="command-shell">
-      <div class="command-input-row"><span>›</span><input id="command-input" autocomplete="off" spellcheck="false" placeholder="Jump to a section or open a project…" aria-label="Search commands" /><button value="cancel" aria-label="Close command palette">ESC</button></div>
-      <div class="command-results" id="command-results" role="listbox"></div>
-      <div class="command-help"><span>↑↓ NAVIGATE</span><span>↵ OPEN</span><span>ESC CLOSE</span></div>
-    </form>
-  </dialog>
+  <aside class="scene-rail" aria-label="Scene navigation">
+    <button data-scene-link="0" class="active" aria-label="Introduction"><i></i><span>INDEX</span></button>
+    <button data-scene-link="1" aria-label="Selected work"><i></i><span>WORK</span></button>
+    <button data-scene-link="2" aria-label="Research"><i></i><span>RESEARCH</span></button>
+    <button data-scene-link="3" aria-label="About"><i></i><span>ABOUT</span></button>
+    <button data-scene-link="4" aria-label="Contact"><i></i><span>CONTACT</span></button>
+  </aside>
 
-  <script type="module" src="js/main.js"></script>
+  <div class="scene-counter" aria-hidden="true"><span id="scene-current">01</span><i></i><span>05</span></div>
+  <div class="gesture-hint" aria-hidden="true">WHEEL / SWIPE / ARROWS</div>
+
+  <script src="js/main.js" defer></script>
 </body>
 </html>

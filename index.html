@@ -7,7 +7,7 @@
   <title>Devgna Vyas — Systems Engineer, Researcher, Open Source Builder</title>
   <meta name="description" content="Devgna Vyas builds reliable systems, agent infrastructure, local-first software, networking tools, security research and open-source projects." />
   <meta property="og:title" content="Devgna Vyas — Systems Engineer & Builder" />
-  <meta property="og:description" content="Selected engineering work, research, open source, philosophy and photography." />
+  <meta property="og:description" content="Selected engineering work, research, open source, philosophy, writing and photography." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://vyasdevgna.online/images/hero2.jpg" />
   <link rel="canonical" href="https://vyasdevgna.online/" />
@@ -44,7 +44,7 @@
     <button data-scene-link="0">01 <span>Index</span></button>
     <button data-scene-link="1">02 <span>Selected work</span></button>
     <button data-scene-link="2">03 <span>Research & open source</span></button>
-    <button data-scene-link="3">04 <span>Profile & philosophy</span></button>
+    <button data-scene-link="3">04 <span>Profile, writing & philosophy</span></button>
     <button data-scene-link="4">05 <span>Photography & interests</span></button>
     <button data-scene-link="5">06 <span>Contact</span></button>
   </div>
@@ -77,44 +77,65 @@
     </section>
 
     <section class="scene" id="scene-work" data-scene="1" aria-label="Selected engineering work">
-      <div class="scene-inner work-layout">
-        <header class="section-heading">
-          <p class="eyebrow">SELECTED WORK / 08</p>
-          <div><h2>Projects that best explain how I think.</h2><p>Not a repository feed. A deliberately small set of systems, products and experiments with real engineering depth.</p></div>
+      <div class="scene-inner work-bento-layout">
+        <header class="work-bento-heading">
+          <div>
+            <p class="eyebrow">SELECTED WORK / 07</p>
+            <h2>Projects, at a glance.</h2>
+          </div>
+          <p>Only the projects from the original portfolio, plus Braids and LIWM. Every tile opens the real project; the layout is the index.</p>
         </header>
 
-        <div class="project-index" role="tablist" aria-label="Selected projects">
-          <button role="tab" aria-selected="true" data-project="0"><span>01</span>Touchstone</button>
-          <button role="tab" aria-selected="false" data-project="1"><span>02</span>Braids</button>
-          <button role="tab" aria-selected="false" data-project="2"><span>03</span>LIWM</button>
-          <button role="tab" aria-selected="false" data-project="3"><span>04</span>Omarchy Connect</button>
-          <button role="tab" aria-selected="false" data-project="4"><span>05</span>Fin</button>
-          <button role="tab" aria-selected="false" data-project="5"><span>06</span>EzBoard</button>
-          <button role="tab" aria-selected="false" data-project="6"><span>07</span>Same.Energy Android</button>
-          <button role="tab" aria-selected="false" data-project="7"><span>08</span>Mumbai Trip OS</button>
-        </div>
+        <div class="project-bento" aria-label="Selected projects">
+          <a class="bento-project bento-featured" href="https://github.com/vyas-devgna/ezboard" target="_blank" rel="noopener">
+            <img src="https://raw.githubusercontent.com/vyas-devgna/ezboard/main/public/brand/ezboard-mark.png" alt="EzBoard project mark" />
+            <div class="bento-scrim"></div>
+            <div class="bento-copy"><span>LOCAL-FIRST / WEBRTC</span><h3>EzBoard</h3><p>Private collaborative canvas for people and AI agents.</p></div>
+            <i>01</i>
+          </a>
 
-        <article class="project-view" id="project-view">
-          <div class="project-asset" id="project-asset">
-            <img id="project-image" alt="" hidden />
-            <div class="project-wordmark" id="project-wordmark"><strong>TOUCHSTONE</strong><span>WORLD DRIFT ≠ EXTRACTION DRIFT</span></div>
-          </div>
-          <div class="project-info">
-            <div class="project-meta"><span id="project-kind">RECONCILIATION CONTROLLER</span><span id="project-status">PUBLIC / 2026</span></div>
-            <h3 id="project-title">Touchstone</h3>
-            <p id="project-desc">A reconciliation controller for autonomous scrapers that distinguishes a broken extraction from a genuinely changed world before allowing repair.</p>
-            <ul class="project-points" id="project-points">
-              <li>Independent structural channels instead of one fragile signal</li>
-              <li>Separates extraction drift, world drift and confounded states</li>
-              <li>119 passing tests and explicit false-heal benchmarks</li>
-            </ul>
-            <div class="project-tags" id="project-tags"><span>PYTHON</span><span>RECONCILIATION</span><span>AUTONOMY SAFETY</span></div>
-            <div class="project-actions">
-              <a id="project-link" href="https://github.com/vyas-devgna/touchstone" target="_blank" rel="noopener">Repository ↗</a>
-              <a id="project-live" href="https://vyas-devgna.github.io/touchstone/" target="_blank" rel="noopener">Live ↗</a>
-            </div>
-          </div>
-        </article>
+          <a class="bento-project" href="https://github.com/vyas-devgna/same-energy-android" target="_blank" rel="noopener">
+            <img src="https://raw.githubusercontent.com/vyas-devgna/same-energy-android/main/assets/blacklogo-bg.png" alt="Same.Energy Android project mark" />
+            <div class="bento-scrim"></div>
+            <div class="bento-copy"><span>FLUTTER / VISUAL SEARCH</span><h3>Same.Energy Android</h3><p>A native-feeling semantic image-search client.</p></div>
+            <i>02</i>
+          </a>
+
+          <a class="bento-project bento-wide" href="https://github.com/vyas-devgna" target="_blank" rel="noopener">
+            <img src="images/project-art/smart-attendance.webp" alt="Smart Attendance system illustration" />
+            <div class="bento-scrim"></div>
+            <div class="bento-copy"><span>SECURE ATTENDANCE / PROXIMITY</span><h3>Smart Attendance</h3><p>Multi-factor presence verification designed to resist proxy marking and spoofing.</p></div>
+            <i>03</i>
+          </a>
+
+          <a class="bento-project" href="https://github.com/vyas-devgna/ez-drop" target="_blank" rel="noopener">
+            <img src="images/project-art/ez-drop.webp" alt="ez-drop peer-to-peer transfer illustration" />
+            <div class="bento-scrim"></div>
+            <div class="bento-copy"><span>WEBRTC / P2P</span><h3>ez-drop</h3><p>Browser-to-browser file and text transfer.</p></div>
+            <i>04</i>
+          </a>
+
+          <a class="bento-project" href="https://github.com/vyas-devgna/beatblocks-control" target="_blank" rel="noopener">
+            <img src="images/project-art/beatblocks.webp" alt="BeatBlocks Control music system illustration" />
+            <div class="bento-scrim"></div>
+            <div class="bento-copy"><span>FABRIC / SPOTIFY</span><h3>BeatBlocks Control</h3><p>Minecraft-side music control through a local Spicetify bridge.</p></div>
+            <i>05</i>
+          </a>
+
+          <a class="bento-project bento-tall" href="https://github.com/vyas-devgna/braids" target="_blank" rel="noopener">
+            <img src="https://raw.githubusercontent.com/vyas-devgna/braids/main/assets/hero/braids-hero.png" alt="Braids project artwork" />
+            <div class="bento-scrim"></div>
+            <div class="bento-copy"><span>AI ENGINEERING GOVERNANCE</span><h3>Braids</h3><p>Engineering rigor for coding agents: evidence, fallbacks, failure paths and verification.</p></div>
+            <i>06</i>
+          </a>
+
+          <a class="bento-project bento-tall" href="https://github.com/vyas-devgna/liwm-agent-framework" target="_blank" rel="noopener">
+            <img src="https://raw.githubusercontent.com/vyas-devgna/liwm-agent-framework/main/assets/social-preview.png" alt="LIWM project artwork" />
+            <div class="bento-scrim"></div>
+            <div class="bento-copy"><span>AGENT MEMORY / INTENT</span><h3>LIWM</h3><p>Auditable, provenance-gated intent and memory infrastructure for coding agents.</p></div>
+            <i>07</i>
+          </a>
+        </div>
       </div>
     </section>
 
@@ -149,34 +170,51 @@
       </div>
     </section>
 
-    <section class="scene" id="scene-profile" data-scene="3" aria-label="Profile and philosophy">
-      <div class="scene-inner profile-layout">
-        <div class="profile-summary">
+    <section class="scene" id="scene-profile" data-scene="3" aria-label="Profile, writing and philosophy">
+      <div class="scene-inner profile-bento">
+        <article class="profile-summary profile-cell profile-main">
           <p class="eyebrow">PROFILE</p>
           <h2>Systems first.<br />Curiosity always.</h2>
-          <p>I work from first principles: understand the data flow, trust boundaries, control paths and failure modes before choosing the abstraction. AI is an execution multiplier for me, not a substitute for owning the architecture.</p>
-          <p>My work moves between backend systems, networking, Linux, cybersecurity, mobile software, local-first applications and agent infrastructure. The common thread is reliability under real constraints.</p>
+          <p>I am a backend and systems engineer specializing in robust architecture, network performance, Linux and cybersecurity. I work from first principles: understand the data flow, trust boundaries, control paths and failure modes before choosing the abstraction.</p>
+          <p>AI is an execution multiplier for me, not a substitute for owning the architecture. I value performance, clarity and maintainability over novelty.</p>
           <div class="profile-links"><a href="https://github.com/vyas-devgna" target="_blank" rel="noopener">GitHub ↗</a><a href="https://linkedin.com/in/devgna-vyas" target="_blank" rel="noopener">LinkedIn ↗</a></div>
-        </div>
+        </article>
 
-        <div class="education-card">
+        <article class="profile-cell education-card">
           <span>EDUCATION</span>
           <h3>CHARUSAT University</h3>
           <p>Bachelor of Computer Applications · 2023—2026</p>
           <strong>8.25 CGPA</strong>
           <small>Computer architecture · operating systems · databases · networking</small>
-        </div>
+        </article>
 
-        <div class="philosophy-card">
-          <span>ENGINEERING PHILOSOPHY</span>
-          <blockquote>“Being weak is nothing to be ashamed of… staying weak is.”</blockquote>
+        <article class="profile-cell philosophy-card">
+          <span>ENGINEERING ETHOS</span>
+          <blockquote>“Being weak is nothing to be ashamed of… Staying weak is!”</blockquote>
           <small>— Fuegoleon Vermillion</small>
-          <p>I care less about appearing clever than about becoming harder to fool. Good engineering means revisiting assumptions, looking for the failure path, accepting evidence that contradicts the first design, and improving the system until it earns confidence.</p>
-        </div>
+          <p>I believe in thinking from first principles — understanding data flow, control paths, and failure modes before writing a single line of code. I value performance, clarity, and maintainability over novelty. Given sufficient time and access, I focus on understanding the problem deeply and then building reliable, maintainable solutions.</p>
+        </article>
+
+        <article class="profile-cell recognition-card">
+          <span>RECOGNITION / CREDENTIALS</span>
+          <ul>
+            <li><strong>Published researcher</strong><small>HERMES · icSoftComp 2025 · Springer CCIS</small></li>
+            <li><strong>Google</strong><small>Crash Course on Python</small></li>
+            <li><strong>Oracle</strong><small>Java Foundations</small></li>
+            <li><strong>Google</strong><small>Tools of the Trade: Linux & SQL</small></li>
+          </ul>
+        </article>
+
+        <article class="profile-cell writing-card">
+          <span>WRITING / NOTES</span>
+          <h3>I write to make an idea harder to hide from itself.</h3>
+          <p>Writing is where I slow down enough to examine assumptions, ambiguity, people, systems and the uncomfortable gap between what sounds true and what survives scrutiny.</p>
+          <button data-scene-link="4">Photography, art & writing <b>→</b></button>
+        </article>
       </div>
     </section>
 
-    <section class="scene" id="scene-elsewhere" data-scene="4" aria-label="Photography and interests">
+    <section class="scene" id="scene-elsewhere" data-scene="4" aria-label="Photography, writing and interests">
       <div class="scene-inner elsewhere-layout">
         <header class="elsewhere-copy">
           <p class="eyebrow">OUTSIDE ENGINEERING</p>
@@ -184,11 +222,12 @@
           <p>Photography, art, philosophy, music, mountains and writing give the technical work somewhere human to return to.</p>
           <div class="interest-list"><span>PHOTOGRAPHY</span><span>ART</span><span>PHILOSOPHY</span><span>MUSIC</span><span>MOUNTAINS</span><span>WRITING</span></div>
           <p class="photo-caption" id="photo-caption">Loading photographs…</p>
+          <p class="photo-help">The carousel pauses when you interact with it. Select any frame to open it full-size, then use the arrows or keyboard to explore the archive.</p>
         </header>
 
-        <div class="photo-orbit" id="photo-orbit" aria-label="Rotating circular stack of Devgna's photography">
-          <div class="photo-ring" id="photo-ring"></div>
-          <div class="orbit-center"><span>PHOTOGRAPHY</span><strong id="photo-count">—</strong><small>frames</small></div>
+        <div class="photo-carousel" id="photo-carousel" aria-label="Rotating carousel of Devgna's photography">
+          <div class="photo-track" id="photo-track"></div>
+          <div class="photo-carousel-meta"><span>PHOTOGRAPHY ARCHIVE</span><strong id="photo-count">—</strong></div>
         </div>
       </div>
     </section>
@@ -219,6 +258,17 @@
   </aside>
 
   <div class="scene-counter" aria-hidden="true"><span id="scene-current">01</span><i></i><span>06</span></div>
+
+  <dialog class="photo-lightbox" id="photo-lightbox" aria-label="Photography viewer">
+    <button class="lightbox-close" id="lightbox-close" type="button" aria-label="Close photograph">CLOSE ×</button>
+    <button class="lightbox-nav lightbox-prev" id="lightbox-prev" type="button" aria-label="Previous photograph">←</button>
+    <figure>
+      <img id="lightbox-image" alt="" />
+      <figcaption><span id="lightbox-index"></span><p id="lightbox-caption"></p></figcaption>
+    </figure>
+    <button class="lightbox-nav lightbox-next" id="lightbox-next" type="button" aria-label="Next photograph">→</button>
+  </dialog>
+
   <script src="js/main.js" defer></script>
 </body>
 </html>

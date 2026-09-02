@@ -1,0 +1,38 @@
+name: Portfolio quality
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches:
+      - main
+      - 'rebuild/**'
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package.json
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+      - name: Syntax check
+        run: node --check js/main.js
+      - name: Build static site
+        run: npm run build
+      - name: Verify required output
+        run: |
+          test -f dist/index.html
+          test -f dist/CNAME
+          test -f dist/images/hero.png
+          grep -q "Devgna Vyas" dist/index.html

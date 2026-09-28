@@ -9,13 +9,13 @@ let photoItems = [];
 let activePhoto = 0;
 
 // Intersection Observer for Active Nav State
-const observerOptions = {
+const navObserverOptions = {
   root: null,
   rootMargin: '-50% 0px -50% 0px',
   threshold: 0
 };
 
-const observer = new IntersectionObserver((entries) => {
+const navObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       const id = entry.target.id;
@@ -38,9 +38,27 @@ const observer = new IntersectionObserver((entries) => {
       }
     }
   });
-}, observerOptions);
+}, navObserverOptions);
 
-scenes.forEach(scene => observer.observe(scene));
+// Intersection Observer for Entrance Animations
+const animObserverOptions = {
+  root: null,
+  rootMargin: '-15% 0px -15% 0px',
+  threshold: 0
+};
+
+const animObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in-view');
+    }
+  });
+}, animObserverOptions);
+
+scenes.forEach(scene => {
+  navObserver.observe(scene);
+  animObserver.observe(scene);
+});
 
 // Mobile Menu
 menuButton?.addEventListener('click', () => {

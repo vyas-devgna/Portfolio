@@ -20,18 +20,18 @@
   <a class="skip" href="#scene-home">Skip to content</a>
 
   <header class="topbar">
-    <button class="identity" data-scene-link="0" aria-label="Go to introduction">
+    <a class="identity" href="#scene-home" aria-label="Go to introduction">
       <span class="monogram">DV</span>
       <span class="identity-copy"><strong>DEVGNA VYAS</strong><small>SYSTEMS ENGINEER / RESEARCHER</small></span>
-    </button>
+    </a>
 
     <nav class="desktop-nav" aria-label="Primary navigation">
-      <button data-scene-link="0" class="active">INDEX</button>
-      <button data-scene-link="1">WORK</button>
-      <button data-scene-link="2">RESEARCH</button>
-      <button data-scene-link="3">PROFILE</button>
-      <button data-scene-link="4">ELSEWHERE</button>
-      <button data-scene-link="5">CONTACT</button>
+      <a href="#scene-home" class="nav-link class="active"">INDEX</a>
+      <a href="#scene-work" class="nav-link">WORK</a>
+      <a href="#scene-research" class="nav-link">RESEARCH</a>
+      <a href="#scene-profile" class="nav-link">PROFILE</a>
+      <a href="#scene-elsewhere" class="nav-link">ELSEWHERE</a>
+      <a href="#scene-contact" class="nav-link">CONTACT</a>
     </nav>
 
     <div class="top-actions">
@@ -41,12 +41,12 @@
   </header>
 
   <div class="mobile-menu" id="mobile-menu" hidden>
-    <button data-scene-link="0">01 <span>Index</span></button>
-    <button data-scene-link="1">02 <span>Selected work</span></button>
-    <button data-scene-link="2">03 <span>Research & open source</span></button>
-    <button data-scene-link="3">04 <span>Profile, writing & philosophy</span></button>
-    <button data-scene-link="4">05 <span>Photography & interests</span></button>
-    <button data-scene-link="5">06 <span>Contact</span></button>
+    <a href="#scene-home" class="nav-link">01 <span>Index</span></a>
+    <a href="#scene-work" class="nav-link">02 <span>Selected work</span></a>
+    <a href="#scene-research" class="nav-link">03 <span>Research & open source</span></a>
+    <a href="#scene-profile" class="nav-link">04 <span>Profile, writing & philosophy</span></a>
+    <a href="#scene-elsewhere" class="nav-link">05 <span>Photography & interests</span></a>
+    <a href="#scene-contact" class="nav-link">06 <span>Contact</span></a>
   </div>
 
   <main class="stage" id="stage">
@@ -59,13 +59,13 @@
           <h2>I build reliable systems and unusual ideas that survive contact with reality.</h2>
           <p class="intro">Systems engineer focused on agent infrastructure, local-first software, networking, security and open source. Published researcher, Linux-first builder, and a strong believer that architecture should be judged by failure modes—not diagrams.</p>
           <div class="primary-actions">
-            <button data-scene-link="1">View selected work <span>→</span></button>
+            <a href="#scene-work" class="nav-link">View selected work <span>→</span></a>
             <a href="mailto:vyasdevgna@gmail.com">Email me <span>↗</span></a>
           </div>
         </div>
 
         <aside class="home-profile">
-          <div class="portrait-frame"><img src="images/hero.png" alt="Portrait of Devgna Vyas" /></div>
+          <div class="portrait-frame"><img src="images/hero.png" alt="Portrait of Devgna Vyas" loading="lazy" decoding="async" /></div>
           <dl>
             <div><dt>Based in</dt><dd>Gujarat, India</dd></div>
             <div><dt>Education</dt><dd>BCA · CHARUSAT · 8.25 CGPA</dd></div>
@@ -87,52 +87,53 @@
         </header>
 
         <div class="project-bento" aria-label="Selected projects">
-          <a class="bento-project bento-featured" href="https://github.com/vyas-devgna/ezboard" target="_blank" rel="noopener">
-            <img src="https://raw.githubusercontent.com/vyas-devgna/ezboard/main/public/brand/ezboard-mark.png" alt="EzBoard project mark" />
+
+          <a class="bento-project bento-featured" href="https://github.com/vyas-devgna/liwm-agent-framework" target="_blank" rel="noopener">
+            <img src="https://raw.githubusercontent.com/vyas-devgna/liwm-agent-framework/main/assets/social-preview.png" alt="LIWM project artwork" loading="lazy" decoding="async" />
             <div class="bento-scrim"></div>
-            <div class="bento-copy"><span>LOCAL-FIRST / WEBRTC</span><h3>EzBoard</h3><p>Private collaborative canvas for people and AI agents.</p></div>
+            <div class="bento-copy"><span>AGENT MEMORY / INTENT</span><h3>LIWM</h3><p>Auditable, provenance-gated intent and memory infrastructure for coding agents.</p></div>
             <i>01</i>
           </a>
 
-          <a class="bento-project" href="https://github.com/vyas-devgna/same-energy-android" target="_blank" rel="noopener">
-            <img src="https://raw.githubusercontent.com/vyas-devgna/same-energy-android/main/assets/blacklogo-bg.png" alt="Same.Energy Android project mark" />
+          <a class="bento-project bento-tall" href="https://github.com/vyas-devgna/braids" target="_blank" rel="noopener">
+            <img src="https://raw.githubusercontent.com/vyas-devgna/braids/main/assets/hero/braids-hero.png" alt="Braids project artwork" loading="lazy" decoding="async" />
             <div class="bento-scrim"></div>
-            <div class="bento-copy"><span>FLUTTER / VISUAL SEARCH</span><h3>Same.Energy Android</h3><p>A native-feeling semantic image-search client.</p></div>
+            <div class="bento-copy"><span>AI ENGINEERING GOVERNANCE</span><h3>Braids</h3><p>Engineering rigor for coding agents: evidence, fallbacks, failure paths and verification.</p></div>
             <i>02</i>
           </a>
 
-          <a class="bento-project bento-wide" href="https://github.com/vyas-devgna" target="_blank" rel="noopener">
-            <img src="images/project-art/smart-attendance.webp" alt="Smart Attendance system illustration" />
+          <a class="bento-project bento-wide" href="https://github.com/vyas-devgna/ezboard" target="_blank" rel="noopener">
+            <img src="https://raw.githubusercontent.com/vyas-devgna/ezboard/main/public/brand/ezboard-mark.png" alt="EzBoard project mark" loading="lazy" decoding="async" />
             <div class="bento-scrim"></div>
-            <div class="bento-copy"><span>SECURE ATTENDANCE / PROXIMITY</span><h3>Smart Attendance</h3><p>Multi-factor presence verification designed to resist proxy marking and spoofing.</p></div>
+            <div class="bento-copy"><span>LOCAL-FIRST / WEBRTC</span><h3>EzBoard</h3><p>Private collaborative canvas for people and AI agents.</p></div>
             <i>03</i>
           </a>
 
-          <a class="bento-project" href="https://github.com/vyas-devgna/ez-drop" target="_blank" rel="noopener">
-            <img src="images/project-art/ez-drop.webp" alt="ez-drop peer-to-peer transfer illustration" />
+          <a class="bento-project" href="https://github.com/vyas-devgna/same-energy-android" target="_blank" rel="noopener">
+            <img src="https://raw.githubusercontent.com/vyas-devgna/same-energy-android/main/assets/blacklogo-bg.png" alt="Same.Energy Android project mark" loading="lazy" decoding="async" />
             <div class="bento-scrim"></div>
-            <div class="bento-copy"><span>WEBRTC / P2P</span><h3>ez-drop</h3><p>Browser-to-browser file and text transfer.</p></div>
+            <div class="bento-copy"><span>FLUTTER / VISUAL SEARCH</span><h3>Same.Energy Android</h3><p>A native-feeling semantic image-search client.</p></div>
             <i>04</i>
           </a>
 
-          <a class="bento-project" href="https://github.com/vyas-devgna/beatblocks-control" target="_blank" rel="noopener">
-            <img src="images/project-art/beatblocks.webp" alt="BeatBlocks Control music system illustration" />
+          <a class="bento-project" href="https://github.com/vyas-devgna" target="_blank" rel="noopener">
+            <img src="images/project-art/smart-attendance.webp" alt="Smart Attendance system illustration" loading="lazy" decoding="async" />
             <div class="bento-scrim"></div>
-            <div class="bento-copy"><span>FABRIC / SPOTIFY</span><h3>BeatBlocks Control</h3><p>Minecraft-side music control through a local Spicetify bridge.</p></div>
+            <div class="bento-copy"><span>SECURE ATTENDANCE / PROXIMITY</span><h3>Smart Attendance</h3><p>Multi-factor presence verification.</p></div>
             <i>05</i>
           </a>
 
-          <a class="bento-project bento-tall" href="https://github.com/vyas-devgna/braids" target="_blank" rel="noopener">
-            <img src="https://raw.githubusercontent.com/vyas-devgna/braids/main/assets/hero/braids-hero.png" alt="Braids project artwork" />
+          <a class="bento-project" href="https://github.com/vyas-devgna/ez-drop" target="_blank" rel="noopener">
+            <img src="images/project-art/ez-drop.webp" alt="ez-drop peer-to-peer transfer illustration" loading="lazy" decoding="async" />
             <div class="bento-scrim"></div>
-            <div class="bento-copy"><span>AI ENGINEERING GOVERNANCE</span><h3>Braids</h3><p>Engineering rigor for coding agents: evidence, fallbacks, failure paths and verification.</p></div>
+            <div class="bento-copy"><span>WEBRTC / P2P</span><h3>ez-drop</h3><p>Browser-to-browser file and text transfer.</p></div>
             <i>06</i>
           </a>
 
-          <a class="bento-project bento-tall" href="https://github.com/vyas-devgna/liwm-agent-framework" target="_blank" rel="noopener">
-            <img src="https://raw.githubusercontent.com/vyas-devgna/liwm-agent-framework/main/assets/social-preview.png" alt="LIWM project artwork" />
+          <a class="bento-project" href="https://github.com/vyas-devgna/beatblocks-control" target="_blank" rel="noopener">
+            <img src="images/project-art/beatblocks.webp" alt="BeatBlocks Control music system illustration" loading="lazy" decoding="async" />
             <div class="bento-scrim"></div>
-            <div class="bento-copy"><span>AGENT MEMORY / INTENT</span><h3>LIWM</h3><p>Auditable, provenance-gated intent and memory infrastructure for coding agents.</p></div>
+            <div class="bento-copy"><span>FABRIC / SPOTIFY</span><h3>BeatBlocks Control</h3><p>Minecraft-side music control through a local Spicetify bridge.</p></div>
             <i>07</i>
           </a>
         </div>
@@ -209,7 +210,7 @@
           <span>WRITING / NOTES</span>
           <h3>I write to make an idea harder to hide from itself.</h3>
           <p>Writing is where I slow down enough to examine assumptions, ambiguity, people, systems and the uncomfortable gap between what sounds true and what survives scrutiny.</p>
-          <button data-scene-link="4">Photography, art & writing <b>→</b></button>
+          <a href="#scene-elsewhere" class="nav-link">Photography, art & writing <b>→</b></a>
         </article>
       </div>
     </section>
@@ -249,12 +250,12 @@
   </main>
 
   <aside class="scene-rail" aria-label="Scene navigation">
-    <button data-scene-link="0" class="active" aria-label="Index"><i></i><span>INDEX</span></button>
-    <button data-scene-link="1" aria-label="Work"><i></i><span>WORK</span></button>
-    <button data-scene-link="2" aria-label="Research"><i></i><span>RESEARCH</span></button>
-    <button data-scene-link="3" aria-label="Profile"><i></i><span>PROFILE</span></button>
-    <button data-scene-link="4" aria-label="Elsewhere"><i></i><span>ELSEWHERE</span></button>
-    <button data-scene-link="5" aria-label="Contact"><i></i><span>CONTACT</span></button>
+    <a href="#scene-home" class="nav-link" class="active" aria-label="Index"><i></i><span>INDEX</span></a>
+    <a href="#scene-work" class="nav-link" aria-label="Work"><i></i><span>WORK</span></a>
+    <a href="#scene-research" class="nav-link" aria-label="Research"><i></i><span>RESEARCH</span></a>
+    <a href="#scene-profile" class="nav-link" aria-label="Profile"><i></i><span>PROFILE</span></a>
+    <a href="#scene-elsewhere" class="nav-link" aria-label="Elsewhere"><i></i><span>ELSEWHERE</span></a>
+    <a href="#scene-contact" class="nav-link" aria-label="Contact"><i></i><span>CONTACT</span></a>
   </aside>
 
   <div class="scene-counter" aria-hidden="true"><span id="scene-current">01</span><i></i><span>06</span></div>

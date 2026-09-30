@@ -3,273 +3,215 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#101010" />
-  <title>Devgna Vyas — Systems Engineer, Researcher, Open Source Builder</title>
-  <meta name="description" content="Devgna Vyas builds reliable systems, agent infrastructure, local-first software, networking tools, security research and open-source projects." />
+  <meta name="theme-color" content="#0a0c0b" />
+  <title>Devgna Vyas — Systems Engineer & Open Source Builder</title>
+  <meta name="description" content="Devgna Vyas builds reliable systems, agent infrastructure, local-first software, networking tools and open-source projects." />
   <meta property="og:title" content="Devgna Vyas — Systems Engineer & Builder" />
-  <meta property="og:description" content="Selected engineering work, research, open source, philosophy, writing and photography." />
+  <meta property="og:description" content="Selected systems work, research, open source, writing and photography." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://vyasdevgna.online/images/hero2.jpg" />
+  <meta property="og:url" content="https://vyasdevgna.online/" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="canonical" href="https://vyasdevgna.online/" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22><rect width=%2264%22 height=%2264%22 rx=%2216%22 fill=%22%23b8ff3d%22/><path d=%22M16 17h15c11 0 18 6 18 15S42 47 31 47H16zm10 8v14h5c5 0 8-2 8-7s-3-7-8-7z%22 fill=%22%230a0c0b%22/></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Manrope:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <a class="skip" href="#scene-home">Skip to content</a>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="ambient" aria-hidden="true"></div>
+  <div class="scroll-progress" aria-hidden="true"><i id="scroll-progress"></i></div>
 
-  <header class="topbar">
-    <a class="identity" href="#scene-home" aria-label="Go to introduction">
-      <span class="monogram">DV</span>
-      <span class="identity-copy"><strong>DEVGNA VYAS</strong><small>SYSTEMS ENGINEER / RESEARCHER</small></span>
+  <header class="topbar" id="topbar">
+    <a class="identity" href="#home" aria-label="Devgna Vyas, home">
+      <span><strong>DEVGNA VYAS</strong><small>SYSTEMS · RESEARCH · OPEN SOURCE</small></span>
     </a>
-
     <nav class="desktop-nav" aria-label="Primary navigation">
-      <a href="#scene-home" class="nav-link class="active"">INDEX</a>
-      <a href="#scene-work" class="nav-link">WORK</a>
-      <a href="#scene-research" class="nav-link">RESEARCH</a>
-      <a href="#scene-profile" class="nav-link">PROFILE</a>
-      <a href="#scene-elsewhere" class="nav-link">ELSEWHERE</a>
-      <a href="#scene-contact" class="nav-link">CONTACT</a>
+      <a class="nav-link active" href="#home">Home</a>
+      <a class="nav-link" href="#work">Work</a>
+      <a class="nav-link" href="#research">Research</a>
+      <a class="nav-link" href="#about">About</a>
+      <a class="nav-link" href="#photography">Photography</a>
     </nav>
-
     <div class="top-actions">
-      <a href="https://github.com/vyas-devgna" target="_blank" rel="noopener">GITHUB ↗</a>
-      <button class="menu-button" id="menu-button" aria-expanded="false" aria-controls="mobile-menu">MENU</button>
+      <a class="availability" href="#contact"><i></i> Let’s build something</a>
+      <button class="menu-button" id="menu-button" type="button" aria-expanded="false" aria-controls="mobile-menu"><span>Menu</span><i></i></button>
     </div>
   </header>
 
-  <div class="mobile-menu" id="mobile-menu" hidden>
-    <a href="#scene-home" class="nav-link">01 <span>Index</span></a>
-    <a href="#scene-work" class="nav-link">02 <span>Selected work</span></a>
-    <a href="#scene-research" class="nav-link">03 <span>Research & open source</span></a>
-    <a href="#scene-profile" class="nav-link">04 <span>Profile, writing & philosophy</span></a>
-    <a href="#scene-elsewhere" class="nav-link">05 <span>Photography & interests</span></a>
-    <a href="#scene-contact" class="nav-link">06 <span>Contact</span></a>
-  </div>
+  <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
+    <a class="nav-link" href="#home"><small>01</small><span>Home</span></a>
+    <a class="nav-link" href="#work"><small>02</small><span>Selected work</span></a>
+    <a class="nav-link" href="#research"><small>03</small><span>Research</span></a>
+    <a class="nav-link" href="#about"><small>04</small><span>About</span></a>
+    <a class="nav-link" href="#photography"><small>05</small><span>Photography</span></a>
+    <a class="nav-link" href="#contact"><small>06</small><span>Contact</span></a>
+  </nav>
 
-  <main class="stage" id="stage">
-    <section class="scene active" id="scene-home" data-scene="0" aria-label="Introduction">
-      <div class="home-photo" aria-hidden="true"></div>
-      <div class="scene-inner home-layout">
-        <div class="home-copy">
-          <p class="eyebrow">ENGINEERING / RESEARCH / OPEN SOURCE</p>
-          <h1>Devgna Vyas</h1>
-          <h2>I build reliable systems and unusual ideas that survive contact with reality.</h2>
-          <p class="intro">Systems engineer focused on agent infrastructure, local-first software, networking, security and open source. Published researcher, Linux-first builder, and a strong believer that architecture should be judged by failure modes—not diagrams.</p>
-          <div class="primary-actions">
-            <a href="#scene-work" class="nav-link">View selected work <span>→</span></a>
-            <a href="mailto:vyasdevgna@gmail.com">Email me <span>↗</span></a>
+  <main id="main">
+    <section class="section hero" id="home" aria-labelledby="hero-title">
+      <div class="section-shell hero-grid">
+        <article class="bento hero-copy reveal">
+          <p class="eyebrow"><span>SYS.ENGINEER</span><span>INDIA / 22.59° N</span></p>
+          <h1 id="hero-title">I build systems that <em>survive reality.</em></h1>
+          <p class="hero-intro">I’m <strong>Devgna Vyas</strong> — a systems engineer and published researcher working across agent infrastructure, local-first software, networking, security and open source.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#work">Explore the work <span>↘</span></a>
+            <a class="button button-quiet" href="mailto:vyasdevgna@gmail.com">Start a conversation <span>↗</span></a>
           </div>
-        </div>
+        </article>
 
-        <aside class="home-profile">
-          <div class="portrait-frame"><img src="images/hero.png" alt="Portrait of Devgna Vyas" loading="lazy" decoding="async" /></div>
-          <dl>
-            <div><dt>Based in</dt><dd>Gujarat, India</dd></div>
-            <div><dt>Education</dt><dd>BCA · CHARUSAT · 8.25 CGPA</dd></div>
-            <div><dt>Current work</dt><dd>AI agents · systems · local-first software</dd></div>
-            <div><dt>Research</dt><dd>Edge network security · HERMES</dd></div>
-          </dl>
+        <aside class="bento hero-visual reveal" data-tilt>
+          <canvas id="system-map" aria-hidden="true"></canvas>
+          <div class="portrait-wrap"><img src="images/hero.png" alt="Devgna Vyas in the mountains" fetchpriority="high" decoding="async" /></div>
+          <div class="visual-label"><span>THE BUILDER</span><span>© 2026</span></div>
+          <div class="signal-chip"><i></i><span>BUILDING AT THE EDGE<br /><small>SOFTWARE × RESEARCH</small></span></div>
         </aside>
+
+        <article class="bento proof-card reveal">
+          <span class="proof-value">94.7%</span>
+          <p>Detection accuracy achieved by HERMES on constrained ARM edge nodes.</p>
+          <small>PUBLISHED RESEARCH / 2025</small>
+        </article>
+
+        <article class="bento manifesto-card reveal">
+          <span class="eyebrow">WORKING PRINCIPLE</span>
+          <blockquote>Proof over posture.<br />Failure modes over diagrams.</blockquote>
+          <div class="mini-stack"><span>LINUX</span><span>NETWORKS</span><span>AI SYSTEMS</span></div>
+        </article>
       </div>
     </section>
 
-    <section class="scene" id="scene-work" data-scene="1" aria-label="Selected engineering work">
-      <div class="scene-inner work-bento-layout">
-        <header class="work-bento-heading">
-          <div>
-            <p class="eyebrow">SELECTED WORK / 07</p>
-            <h2>Projects, at a glance.</h2>
-          </div>
-          <p>Only the projects from the original portfolio, plus Braids and LIWM. Every tile opens the real project; the layout is the index.</p>
+    <section class="section" id="work" aria-labelledby="work-title">
+      <div class="section-shell">
+        <header class="section-heading reveal">
+          <div><p class="eyebrow">01 / SELECTED WORK</p><h2 id="work-title">Things I’ve shipped into the world.</h2></div>
+          <p>Agent infrastructure, local-first collaboration and practical tools — built to be inspected, used and improved.</p>
         </header>
 
-        <div class="project-bento" aria-label="Selected projects">
-
-          <a class="bento-project bento-featured" href="https://github.com/vyas-devgna/liwm-agent-framework" target="_blank" rel="noopener">
-            <img src="https://raw.githubusercontent.com/vyas-devgna/liwm-agent-framework/main/assets/social-preview.png" alt="LIWM project artwork" loading="lazy" decoding="async" />
-            <div class="bento-scrim"></div>
-            <div class="bento-copy"><span>AGENT MEMORY / INTENT</span><h3>LIWM</h3><p>Auditable, provenance-gated intent and memory infrastructure for coding agents.</p></div>
-            <i>01</i>
+        <div class="project-grid">
+          <a class="project-card project-lead reveal" href="https://github.com/vyas-devgna/liwm-agent-framework" target="_blank" rel="noopener" data-tilt>
+            <img src="https://raw.githubusercontent.com/vyas-devgna/liwm-agent-framework/main/assets/social-preview.png" alt="LIWM agent framework interface" loading="lazy" decoding="async" />
+            <span class="project-index">01</span><span class="project-arrow">↗</span>
+            <div class="project-copy"><p>AGENT MEMORY / INTENT</p><h3>LIWM</h3><span>Auditable, provenance-gated intent and memory infrastructure for coding agents.</span><div class="tags"><b>PYTHON</b><b>AI INFRA</b><b>LOCAL-FIRST</b></div></div>
           </a>
 
-          <a class="bento-project bento-tall" href="https://github.com/vyas-devgna/braids" target="_blank" rel="noopener">
-            <img src="https://raw.githubusercontent.com/vyas-devgna/braids/main/assets/hero/braids-hero.png" alt="Braids project artwork" loading="lazy" decoding="async" />
-            <div class="bento-scrim"></div>
-            <div class="bento-copy"><span>AI ENGINEERING GOVERNANCE</span><h3>Braids</h3><p>Engineering rigor for coding agents: evidence, fallbacks, failure paths and verification.</p></div>
-            <i>02</i>
+          <a class="project-card project-tall reveal" href="https://github.com/vyas-devgna/braids" target="_blank" rel="noopener" data-tilt>
+            <img src="https://raw.githubusercontent.com/vyas-devgna/braids/main/assets/hero/braids-hero.png" alt="Braids engineering system artwork" loading="lazy" decoding="async" />
+            <span class="project-index">02</span><span class="project-arrow">↗</span>
+            <div class="project-copy"><p>ENGINEERING GOVERNANCE</p><h3>Braids</h3><span>Rigor for coding agents: evidence, failure paths, fallbacks and verification.</span><div class="tags"><b>AGENTS</b><b>OPEN SOURCE</b></div></div>
           </a>
 
-          <a class="bento-project bento-wide" href="https://github.com/vyas-devgna/ezboard" target="_blank" rel="noopener">
-            <img src="https://raw.githubusercontent.com/vyas-devgna/ezboard/main/public/brand/ezboard-mark.png" alt="EzBoard project mark" loading="lazy" decoding="async" />
-            <div class="bento-scrim"></div>
-            <div class="bento-copy"><span>LOCAL-FIRST / WEBRTC</span><h3>EzBoard</h3><p>Private collaborative canvas for people and AI agents.</p></div>
-            <i>03</i>
+          <a class="project-card project-wide reveal" href="https://github.com/vyas-devgna/ezboard" target="_blank" rel="noopener" data-tilt>
+            <div class="project-mark">EZ/<br />BOARD</div>
+            <span class="project-index">03</span><span class="project-arrow">↗</span>
+            <div class="project-copy"><p>LOCAL-FIRST / WEBRTC</p><h3>EzBoard</h3><span>A private collaborative canvas for people and AI agents.</span><div class="tags"><b>WEBRTC</b><b>CANVAS</b></div></div>
           </a>
 
-          <a class="bento-project" href="https://github.com/vyas-devgna/same-energy-android" target="_blank" rel="noopener">
-            <img src="https://raw.githubusercontent.com/vyas-devgna/same-energy-android/main/assets/blacklogo-bg.png" alt="Same.Energy Android project mark" loading="lazy" decoding="async" />
-            <div class="bento-scrim"></div>
-            <div class="bento-copy"><span>FLUTTER / VISUAL SEARCH</span><h3>Same.Energy Android</h3><p>A native-feeling semantic image-search client.</p></div>
-            <i>04</i>
+          <a class="project-card reveal" href="https://github.com/vyas-devgna/ez-drop" target="_blank" rel="noopener" data-tilt>
+            <img src="images/project-art/ez-drop.webp" alt="ez-drop peer-to-peer transfer artwork" loading="lazy" decoding="async" />
+            <span class="project-index">04</span><span class="project-arrow">↗</span>
+            <div class="project-copy"><p>PEER TO PEER</p><h3>ez-drop</h3><span>Browser-to-browser file and text transfer.</span></div>
           </a>
 
-          <a class="bento-project" href="https://github.com/vyas-devgna" target="_blank" rel="noopener">
-            <img src="images/project-art/smart-attendance.webp" alt="Smart Attendance system illustration" loading="lazy" decoding="async" />
-            <div class="bento-scrim"></div>
-            <div class="bento-copy"><span>SECURE ATTENDANCE / PROXIMITY</span><h3>Smart Attendance</h3><p>Multi-factor presence verification.</p></div>
-            <i>05</i>
+          <a class="project-card reveal" href="https://github.com/vyas-devgna/same-energy-android" target="_blank" rel="noopener" data-tilt>
+            <div class="project-mark mark-round">S/E</div>
+            <span class="project-index">05</span><span class="project-arrow">↗</span>
+            <div class="project-copy"><p>FLUTTER / VISUAL SEARCH</p><h3>Same.Energy</h3><span>A native-feeling semantic image-search client.</span></div>
           </a>
 
-          <a class="bento-project" href="https://github.com/vyas-devgna/ez-drop" target="_blank" rel="noopener">
-            <img src="images/project-art/ez-drop.webp" alt="ez-drop peer-to-peer transfer illustration" loading="lazy" decoding="async" />
-            <div class="bento-scrim"></div>
-            <div class="bento-copy"><span>WEBRTC / P2P</span><h3>ez-drop</h3><p>Browser-to-browser file and text transfer.</p></div>
-            <i>06</i>
-          </a>
-
-          <a class="bento-project" href="https://github.com/vyas-devgna/beatblocks-control" target="_blank" rel="noopener">
-            <img src="images/project-art/beatblocks.webp" alt="BeatBlocks Control music system illustration" loading="lazy" decoding="async" />
-            <div class="bento-scrim"></div>
-            <div class="bento-copy"><span>FABRIC / SPOTIFY</span><h3>BeatBlocks Control</h3><p>Minecraft-side music control through a local Spicetify bridge.</p></div>
-            <i>07</i>
+          <a class="project-card reveal" href="https://github.com/vyas-devgna/beatblocks-control" target="_blank" rel="noopener" data-tilt>
+            <img src="images/project-art/beatblocks.webp" alt="BeatBlocks music control artwork" loading="lazy" decoding="async" />
+            <span class="project-index">06</span><span class="project-arrow">↗</span>
+            <div class="project-copy"><p>FABRIC / SPOTIFY</p><h3>BeatBlocks</h3><span>Minecraft-side music control through a local bridge.</span></div>
           </a>
         </div>
       </div>
     </section>
 
-    <section class="scene" id="scene-research" data-scene="2" aria-label="Research and open source">
-      <div class="scene-inner research-layout">
-        <header class="section-heading compact">
-          <p class="eyebrow">RESEARCH / UPSTREAM ENGINEERING</p>
-          <div><h2>Work where evidence matters.</h2><p>Research and contributions are useful because someone else can inspect the assumptions.</p></div>
+    <section class="section" id="research" aria-labelledby="research-title">
+      <div class="section-shell">
+        <header class="section-heading reveal">
+          <div><p class="eyebrow">02 / RESEARCH & OPEN SOURCE</p><h2 id="research-title">Work that can withstand inspection.</h2></div>
+          <p>Claims are only useful when someone else can reproduce them, challenge them and learn from them.</p>
         </header>
 
-        <article class="research-feature">
-          <div class="research-kicker">PUBLISHED RESEARCH · icSoftComp 2025 · SPRINGER CCIS</div>
-          <h3>HERMES</h3>
-          <p class="research-title">Design and Deployment of a Hybrid AI/ML Network Security System on ARM Clusters for Edge Environments</p>
-          <p>Hybrid signature filtering and quantized neural inference designed for inline detection on low-power ARM nodes. The work focuses on practical edge constraints rather than treating compute as unlimited.</p>
-          <div class="metrics"><span><strong>94.7%</strong> detection</span><span><strong>15 kpps</strong> inline</span><span><strong>4.2 W</strong> per active node</span></div>
-        </article>
+        <div class="research-grid">
+          <article class="bento research-main reveal">
+            <div class="orbit" aria-hidden="true"><i></i><i></i><i></i></div>
+            <p class="eyebrow">PUBLISHED / icSoftComp 2025 / SPRINGER CCIS</p>
+            <div><h3>HERMES</h3><h4>Hybrid AI/ML network security on ARM clusters for edge environments.</h4><p>Signature filtering and quantized neural inference designed for practical inline detection where compute and power are limited.</p></div>
+            <dl><div><dt>94.7%</dt><dd>DETECTION</dd></div><div><dt>15k</dt><dd>PACKETS / SEC</dd></div><div><dt>4.2W</dt><dd>PER ACTIVE NODE</dd></div></dl>
+          </article>
 
-        <article class="opensource-feature">
-          <div class="research-kicker">OPEN SOURCE / MATURE CODEBASE</div>
-          <h3>ChrisTitusTech / WinUtil</h3>
-          <p>Upstream work across drift detection, UI state synchronization, accessibility, storage controls and shell integration. This is the kind of engineering I value: changes made inside an existing system where compatibility and regressions matter.</p>
-          <div class="pr-strip"><span>#4582</span><span>#4636</span><span>#4664</span><span>#4771</span><span>#4781</span><span>#4885</span></div>
-          <a href="https://github.com/ChrisTitusTech/winutil/pulls?q=is%3Apr+author%3Avyas-devgna+is%3Amerged" target="_blank" rel="noopener">View merged contributions ↗</a>
-        </article>
+          <article class="bento open-source-card reveal">
+            <p class="eyebrow">UPSTREAM ENGINEERING</p>
+            <div class="terminal-lines" aria-hidden="true"><span>$ git log --author=vyas</span><span class="ok">✓ 6 merged changes</span><span>ui · storage · shell · a11y</span></div>
+            <div><h3>WinUtil</h3><p>Contributions inside a mature codebase: drift detection, UI state sync, accessibility, storage controls and shell integration.</p></div>
+            <a href="https://github.com/ChrisTitusTech/winutil/pulls?q=is%3Apr+author%3Avyas-devgna+is%3Amerged" target="_blank" rel="noopener">View merged work <span>↗</span></a>
+          </article>
 
-        <aside class="research-principle">
-          <span>WORKING PRINCIPLE</span>
-          <blockquote>Proof over posture.</blockquote>
-          <p>A benchmark, threat model, failing test, reproducible demo or explicit rollback path says more than a large architecture diagram.</p>
-        </aside>
+          <article class="bento quote-card reveal"><p class="eyebrow">ENGINEERING ETHOS</p><blockquote>“Being weak is nothing to be ashamed of… Staying weak is.”</blockquote><small>— FUEGOLEON VERMILLION</small></article>
+          <article class="bento stack-card reveal"><p class="eyebrow">FREQUENCIES</p><div class="stack-list"><span>01 <b>SYSTEMS</b></span><span>02 <b>NETWORKING</b></span><span>03 <b>SECURITY</b></span><span>04 <b>AI AGENTS</b></span><span>05 <b>LOCAL-FIRST</b></span></div></article>
+        </div>
       </div>
     </section>
 
-    <section class="scene" id="scene-profile" data-scene="3" aria-label="Profile, writing and philosophy">
-      <div class="scene-inner profile-bento">
-        <article class="profile-summary profile-cell profile-main">
-          <p class="eyebrow">PROFILE</p>
-          <h2>Systems first.<br />Curiosity always.</h2>
-          <p>I am a backend and systems engineer specializing in robust architecture, network performance, Linux and cybersecurity. I work from first principles: understand the data flow, trust boundaries, control paths and failure modes before choosing the abstraction.</p>
-          <p>AI is an execution multiplier for me, not a substitute for owning the architecture. I value performance, clarity and maintainability over novelty.</p>
+    <section class="section" id="about" aria-labelledby="about-title">
+      <div class="section-shell about-grid">
+        <article class="bento about-main reveal">
+          <p class="eyebrow">03 / ABOUT</p>
+          <h2 id="about-title">Systems first.<br /><em>Curiosity always.</em></h2>
+          <p>I work from first principles: understand the data flow, trust boundaries, control paths and failure modes before choosing the abstraction. AI is an execution multiplier, not a substitute for owning the architecture.</p>
           <div class="profile-links"><a href="https://github.com/vyas-devgna" target="_blank" rel="noopener">GitHub ↗</a><a href="https://linkedin.com/in/devgna-vyas" target="_blank" rel="noopener">LinkedIn ↗</a></div>
         </article>
-
-        <article class="profile-cell education-card">
-          <span>EDUCATION</span>
-          <h3>CHARUSAT University</h3>
-          <p>Bachelor of Computer Applications · 2023—2026</p>
-          <strong>8.25 CGPA</strong>
-          <small>Computer architecture · operating systems · databases · networking</small>
-        </article>
-
-        <article class="profile-cell philosophy-card">
-          <span>ENGINEERING ETHOS</span>
-          <blockquote>“Being weak is nothing to be ashamed of… Staying weak is!”</blockquote>
-          <small>— Fuegoleon Vermillion</small>
-          <p>I believe in thinking from first principles — understanding data flow, control paths, and failure modes before writing a single line of code. I value performance, clarity, and maintainability over novelty. Given sufficient time and access, I focus on understanding the problem deeply and then building reliable, maintainable solutions.</p>
-        </article>
-
-        <article class="profile-cell recognition-card">
-          <span>RECOGNITION / CREDENTIALS</span>
-          <ul>
-            <li><strong>Published researcher</strong><small>HERMES · icSoftComp 2025 · Springer CCIS</small></li>
-            <li><strong>Google</strong><small>Crash Course on Python</small></li>
-            <li><strong>Oracle</strong><small>Java Foundations</small></li>
-            <li><strong>Google</strong><small>Tools of the Trade: Linux & SQL</small></li>
-          </ul>
-        </article>
-
-        <article class="profile-cell writing-card">
-          <span>WRITING / NOTES</span>
-          <h3>I write to make an idea harder to hide from itself.</h3>
-          <p>Writing is where I slow down enough to examine assumptions, ambiguity, people, systems and the uncomfortable gap between what sounds true and what survives scrutiny.</p>
-          <a href="#scene-elsewhere" class="nav-link">Photography, art & writing <b>→</b></a>
-        </article>
+        <article class="bento education-card reveal"><p class="eyebrow">EDUCATION</p><div><span class="big-number">8.25</span><small>CGPA</small></div><h3>BCA · CHARUSAT</h3><p>2023—2026<br />Architecture · OS · databases · networking</p></article>
+        <article class="bento recognition-card reveal"><p class="eyebrow">RECOGNITION</p><ul><li><strong>Published researcher</strong><span>HERMES · Springer CCIS</span></li><li><strong>Google</strong><span>Python · Linux · SQL</span></li><li><strong>Oracle</strong><span>Java Foundations</span></li></ul></article>
+        <article class="bento writing-card reveal"><p class="eyebrow">WRITING / NOTES</p><h3>I write to make an idea harder to hide from itself.</h3><p>On ambiguity, people, systems and the gap between what sounds true and what survives scrutiny.</p><span class="scribble" aria-hidden="true">∿∿∿</span></article>
       </div>
     </section>
 
-    <section class="scene" id="scene-elsewhere" data-scene="4" aria-label="Photography, writing and interests">
-      <div class="scene-inner elsewhere-layout">
-        <header class="elsewhere-copy">
-          <p class="eyebrow">OUTSIDE ENGINEERING</p>
-          <h2>I photograph things I would otherwise forget.</h2>
-          <p>Photography, art, philosophy, music, mountains and writing give the technical work somewhere human to return to.</p>
-          <div class="interest-list"><span>PHOTOGRAPHY</span><span>ART</span><span>PHILOSOPHY</span><span>MUSIC</span><span>MOUNTAINS</span><span>WRITING</span></div>
-          <p class="photo-caption" id="photo-caption">Loading photographs…</p>
-          <p class="photo-help">The carousel pauses when you interact with it. Select any frame to open it full-size, then use the arrows or keyboard to explore the archive.</p>
+    <section class="section photo-section" id="photography" aria-labelledby="photo-title">
+      <div class="section-shell">
+        <header class="section-heading reveal">
+          <div><p class="eyebrow">04 / ELSEWHERE</p><h2 id="photo-title">Things I notice when I look up.</h2></div>
+          <p>Photography, mountains, music and writing give the technical work somewhere human to return to.</p>
         </header>
-
-        <div class="photo-carousel" id="photo-carousel" aria-label="Rotating carousel of Devgna's photography">
-          <div class="photo-track" id="photo-track"></div>
-          <div class="photo-carousel-meta"><span>PHOTOGRAPHY ARCHIVE</span><strong id="photo-count">—</strong></div>
+        <div class="photo-shell reveal">
+          <div class="photo-copy"><p class="eyebrow">PERSONAL ARCHIVE / <span id="photo-count">—</span> FRAMES</p><p id="photo-caption">Loading the archive…</p><small>Drag to explore · select a frame to open</small></div>
+          <div class="photo-track" id="photo-track" aria-label="Photography by Devgna Vyas"></div>
         </div>
       </div>
     </section>
 
-    <section class="scene" id="scene-contact" data-scene="5" aria-label="Contact">
-      <div class="contact-photo" aria-hidden="true"></div>
-      <div class="scene-inner contact-layout">
-        <p class="eyebrow">CONTACT</p>
-        <h2>If the problem is interesting,<br />I probably want to hear about it.</h2>
-        <p>Systems, open source, research, security, unusual product ideas or engineering discussions.</p>
-        <div class="contact-links">
-          <a href="mailto:vyasdevgna@gmail.com"><strong>Email</strong><span>vyasdevgna@gmail.com ↗</span></a>
-          <a href="https://github.com/vyas-devgna" target="_blank" rel="noopener"><strong>GitHub</strong><span>github.com/vyas-devgna ↗</span></a>
-          <a href="https://linkedin.com/in/devgna-vyas" target="_blank" rel="noopener"><strong>LinkedIn</strong><span>devgna-vyas ↗</span></a>
-        </div>
-        <footer><span>DEVGNA VYAS</span><span>STATIC / GITHUB PAGES</span><span id="year"></span></footer>
+    <section class="section contact" id="contact" aria-labelledby="contact-title">
+      <div class="section-shell contact-grid">
+        <article class="bento contact-main reveal">
+          <p class="eyebrow">05 / CONTACT</p>
+          <h2 id="contact-title">Have an interesting problem?</h2>
+          <p>Systems, open source, research, security or a strange product idea — I’d like to hear about it.</p>
+          <a class="button button-primary" href="mailto:vyasdevgna@gmail.com">Send an email <span>↗</span></a>
+        </article>
+        <nav class="contact-links reveal" aria-label="Social links">
+          <a href="mailto:vyasdevgna@gmail.com"><span>EMAIL</span><strong>vyasdevgna@gmail.com</strong><i>↗</i></a>
+          <a href="https://github.com/vyas-devgna" target="_blank" rel="noopener"><span>GITHUB</span><strong>@vyas-devgna</strong><i>↗</i></a>
+          <a href="https://linkedin.com/in/devgna-vyas" target="_blank" rel="noopener"><span>LINKEDIN</span><strong>devgna-vyas</strong><i>↗</i></a>
+        </nav>
+        <footer><span>DEVGNA VYAS © <i id="year"></i></span><span>DESIGNED TO SURVIVE REALITY</span><a href="#home">BACK TO TOP ↑</a></footer>
       </div>
     </section>
   </main>
 
-  <aside class="scene-rail" aria-label="Scene navigation">
-    <a href="#scene-home" class="nav-link" class="active" aria-label="Index"><i></i><span>INDEX</span></a>
-    <a href="#scene-work" class="nav-link" aria-label="Work"><i></i><span>WORK</span></a>
-    <a href="#scene-research" class="nav-link" aria-label="Research"><i></i><span>RESEARCH</span></a>
-    <a href="#scene-profile" class="nav-link" aria-label="Profile"><i></i><span>PROFILE</span></a>
-    <a href="#scene-elsewhere" class="nav-link" aria-label="Elsewhere"><i></i><span>ELSEWHERE</span></a>
-    <a href="#scene-contact" class="nav-link" aria-label="Contact"><i></i><span>CONTACT</span></a>
-  </aside>
-
-  <div class="scene-counter" aria-hidden="true"><span id="scene-current">01</span><i></i><span>06</span></div>
-
   <dialog class="photo-lightbox" id="photo-lightbox" aria-label="Photography viewer">
-    <button class="lightbox-close" id="lightbox-close" type="button" aria-label="Close photograph">CLOSE ×</button>
-    <button class="lightbox-nav lightbox-prev" id="lightbox-prev" type="button" aria-label="Previous photograph">←</button>
-    <figure>
-      <img id="lightbox-image" alt="" />
-      <figcaption><span id="lightbox-index"></span><p id="lightbox-caption"></p></figcaption>
-    </figure>
-    <button class="lightbox-nav lightbox-next" id="lightbox-next" type="button" aria-label="Next photograph">→</button>
+    <button class="lightbox-close" id="lightbox-close" type="button" aria-label="Close photograph">Close ×</button>
+    <button class="lightbox-nav" id="lightbox-prev" type="button" aria-label="Previous photograph">←</button>
+    <figure><img id="lightbox-image" alt="" /><figcaption><span id="lightbox-index"></span><p id="lightbox-caption"></p></figcaption></figure>
+    <button class="lightbox-nav" id="lightbox-next" type="button" aria-label="Next photograph">→</button>
   </dialog>
 
-  <script src="js/main.js" defer></script>
+  <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
+  <script type="module" src="js/main.js"></script>
 </body>
 </html>

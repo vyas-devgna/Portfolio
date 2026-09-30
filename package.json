@@ -5,11 +5,8 @@
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "build": "vite build && cp -R images dist/images && cp CNAME tip.html animals.json photography.json dist/",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "lenis": "1.3.26",
-    "motion": "13.1.1"
+    "preview": "vite preview",
+    "check": "node --check js/main.js && node scripts/check.mjs && npm run build"
   },
   "devDependencies": {
     "vite": "8.2.2"

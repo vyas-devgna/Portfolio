@@ -25,11 +25,9 @@ jobs:
           cache: npm
           cache-dependency-path: package.json
       - name: Install dependencies
-        run: npm install --no-audit --no-fund
-      - name: Syntax check
-        run: node --check js/main.js
-      - name: Build static site
-        run: npm run build
+        run: npm ci --no-audit --no-fund
+      - name: Check and build static site
+        run: npm run check
       - name: Verify required output
         run: |
           test -f dist/index.html

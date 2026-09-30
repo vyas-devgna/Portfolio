@@ -314,7 +314,7 @@ if (canvas) {
       }
     });
     nodes.forEach((node) => {
-      ctx.fillStyle = node.excitation > .2 ? '#b8ff3d' : 'rgba(242,240,233,.56)';
+      ctx.fillStyle = node.excitation > .2 ? '#73836a' : 'rgba(38,46,38,.42)';
       ctx.beginPath();
       ctx.arc(node.x, node.y, 1.1 + node.excitation * 1.8, 0, Math.PI * 2);
       ctx.fill();

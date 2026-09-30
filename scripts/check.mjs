@@ -9,6 +9,10 @@ const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map((match) => match[1]);
 if (new Set(ids).size !== ids.length) throw new Error('index.html contains duplicate IDs');
 
 const idSet = new Set(ids);
+for (const required of ['fluid-background', 'system-map', 'project-stage', 'swarm-pulse', 'swarm-freeze']) {
+  if (!idSet.has(required)) throw new Error(`Missing interactive surface: #${required}`);
+}
+
 for (const [, target] of html.matchAll(/href="#([^"]+)"/g)) {
   if (!idSet.has(target)) throw new Error(`Missing anchor target: #${target}`);
 }

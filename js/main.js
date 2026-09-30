@@ -79,57 +79,248 @@ if (finePointer && !reducedMotion) {
   });
 }
 
+const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
+const smoothstep = (value) => value * value * (3 - 2 * value);
+
+const fluidCanvas = document.getElementById('fluid-background');
+if (fluidCanvas) {
+  const gl = fluidCanvas.getContext('webgl', { alpha: true, antialias: false, powerPreference: 'low-power' });
+  if (gl) {
+    const vertexSource = 'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
+    const fragmentSource = `
+      precision mediump float;
+      uniform vec2 resolution;
+      uniform vec2 pointer;
+      uniform float time;
+      float wave(vec2 p){
+        float a=sin(p.x*3.1+sin(p.y*2.4-time*.34));
+        float b=cos(p.y*3.7+cos(p.x*2.2+time*.27));
+        float c=sin((p.x+p.y)*2.8-time*.21);
+        return (a+b+c)/3.;
+      }
+      void main(){
+        vec2 uv=(gl_FragCoord.xy-.5*resolution.xy)/min(resolution.x,resolution.y);
+        vec2 mouse=(pointer-.5)*vec2(resolution.x/resolution.y,1.);
+        float pull=.08/(.18+length(uv-mouse));
+        vec2 warped=uv+vec2(wave(uv+time*.018),wave(uv.yx-time*.015))*.16+(uv-mouse)*pull*.035;
+        float flow=wave(warped*1.35);
+        vec3 green=vec3(.24,.50,.06), violet=vec3(.28,.18,.52), amber=vec3(.46,.17,.06);
+        vec3 color=mix(violet,green,smoothstep(-.7,.7,flow));
+        color=mix(color,amber,smoothstep(.18,.95,wave(warped.yx+2.1))*.42);
+        float alpha=.18*smoothstep(-.95,.85,flow)+.025;
+        gl_FragColor=vec4(color,alpha);
+      }`;
+
+    const compile = (type, source) => {
+      const shader = gl.createShader(type);
+      gl.shaderSource(shader, source);
+      gl.compileShader(shader);
+      return gl.getShaderParameter(shader, gl.COMPILE_STATUS) ? shader : null;
+    };
+    const vertex = compile(gl.VERTEX_SHADER, vertexSource);
+    const fragment = compile(gl.FRAGMENT_SHADER, fragmentSource);
+    if (vertex && fragment) {
+      const program = gl.createProgram();
+      gl.attachShader(program, vertex);
+      gl.attachShader(program, fragment);
+      gl.linkProgram(program);
+      gl.useProgram(program);
+      const buffer = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]), gl.STATIC_DRAW);
+      const position = gl.getAttribLocation(program, 'p');
+      gl.enableVertexAttribArray(position);
+      gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
+      const resolution = gl.getUniformLocation(program, 'resolution');
+      const pointer = gl.getUniformLocation(program, 'pointer');
+      const time = gl.getUniformLocation(program, 'time');
+      const cursor = { x: .76, y: .18 };
+      let frame = 0;
+      let lastPaint = 0;
+
+      const resize = () => {
+        const scale = Math.min(devicePixelRatio || 1, innerWidth < 760 ? 1 : 1.35);
+        fluidCanvas.width = Math.round(innerWidth * scale);
+        fluidCanvas.height = Math.round(innerHeight * scale);
+        gl.viewport(0, 0, fluidCanvas.width, fluidCanvas.height);
+      };
+      const paint = (now = 0) => {
+        if (!reducedMotion && now - lastPaint < 32) {
+          frame = requestAnimationFrame(paint);
+          return;
+        }
+        lastPaint = now;
+        gl.uniform2f(resolution, fluidCanvas.width, fluidCanvas.height);
+        gl.uniform2f(pointer, cursor.x, cursor.y);
+        gl.uniform1f(time, reducedMotion ? 0 : now / 1000);
+        gl.drawArrays(gl.TRIANGLES, 0, 6);
+        if (!reducedMotion) frame = requestAnimationFrame(paint);
+      };
+      window.addEventListener('pointermove', (event) => {
+        cursor.x = event.clientX / innerWidth;
+        cursor.y = 1 - event.clientY / innerHeight;
+      }, { passive: true });
+      window.addEventListener('resize', resize, { passive: true });
+      document.addEventListener('visibilitychange', () => {
+        cancelAnimationFrame(frame);
+        if (!document.hidden && !reducedMotion) frame = requestAnimationFrame(paint);
+      });
+      resize();
+      paint();
+    }
+  }
+}
+
+const projectStage = document.getElementById('project-stage');
+if (projectStage && !reducedMotion) {
+  const sticky = projectStage.querySelector('.project-sticky');
+  const cards = [...projectStage.querySelectorAll('.project-card')];
+  const layout = [
+    [-34,-27,-7], [0,-34,2], [34,-27,7],
+    [-35,26,6], [0,34,-2], [35,25,-7]
+  ];
+  let ticking = false;
+
+  const renderStack = () => {
+    if (innerWidth <= 1050) {
+      cards.forEach((card) => { card.style.transform = ''; card.style.zIndex = ''; });
+      sticky.style.removeProperty('--stack-center');
+      ticking = false;
+      return;
+    }
+    const rect = projectStage.getBoundingClientRect();
+    const range = projectStage.offsetHeight - sticky.offsetHeight;
+    const progress = clamp(-rect.top / range);
+    const spread = smoothstep(clamp((progress - .04) / .72));
+    const center = smoothstep(clamp((progress - .34) / .3));
+    sticky.style.setProperty('--stack-center', center.toFixed(3));
+    cards.forEach((card, index) => {
+      const [endX, endY, endRotation] = layout[index];
+      const startX = (index - (cards.length - 1) / 2) * 2;
+      const startY = index * -.45;
+      const startRotation = (index - (cards.length - 1) / 2) * 1.2;
+      const x = (startX + (endX - startX) * spread) * sticky.clientWidth / 100;
+      const y = (startY + (endY - startY) * spread) * sticky.clientHeight / 100;
+      const rotation = startRotation + (endRotation - startRotation) * spread;
+      const scale = .78 + spread * .14;
+      card.style.transform = `translate(-50%,-50%) translate(${x}px,${y}px) rotate(${rotation}deg) scale(${scale})`;
+      card.style.zIndex = String(index + 2);
+    });
+    ticking = false;
+  };
+
+  const requestStack = () => {
+    if (!ticking) requestAnimationFrame(renderStack);
+    ticking = true;
+  };
+  window.addEventListener('scroll', requestStack, { passive: true });
+  window.addEventListener('resize', requestStack, { passive: true });
+  renderStack();
+}
+
 const canvas = document.getElementById('system-map');
 if (canvas) {
   const ctx = canvas.getContext('2d');
-  const pointer = { x: -1000, y: -1000 };
+  const pointer = { x: -1000, y: -1000, down: false };
+  const shockwaves = [];
+  let nodes = [];
   let width = 0;
   let height = 0;
   let frame = 0;
-  const nodes = Array.from({ length: 28 }, (_, index) => ({
-    x: ((index * 37) % 101) / 100,
-    y: ((index * 61 + 17) % 103) / 102,
-    phase: index * 0.73
-  }));
+  let frozen = reducedMotion;
 
-  function resizeCanvas() {
+  const seedNodes = () => {
+    const count = width < 520 ? 92 : 150;
+    const radius = Math.max(width, height) * .48;
+    const goldenAngle = Math.PI * (3 - Math.sqrt(5));
+    nodes = Array.from({ length: count }, (_, index) => {
+      const distance = Math.sqrt((index + .5) / count) * radius;
+      const angle = index * goldenAngle;
+      return {
+        distance, angle,
+        x: width / 2 + Math.cos(angle) * distance,
+        y: height / 2 + Math.sin(angle) * distance,
+        vx: 0, vy: 0, excitation: 0
+      };
+    });
+  };
+
+  const resizeCanvas = () => {
     const rect = canvas.getBoundingClientRect();
-    const ratio = Math.min(devicePixelRatio || 1, 2);
+    const ratio = Math.min(devicePixelRatio || 1, 1.5);
     width = rect.width;
     height = rect.height;
     canvas.width = Math.round(width * ratio);
     canvas.height = Math.round(height * ratio);
     ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
-  }
+    seedNodes();
+  };
 
-  function drawMap(time = 0) {
+  const addPulse = (x = width / 2, y = height / 2) => {
+    shockwaves.push({ x, y, radius: 8, strength: 1 });
+    if (frozen) drawSwarm(performance.now());
+  };
+
+  function drawSwarm(time = 0) {
     ctx.clearRect(0, 0, width, height);
-    const points = nodes.map((node) => {
-      const drift = reducedMotion ? 0 : Math.sin(time * 0.00035 + node.phase) * 7;
-      return { x: node.x * width + drift, y: node.y * height + Math.cos(time * 0.0003 + node.phase) * 5 };
+    shockwaves.forEach((wave) => { wave.radius += 11; wave.strength *= .93; });
+    while (shockwaves[0] && (shockwaves[0].radius > Math.max(width, height) || shockwaves[0].strength < .02)) shockwaves.shift();
+
+    nodes.forEach((node) => {
+      const angle = node.angle + (frozen ? 0 : time * .000045 * (1 + 80 / (node.distance + 80)));
+      const targetX = width / 2 + Math.cos(angle) * node.distance;
+      const targetY = height / 2 + Math.sin(angle) * node.distance;
+      node.vx += (targetX - node.x) * .018;
+      node.vy += (targetY - node.y) * .018;
+      const dx = node.x - pointer.x;
+      const dy = node.y - pointer.y;
+      const distance = Math.hypot(dx, dy);
+      if (distance < 105 && distance > 0) {
+        const force = (1 - distance / 105) * (pointer.down ? -.55 : 1.25);
+        node.vx += dx / distance * force;
+        node.vy += dy / distance * force;
+        node.excitation = Math.max(node.excitation, 1 - distance / 105);
+      }
+      shockwaves.forEach((wave) => {
+        const sx = node.x - wave.x;
+        const sy = node.y - wave.y;
+        const sd = Math.hypot(sx, sy);
+        const edge = Math.abs(sd - wave.radius);
+        if (edge < 22 && sd > 0) {
+          const force = (1 - edge / 22) * wave.strength * 8;
+          node.vx += sx / sd * force;
+          node.vy += sy / sd * force;
+          node.excitation = 1;
+        }
+      });
+      node.vx *= .9;
+      node.vy *= .9;
+      node.x += node.vx;
+      node.y += node.vy;
+      node.excitation *= .94;
     });
 
-    for (let i = 0; i < points.length; i += 1) {
-      for (let j = i + 1; j < points.length; j += 1) {
-        const distance = Math.hypot(points[i].x - points[j].x, points[i].y - points[j].y);
-        if (distance > 115) continue;
-        ctx.strokeStyle = `rgba(184,255,61,${0.16 * (1 - distance / 115)})`;
+    ctx.lineWidth = .6;
+    nodes.forEach((node, index) => {
+      for (let next = index + 1; next < Math.min(nodes.length, index + 11); next += 1) {
+        const other = nodes[next];
+        const distance = Math.hypot(node.x - other.x, node.y - other.y);
+        if (distance > 76) continue;
+        ctx.strokeStyle = `rgba(184,255,61,${(1 - distance / 76) * .14})`;
         ctx.beginPath();
-        ctx.moveTo(points[i].x, points[i].y);
-        ctx.lineTo(points[j].x, points[j].y);
+        ctx.moveTo(node.x, node.y);
+        ctx.lineTo(other.x, other.y);
         ctx.stroke();
       }
-    }
-
-    points.forEach((point) => {
-      const near = Math.hypot(point.x - pointer.x, point.y - pointer.y) < 90;
-      ctx.fillStyle = near ? '#b8ff3d' : 'rgba(242,240,233,.38)';
+    });
+    nodes.forEach((node) => {
+      ctx.fillStyle = node.excitation > .2 ? '#b8ff3d' : 'rgba(242,240,233,.56)';
       ctx.beginPath();
-      ctx.arc(point.x, point.y, near ? 2.7 : 1.6, 0, Math.PI * 2);
+      ctx.arc(node.x, node.y, 1.1 + node.excitation * 1.8, 0, Math.PI * 2);
       ctx.fill();
     });
 
-    if (!reducedMotion) frame = requestAnimationFrame(drawMap);
+    if (!frozen) frame = requestAnimationFrame(drawSwarm);
   }
 
   canvas.addEventListener('pointermove', (event) => {
@@ -137,13 +328,23 @@ if (canvas) {
     pointer.x = event.clientX - rect.left;
     pointer.y = event.clientY - rect.top;
   });
-  canvas.addEventListener('pointerleave', () => { pointer.x = -1000; pointer.y = -1000; });
-  new ResizeObserver(() => { resizeCanvas(); if (reducedMotion) drawMap(); }).observe(canvas);
+  canvas.addEventListener('pointerdown', (event) => { pointer.down = true; addPulse(pointer.x, pointer.y); event.preventDefault(); });
+  window.addEventListener('pointerup', () => { pointer.down = false; });
+  canvas.addEventListener('pointerleave', () => { pointer.x = -1000; pointer.y = -1000; pointer.down = false; });
+  document.getElementById('swarm-pulse')?.addEventListener('click', () => addPulse());
+  document.getElementById('swarm-freeze')?.addEventListener('click', (event) => {
+    frozen = !frozen;
+    event.currentTarget.setAttribute('aria-pressed', String(frozen));
+    event.currentTarget.textContent = frozen ? 'Resume' : 'Freeze';
+    cancelAnimationFrame(frame);
+    if (!frozen) frame = requestAnimationFrame(drawSwarm);
+  });
+  new ResizeObserver(() => { resizeCanvas(); if (frozen) drawSwarm(); }).observe(canvas);
   resizeCanvas();
-  drawMap();
+  drawSwarm();
   document.addEventListener('visibilitychange', () => {
-    if (document.hidden) cancelAnimationFrame(frame);
-    else if (!reducedMotion) frame = requestAnimationFrame(drawMap);
+    cancelAnimationFrame(frame);
+    if (!document.hidden && !frozen) frame = requestAnimationFrame(drawSwarm);
   });
 }
 

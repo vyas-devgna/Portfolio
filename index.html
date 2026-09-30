@@ -21,6 +21,7 @@
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
+  <canvas id="fluid-background" aria-hidden="true"></canvas>
   <div class="ambient" aria-hidden="true"></div>
   <div class="scroll-progress" aria-hidden="true"><i id="scroll-progress"></i></div>
 
@@ -67,6 +68,11 @@
           <canvas id="system-map" aria-hidden="true"></canvas>
           <div class="portrait-wrap"><img src="images/hero.png" alt="Devgna Vyas in the mountains" fetchpriority="high" decoding="async" /></div>
           <div class="visual-label"><span>THE BUILDER</span><span>© 2026</span></div>
+          <div class="swarm-controls">
+            <span><i></i> SWARM ONLINE</span>
+            <button id="swarm-pulse" type="button">Pulse</button>
+            <button id="swarm-freeze" type="button" aria-pressed="false">Freeze</button>
+          </div>
           <div class="signal-chip"><i></i><span>BUILDING AT THE EDGE<br /><small>SOFTWARE × RESEARCH</small></span></div>
         </aside>
 
@@ -91,42 +97,48 @@
           <p>Agent infrastructure, local-first collaboration and practical tools — built to be inspected, used and improved.</p>
         </header>
 
-        <div class="project-grid">
-          <a class="project-card project-lead reveal" href="https://github.com/vyas-devgna/liwm-agent-framework" target="_blank" rel="noopener" data-tilt>
+        <div class="project-stage" id="project-stage">
+          <div class="project-sticky">
+            <div class="project-center" aria-hidden="true"><span>BUILT TO BE USED</span><strong>Work that<br /><em>responds.</em></strong><p>SIX SYSTEMS · ONE BODY OF WORK</p></div>
+            <div class="project-grid">
+          <a class="project-card project-lead reveal" href="https://github.com/vyas-devgna/liwm-agent-framework" target="_blank" rel="noopener">
             <img src="https://raw.githubusercontent.com/vyas-devgna/liwm-agent-framework/main/assets/social-preview.png" alt="LIWM agent framework interface" loading="lazy" decoding="async" />
             <span class="project-index">01</span><span class="project-arrow">↗</span>
             <div class="project-copy"><p>AGENT MEMORY / INTENT</p><h3>LIWM</h3><span>Auditable, provenance-gated intent and memory infrastructure for coding agents.</span><div class="tags"><b>PYTHON</b><b>AI INFRA</b><b>LOCAL-FIRST</b></div></div>
           </a>
 
-          <a class="project-card project-tall reveal" href="https://github.com/vyas-devgna/braids" target="_blank" rel="noopener" data-tilt>
+          <a class="project-card project-tall reveal" href="https://github.com/vyas-devgna/braids" target="_blank" rel="noopener">
             <img src="https://raw.githubusercontent.com/vyas-devgna/braids/main/assets/hero/braids-hero.png" alt="Braids engineering system artwork" loading="lazy" decoding="async" />
             <span class="project-index">02</span><span class="project-arrow">↗</span>
             <div class="project-copy"><p>ENGINEERING GOVERNANCE</p><h3>Braids</h3><span>Rigor for coding agents: evidence, failure paths, fallbacks and verification.</span><div class="tags"><b>AGENTS</b><b>OPEN SOURCE</b></div></div>
           </a>
 
-          <a class="project-card project-wide reveal" href="https://github.com/vyas-devgna/ezboard" target="_blank" rel="noopener" data-tilt>
+          <a class="project-card project-wide reveal" href="https://github.com/vyas-devgna/ezboard" target="_blank" rel="noopener">
             <div class="project-mark">EZ/<br />BOARD</div>
             <span class="project-index">03</span><span class="project-arrow">↗</span>
             <div class="project-copy"><p>LOCAL-FIRST / WEBRTC</p><h3>EzBoard</h3><span>A private collaborative canvas for people and AI agents.</span><div class="tags"><b>WEBRTC</b><b>CANVAS</b></div></div>
           </a>
 
-          <a class="project-card reveal" href="https://github.com/vyas-devgna/ez-drop" target="_blank" rel="noopener" data-tilt>
+          <a class="project-card reveal" href="https://github.com/vyas-devgna/ez-drop" target="_blank" rel="noopener">
             <img src="images/project-art/ez-drop.webp" alt="ez-drop peer-to-peer transfer artwork" loading="lazy" decoding="async" />
             <span class="project-index">04</span><span class="project-arrow">↗</span>
             <div class="project-copy"><p>PEER TO PEER</p><h3>ez-drop</h3><span>Browser-to-browser file and text transfer.</span></div>
           </a>
 
-          <a class="project-card reveal" href="https://github.com/vyas-devgna/same-energy-android" target="_blank" rel="noopener" data-tilt>
+          <a class="project-card reveal" href="https://github.com/vyas-devgna/same-energy-android" target="_blank" rel="noopener">
             <div class="project-mark mark-round">S/E</div>
             <span class="project-index">05</span><span class="project-arrow">↗</span>
             <div class="project-copy"><p>FLUTTER / VISUAL SEARCH</p><h3>Same.Energy</h3><span>A native-feeling semantic image-search client.</span></div>
           </a>
 
-          <a class="project-card reveal" href="https://github.com/vyas-devgna/beatblocks-control" target="_blank" rel="noopener" data-tilt>
+          <a class="project-card reveal" href="https://github.com/vyas-devgna/beatblocks-control" target="_blank" rel="noopener">
             <img src="images/project-art/beatblocks.webp" alt="BeatBlocks music control artwork" loading="lazy" decoding="async" />
             <span class="project-index">06</span><span class="project-arrow">↗</span>
             <div class="project-copy"><p>FABRIC / SPOTIFY</p><h3>BeatBlocks</h3><span>Minecraft-side music control through a local bridge.</span></div>
           </a>
+            </div>
+            <div class="project-scroll-cue" aria-hidden="true"><span>SCROLL</span><i>↓</i></div>
+          </div>
         </div>
       </div>
     </section>

@@ -45,7 +45,7 @@ A replacement site is already built in `03-new-site/` and can be previewed befor
 - **Proof-ready:** case-study, testimonial and team sections with clear placeholders. Nothing is invented; your approved content goes in.
 - **Search:** unique titles and descriptions, structured data (Organization, ProfessionalService, Service, FAQ, Breadcrumbs, TechArticle), sitemap and robots.txt. 301 redirects keep old links and the white-paper URL working.
 - **Speed and security:** no frameworks, no third-party scripts and no cookies; strict security headers; caching. Lighthouse scores 97–100 on mobile and desktop in local tests.
-- **Design:** a refreshed identity with a concept logo mark (the original logo stays available), purposeful motion that switches off for visitors who prefer reduced motion, and a full-screen mobile menu that works by touch, mouse and keyboard.
+- **Design:** the refreshed KAVAIYATECH / KT INDIA logo rebuilt as crisp vector artwork that assembles on load, an engineering-drawing layout, light and dark themes, purposeful motion that switches off for visitors who prefer reduced motion, and a full-screen mobile menu that works by touch, mouse and keyboard.
 - **Deploy anywhere:** Netlify, Vercel, Cloudflare Pages or your current Apache host. Step-by-step instructions are included.
 
 ### 3.2 Launch fixes outside the website
@@ -58,7 +58,7 @@ A monthly plan (Essential, Growth or Premium) that covers updates, backups, moni
 
 **In scope (launch project)**
 - Final content edits to the new site with your supplied text, case studies, testimonials and team details.
-- Logo decision (concept mark or original) and any colour adjustment.
+- Logo approval (refreshed KAVAIYATECH logo or the current one) and any colour adjustment.
 - Form connection (Formspree or your chosen provider) and test submissions.
 - Deployment to your chosen host, domain and HTTPS set-up, and redirects check.
 - DMARC/CAA records, Search Console, analytics set-up, and Google Business Profile check.

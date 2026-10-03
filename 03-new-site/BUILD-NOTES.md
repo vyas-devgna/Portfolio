@@ -22,9 +22,11 @@ Built 2026-10-03. The site is in `dist/`; deploy steps are in `README.md`.
 | 404 (noindex) | `/404.html` |
 
 **Design and motion**
-- New visual identity: deep navy with a lime-to-blue signal gradient, and a **concept logo mark** (a K whose arm becomes the T's crossbar, with two "signal" nodes). It draws itself on load in the home hero. The original logo is kept in `src/logo-source.png` for the client to choose.
-- Home hero "ecosystem orbit": 10 sector nodes using the sector codes from the original site, rotating rings, data packets and a breathing core. It pauses on hover.
-- Animated service glyphs on each service page, an animated three-layer ANNAVEDA visual, a scroll-progress bar, scroll-reveal cards, an animated process rail, pointer spotlight on service cards and smooth cross-page view transitions.
+- **Logo:** the supplied KAVAIYATECH / KT INDIA logo, traced to vector and split into its four ribbons (stem, arm, leg, T) so it assembles on load in the home hero and drifts with the pointer. It renders crisply on light and dark backgrounds (the T switches between ink and white).
+- **Design concept: an engineering drawing set.** The hero is a drawing sheet with zone markers, registration marks, a figure caption and a title block with real company data. Services are a spec-sheet index, the ten sectors are an element table using the sector codes from the original site, and the footer carries the full-width wordmark. The logo's cyan-to-lime ribbon is the only strong colour; it appears in underlines, rails and hover sweeps.
+- **Type:** Archivo (expanded) for display, IBM Plex Sans for text, IBM Plex Mono for labels and data, all self-hosted.
+- **Light and dark themes:** follows the system setting, with a header toggle that remembers the choice.
+- Motion: logo assembly and pointer parallax, an animated three-layer ANNAVEDA visual, a drifting mark in the call-to-action band, scroll-progress bar, scroll-reveal sections, an animated process rail, ribbon sweeps on hover, an animated theme toggle and smooth cross-page view transitions.
 - All motion is transform/opacity only and off under "reduce motion". Content never depends on animation to be visible.
 - Mobile: full-screen menu (native popover: works without JS, Escape closes it), 48 px targets, no horizontal scroll at 390 px.
 
@@ -46,7 +48,7 @@ Built 2026-10-03. The site is in `dist/`; deploy steps are in `README.md`.
 
 **Security:** HSTS, CSP (`'self'` only plus Formspree; no inline scripts or styles), X-Content-Type-Options, X-Frame-Options, Referrer-Policy, Permissions-Policy, COOP; caching rules for static assets; no third-party scripts, cookies or trackers.
 
-**Weight:** CSS 32 KB, JS 4 KB (both uncompressed), no web fonts, no framework. Pages are 8–25 KB of HTML each (uncompressed).
+**Weight:** CSS about 35 KB and JS about 6 KB (uncompressed), self-hosted fonts about 190 KB (cached after the first visit), no framework. Pages are 8–25 KB of HTML each (uncompressed).
 
 ## Needs real content from the client
 `PLACEHOLDERS.md` lists all 70 markers (34 unique), shown on the pages as yellow dashed marks:
@@ -56,7 +58,7 @@ Built 2026-10-03. The site is in `dist/`; deploy steps are in `README.md`.
 4. **Service details:** typical deliverables, pricing approach or ranges, timelines, reply time and public business hours.
 5. **Privacy notice:** grievance officer, retention periods, hosting and log retention, publication date, and **legal review** (it is a draft).
 6. **Careers:** keep email applications, or reconnect the existing `api/apply.php` form.
-7. **Logo decision:** approve the concept mark or keep the original.
+7. **Logo approval:** confirm the refreshed KAVAIYATECH / KT INDIA logo is approved (the current site's logo is kept as a fallback).
 8. Confirm the WhatsApp number may also be shown as "phone" in schema (`telephone`), and that the Dubai office should still be listed as planned.
 
 ## Verification results (2026-10-03, local preview with production headers)
@@ -64,19 +66,20 @@ Built 2026-10-03. The site is in `dist/`; deploy steps are in `README.md`.
 **Lighthouse 13.5 (mobile, simulated throttling): Performance / Accessibility / Best Practices / SEO**
 | Page | Mobile | | Page | Mobile |
 |---|---|---|---|---|
-| `/` | 97 / 100 / 100 / 100 | | `/work/` | 100 / 100 / 100 / 100 |
-| `/services/` | 100 / 100 / 100 / 100 | | `/about/` | 100 / 100 / 100 / 100 |
-| each of the 8 service pages | 100 / 100 / 100 / 100 | | `/careers/` | 100 / 100 / 100 / 100 |
-| `/contact/` | 100 / 100 / 100 / 100 | | `/privacy/`, `/terms/` | 100 / 100 / 100 / 100 |
+| `/` | 98 / 100 / 100 / 100 | | `/work/` | 99 / 100 / 100 / 100 |
+| `/services/` | 98 / 100 / 100 / 100 | | `/about/` | 97 / 100 / 100 / 100 |
+| each of the 8 service pages | 97–99 / 100 / 100 / 100 | | `/careers/` | 97 / 100 / 100 / 100 |
+| `/contact/` | 99 / 100 / 100 / 100 | | `/privacy/` · `/terms/` | 98 · 97 / 100 / 100 / 100 |
 
-Desktop preset (`/`, `/services/`, `/work/`, `/contact/`): 100 / 100 / 100 / 100. Home mobile: LCP 1.1 s, TBT 180 ms, CLS 0. For comparison, the current site measured 69 for mobile performance on the same method (audit F18). The `/services/` accessibility result is after a fix: the first run scored 98 because of a heading-order issue.
+Desktop preset (`/`, `/services/`, `/work/`, `/about/`): 100 / 100 / 100 / 100. Mobile LCP 2.1–2.4 s (web fonts), TBT 0–70 ms, CLS ≤ 0.01. For comparison, the current site measured 69 for mobile performance on the same method (audit F18). The `/services/` accessibility result is after a fix: the first run scored 98 because of a heading-order issue.
 
 **Other checks**
-- `scripts/check-links.mjs`: 24 URLs and 25 fragment links checked; no broken internal links or anchors.
+- `scripts/check-links.mjs`: 27 URLs and 25 fragment links checked; no broken internal links or anchors.
 - html-validate (recommended rules, doctype-case rule off): 0 errors on all 18 HTML files.
 - Redirect tests: 10 of 10 pass (hash anchors, `/policies.html#…`, `/index.html`, the PDF path).
 - Contact form: `?service=` preselects correctly. With a mocked Formspree endpoint, the success and error messages both show, and name, email, message, consent and the honeypot are posted. With the placeholder ID it tells the visitor to email instead. **A real submission was not tested** (needs the client's form ID).
 - Mobile menu: opens by tap, opens by keyboard (Tab → Enter) with focus inside, closes with Escape, navigates and closes on link choice.
+- Theme toggle: switches light/dark, updates its label, and the choice persists to the next page.
 - Reduced motion: all animations off and reveal content fully visible. Forced-colours mode renders.
 - No horizontal scroll at 390 px on any page; no console errors (only the expected 404 on the 404 test).
 - Not verified: real-device testing on iOS Safari and Firefox, screen-reader walk-through, live deployment and live security-header scan. These are part of the launch checklist.

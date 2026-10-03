@@ -5,7 +5,7 @@
 <title>Website proposal for KT INDIA</title>
 <style>
 @page { size: A4; margin: 0; }
-:root { --night: #0b0f1a; --ink: #10131c; --ink-2: #4a5163; --line: #dcdad2; --paper: #f6f5f1; --lime: #c8f560; --blue: #2b45c9; --grad: linear-gradient(100deg, #c8f560, #8fd6a8, #6c8cff); }
+:root { --night: #061015; --ink: #10131c; --ink-2: #4a5163; --line: #dcdad2; --paper: #f6f5f1; --lime: #adf945; --blue: #2b45c9; --grad: linear-gradient(100deg, #0ac4e7, #44e4d5 30%, #92f26f 68%, #d9fc6e); }
 * { box-sizing: border-box; }
 html, body { margin: 0; }
 body { font: 10.5pt/1.5 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; color: var(--ink); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
@@ -26,9 +26,10 @@ p { margin: 0 0 .7em; }
 
 /* cover */
 .cover { background: var(--night); color: #eef1f7; padding: 22mm 20mm; }
-.cover .grid-bg { position: absolute; inset: 0; background-image: linear-gradient(#1c2438 1px, transparent 1px), linear-gradient(90deg, #1c2438 1px, transparent 1px); background-size: 12mm 12mm; opacity: .5; -webkit-mask-image: radial-gradient(ellipse at 80% 20%, #000, transparent 65%); }
+.cover .grid-bg { position: absolute; inset: 0; background-image: linear-gradient(#12262d 1px, transparent 1px), linear-gradient(90deg, #12262d 1px, transparent 1px); background-size: 12mm 12mm; opacity: .5; -webkit-mask-image: radial-gradient(ellipse at 80% 20%, #000, transparent 65%); }
 .cover .bar { position: absolute; left: 0; right: 0; bottom: 0; height: 4mm; background: var(--grad); }
 .cover .eyebrow { color: var(--lime); }
+.cover-lockup { position: absolute; right: 20mm; top: 20mm; width: 52mm; }
 .cover h1 { font-size: 34pt; margin-top: 52mm; max-width: 150mm; }
 .cover h1 span { color: var(--lime); }
 .cover .lede { font-size: 13pt; color: #cfd6e4; max-width: 140mm; }
@@ -96,6 +97,7 @@ ul.tight li { margin-bottom: 1.2mm; }
 <!-- 1. Cover -->
 <section class="page cover">
   <div class="grid-bg"></div>
+  <img class="cover-lockup" src="img/kt-lockup-dark-bg.svg" alt="Kavaiyatech, KT INDIA">
   <p class="eyebrow">Website &amp; online presence proposal</p>
   <h1>kavaiyatech.com, rebuilt to <span>win and handle enquiries.</span></h1>
   <p class="lede">Audit findings, a ready-to-launch new website, a 90-day plan and simple monthly care for Kavaiya Technologies India Private Limited (KT INDIA).</p>
@@ -115,7 +117,7 @@ ul.tight li { margin-bottom: 1.2mm; }
   <div class="tiles">
     <div class="tile"><div class="k">Findings</div><div class="v">33</div><div class="s">0 critical · 7 high · 14 medium · 12 low</div></div>
     <div class="tile"><div class="k">Indexable pages</div><div class="v">2 <small>→ 16</small></div><div class="s">current sitemap → new site</div></div>
-    <div class="tile"><div class="k">Mobile performance</div><div class="v">69 <small>→ 97</small></div><div class="s">Lighthouse lab score, home page</div></div>
+    <div class="tile"><div class="k">Mobile performance</div><div class="v">69 <small>→ 98</small></div><div class="s">Lighthouse lab score, home page</div></div>
     <div class="tile dark"><div class="k">Enquiry form</div><div class="v">Live</div><div class="s">none today → spam-protected form</div></div>
   </div>
   <h3>Top five findings</h3>
@@ -199,7 +201,7 @@ ul.tight li { margin-bottom: 1.2mm; }
       </ul>
     </div>
   </div>
-  <p class="small muted">The logo shown is a concept refresh; your current logo can be kept. Placeholders (yellow) mark content only you can supply.</p>
+  <p class="small muted">The site uses the refreshed KAVAIYATECH logo; your current logo can be kept instead. Placeholders (yellow) mark content only you can supply.</p>
 </section>
 
 <!-- 5. Roadmap -->

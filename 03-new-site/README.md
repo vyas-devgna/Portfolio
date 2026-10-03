@@ -6,8 +6,10 @@
 03-new-site/
   build.mjs              generator: templates, schema, sitemap, robots, placeholder report
   src/content.mjs        ALL site copy and company facts (edit text here)
-  src/mark.mjs           concept logo mark (SVG)
-  src/logo-source.png    original KT logo, kept as a fallback
+  src/brand.mjs          vector logo (mark split into ribbon pieces + wordmark), traced from the supplied logo
+  src/logo-supplied-*.webp  the supplied logo files (source for tracing)
+  src/logo-source.png    the logo on the current kavaiyatech.com, kept as a fallback
+  scripts/brand/         potrace scripts used to vectorise the supplied logo
   src/static/            CSS, JS, images, PDF, _headers, _redirects, .htaccess, manifest
   scripts/serve.mjs      local preview that applies _headers/_redirects like production
   scripts/check-links.mjs crawls the preview and checks every link and #fragment
@@ -31,7 +33,7 @@ node scripts/check-links.mjs   # in a second terminal
 
 1. **Contact form:** create a free form at https://formspree.io, copy the form ID, and in `src/content.mjs` replace `FORM_ID` in `formAction`. Rebuild. Formspree adds spam filtering, and the form also has a honeypot field (`_gotcha`). If you switch to another provider, update `formAction` and the `connect-src`/`form-action` entries in the CSP (`src/static/_headers`, `.htaccess`, `vercel.json`).
 2. **Placeholders:** replace every item in `PLACEHOLDERS.md` (they show as yellow dashed marks on the page) or remove that block in `build.mjs`.
-3. **Logo:** the site uses a concept mark (`src/mark.mjs`). To keep the original logo instead, see "Using the original logo" below.
+3. **Logo:** the site uses the refreshed KAVAIYATECH / KT INDIA logo (`src/brand.mjs`). Confirm the client has approved it. To use the logo from the current site instead, see "Using the original logo" below.
 4. Rebuild with `node build.mjs`.
 
 ## Deploy
@@ -71,7 +73,12 @@ node scripts/check-links.mjs   # in a second terminal
 - Then run `node build.mjs`.
 
 ## Using the original logo
-In `build.mjs`, `header()` replace `${markSvg('mark brand-mark', 'gh')}` with an `<img src="/img/logo-96.png" width="40" height="40" alt="">`. Change `scripts/make-images.mjs` to read `src/logo-source.png` (the earlier version of this script did exactly that), then run `node scripts/make-images.mjs` and rebuild.
+Export `src/logo-source.png` to `src/static/img/`, then in `build.mjs` replace the `markSvg(...)` and `wordmarkSvg(...)` calls in `header()`, `footer()`, the home hero and `ctaBand()` with an `<img>` of that file. Regenerate icons with `scripts/make-images.mjs` after pointing it at the PNG. Rebuild.
+
+## Brand, type and themes
+- Logo: vector paths in `src/brand.mjs` (re-trace with `scripts/brand/trace.cjs` and `gen.cjs` if the artwork changes). Standalone files: `img/kt-lockup-dark-bg.svg`, `img/kt-lockup-light-bg.svg`, `img/kt-mark.svg`, `img/kt-mark-transparent.svg`.
+- Fonts (self-hosted, Open Font License): Archivo variable (display, expanded width to echo the wordmark), IBM Plex Sans (text), IBM Plex Mono (labels and data). About 190 KB total, `font-display: swap`.
+- Light and dark themes follow the visitor's system setting; the header button switches and remembers the choice (`js/theme.js` applies it before first paint).
 
 ## Accessibility and motion
 - Targets WCAG 2.2 AA: skip link, landmarks, visible focus, 44–48 px touch targets, labelled form fields, sufficient contrast, logical headings.

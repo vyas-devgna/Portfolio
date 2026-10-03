@@ -1,10 +1,10 @@
 // Zero-dependency static site generator for the KT INDIA site.
 // Usage: node build.mjs   ->   writes ./dist (upload dist/ to any static host)
-import { mkdirSync, rmSync, writeFileSync, cpSync, existsSync, readFileSync } from 'node:fs';
+import { mkdirSync, rmSync, writeFileSync, cpSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { SITE, PROCESS, SERVICES, SECTORS, PROGRAMMES, PAPER, CAREERS } from './src/content.mjs';
-import { markSvg } from './src/mark.mjs';
+import { markSvg, wordmarkSvg } from './src/brand.mjs';
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
 const DIST = join(ROOT, 'dist');
@@ -15,6 +15,7 @@ const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replac
 const svc = (slug) => SERVICES.find((s) => s.slug === slug);
 const abs = (path) => SITE.url + path;
 const ORG_ID = SITE.url + '/#organization';
+const SECTOR_CODES = ['AN', 'BC', 'DS', 'DX', 'ED', 'EL', 'GM', 'SC', 'SW', 'TC'];
 
 // ---------- shared fragments ----------
 const NAV = [
@@ -25,43 +26,6 @@ const NAV = [
 ];
 
 const arrow = '<svg class="ico" aria-hidden="true" viewBox="0 0 16 16" width="16" height="16"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-
-function header(path) {
-  const links = NAV.map(([href, label]) => {
-    const current = path === href || (href !== '/' && path.startsWith(href));
-    return `<li><a href="${href}"${current ? ' aria-current="page"' : ''}>${label}</a></li>`;
-  }).join('');
-  return `<a class="skip" href="#main">Skip to content</a>
-<div class="progress" aria-hidden="true"></div>
-<header class="site-header">
-  <div class="wrap header-row">
-    <a class="brand" href="/" aria-label="KT INDIA home">${markSvg('mark brand-mark', 'gh')}<span class="brand-text"><strong>KT INDIA</strong><span>Kavaiya Technologies</span></span></a>
-    <button class="menu-btn" type="button" popovertarget="site-nav" aria-label="Menu"><span></span><span></span><span></span></button>
-    <nav class="site-nav" id="site-nav" popover aria-label="Main">
-      <ul class="nav">${links}<li class="nav-cta"><a class="btn btn-sm" href="/contact/"${path === '/contact/' ? ' aria-current="page"' : ''}>Start a project</a></li></ul>
-      <button class="menu-close" type="button" popovertarget="site-nav" popovertargetaction="hide" aria-label="Close menu">×</button>
-    </nav>
-  </div>
-</header>`;
-}
-
-// Animated ecosystem orbit: 10 sector nodes (codes used on the original site), spokes, packets.
-const SECTOR_CODES = ['AN', 'BC', 'DS', 'DX', 'ED', 'EL', 'GM', 'SC', 'SW', 'TC'];
-function orbit(cls = '') {
-  const spokes = SECTOR_CODES.map((_, i) => {
-    const a = (i * 36 * Math.PI) / 180;
-    return `<line x1="200" y1="200" x2="${(200 + 180 * Math.sin(a)).toFixed(1)}" y2="${(200 - 180 * Math.cos(a)).toFixed(1)}"/>`;
-  }).join('');
-  return `<div class="orbit ${cls}" aria-hidden="true">
-  <div class="orbit-glow"></div>
-  <div class="orbit-ring r1">
-    <svg viewBox="0 0 400 400"><circle cx="200" cy="200" r="180" class="ring"/><g class="spokes">${spokes}</g></svg>
-    ${SECTOR_CODES.map((c, i) => `<span class="node n${i}"><span>${c}</span></span>`).join('')}
-  </div>
-  <div class="orbit-ring r2"><svg viewBox="0 0 400 400"><circle cx="200" cy="200" r="112" class="ring ring-2"/><circle cx="200" cy="88" r="5" class="pkt"/><circle cx="312" cy="200" r="4" class="pkt pkt-b"/><circle cx="121" cy="279" r="4" class="pkt"/></svg></div>
-  <div class="orbit-core">${markSvg('mark core-mark', 'gc' + cls.replace(/\W/g, ''))}</div>
-</div>`;
-}
 
 // Line icons for services (24px grid, stroke-based).
 const ICONS = {
@@ -74,38 +38,66 @@ const ICONS = {
   'ip-protocol-development': '<path d="M2 12h3l2-6 3 12 3-9 2 5 2-2h5"/>',
   'research-technology-consulting': '<circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5.5 5.5M8 10.5h5M10.5 8v5"/>',
 };
-const icon = (slug) => `<svg class="svc-ico" viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${ICONS[slug]}</svg>`;
+const icon = (slug, cls = 'svc-ico') => `<svg class="${cls}" viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${ICONS[slug]}</svg>`;
+
+const themeBtn = `<button class="theme-btn" type="button" id="theme-btn" aria-label="Switch colour theme" title="Switch colour theme">
+  <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle class="sun" cx="12" cy="12" r="4.2"/><path class="rays" d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/><path class="moon" d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg>
+</button>`;
+
+function header(path) {
+  const links = NAV.map(([href, label]) => {
+    const current = path === href || (href !== '/' && path.startsWith(href));
+    return `<li><a href="${href}"${current ? ' aria-current="page"' : ''}>${label}</a></li>`;
+  }).join('');
+  return `<a class="skip" href="#main">Skip to content</a>
+<div class="progress" aria-hidden="true"></div>
+<header class="hdr">
+  <div class="wrap hdr-row">
+    <a class="brand" href="/" aria-label="Kavaiyatech, KT INDIA, home">${markSvg({ id: 'hm', cls: 'kt-mark brand-mark' })}<span class="brand-words">${wordmarkSvg({ cls: 'kt-word brand-word', title: '' }).replace('role="img" aria-label=""', 'aria-hidden="true" focusable="false"')}<span class="brand-sub">KT INDIA</span></span></a>
+    <div class="hdr-tools">
+      ${themeBtn}
+      <button class="menu-btn" type="button" popovertarget="site-nav" aria-label="Menu"><span></span><span></span></button>
+    </div>
+    <nav class="site-nav" id="site-nav" popover aria-label="Main">
+      <ul class="nav">${links}<li class="nav-cta"><a class="btn btn-sm" href="/contact/"${path === '/contact/' ? ' aria-current="page"' : ''}>Start a project</a></li></ul>
+      <button class="menu-close" type="button" popovertarget="site-nav" popovertargetaction="hide" aria-label="Close menu">×</button>
+    </nav>
+  </div>
+</header>`;
+}
 
 function footer() {
   const a = SITE.address;
-  return `<footer class="site-footer">
-  <div class="wrap footer-grid">
-    <div>
-      <p class="footer-brand"><strong>KT INDIA</strong><br>${SITE.legalName}</p>
+  return `<footer class="ftr">
+  <div class="wrap ftr-grid">
+    <div class="ftr-brand">
+      ${markSvg({ id: 'fm', cls: 'kt-mark ftr-mark' })}
+      <p>${SITE.legalName}</p>
       <p class="muted">${SITE.tagline}</p>
     </div>
     <div>
-      <h2 class="footer-h">Services</h2>
-      <ul class="footer-list">${SERVICES.map((s) => `<li><a href="/services/${s.slug}/">${s.name}</a></li>`).join('')}</ul>
+      <h2 class="ftr-h">Services</h2>
+      <ul class="ftr-list">${SERVICES.map((s) => `<li><a href="/services/${s.slug}/">${s.name}</a></li>`).join('')}</ul>
     </div>
     <div>
-      <h2 class="footer-h">Company</h2>
-      <ul class="footer-list">
+      <h2 class="ftr-h">Company</h2>
+      <ul class="ftr-list">
         <li><a href="/about/">About</a></li><li><a href="/work/">Work &amp; research</a></li><li><a href="/careers/">Careers</a></li><li><a href="/contact/">Contact</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="/terms/">Terms</a></li>
       </ul>
     </div>
     <div>
-      <h2 class="footer-h">Contact</h2>
-      <address class="footer-address">
+      <h2 class="ftr-h">Contact</h2>
+      <address class="ftr-address">
         <a href="mailto:${SITE.email}">${SITE.email}</a><br>
         <a href="${SITE.whatsappLink}" rel="noopener">WhatsApp ${SITE.whatsapp}</a><br>
         ${a.street},<br>${a.city} ${a.postal}, ${a.region}, ${a.countryName}
       </address>
-      <p class="footer-social"><a href="${SITE.linkedin}" rel="noopener">LinkedIn</a> · <a href="${SITE.instagram}" rel="noopener">Instagram</a></p>
+      <p><a href="${SITE.linkedin}" rel="noopener">LinkedIn</a> · <a href="${SITE.instagram}" rel="noopener">Instagram</a></p>
     </div>
   </div>
-  <div class="wrap footer-legal">
-    <p>© <span>${new Date(BUILD_DATE).getFullYear()}</span> ${SITE.legalName} · CIN ${SITE.cin} · GSTIN ${SITE.gstin} · Startup India recognised (${SITE.startupIndia})</p>
+  <div class="wrap ftr-word" aria-hidden="true">${wordmarkSvg({ cls: 'kt-word giant-word', title: '' }).replace('role="img" aria-label=""', 'aria-hidden="true" focusable="false"')}</div>
+  <div class="wrap ftr-legal">
+    <p>© ${new Date(BUILD_DATE).getFullYear()} ${SITE.legalName} · CIN ${SITE.cin} · GSTIN ${SITE.gstin} · Startup India recognised (${SITE.startupIndia})</p>
   </div>
 </footer>`;
 }
@@ -117,7 +109,7 @@ function orgNode() {
     '@id': ORG_ID,
     name: SITE.brand,
     legalName: SITE.legalName,
-    alternateName: ['Kavaiya Technologies', 'Kavaiya Technologies India'],
+    alternateName: ['Kavaiyatech', 'Kavaiya Technologies', 'Kavaiya Technologies India'],
     url: SITE.url + '/',
     logo: abs('/img/logo-512.png'),
     image: abs('/img/og-default.png'),
@@ -163,7 +155,9 @@ function layout({ path, title, description, body, schema = [], noindex = false, 
 <meta name="description" content="${esc(description)}">
 <link rel="canonical" href="${url}">
 ${noindex ? '<meta name="robots" content="noindex, follow">' : '<meta name="robots" content="index, follow, max-image-preview:large">'}
-<meta name="theme-color" content="#0b0f1a">
+<meta name="theme-color" content="#f2f5f4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#061015" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
 <meta property="og:type" content="${ogType}">
 <meta property="og:site_name" content="KT INDIA">
 <meta property="og:locale" content="en_IN">
@@ -173,15 +167,18 @@ ${noindex ? '<meta name="robots" content="noindex, follow">' : '<meta name="robo
 <meta property="og:image" content="${abs('/img/og-default.png')}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="KT INDIA, Kavaiya Technologies: software, AI and electronics engineering from Nadiad, Gujarat">
+<meta property="og:image:alt" content="Kavaiyatech, KT INDIA: software, AI and electronics engineering from Nadiad, Gujarat">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${esc(fullTitle)}">
 <meta name="twitter:description" content="${esc(description)}">
 <meta name="twitter:image" content="${abs('/img/og-default.png')}">
 <link rel="icon" href="/favicon.ico" sizes="32x32">
-<link rel="icon" href="/img/logo-192.png" type="image/png" sizes="192x192">
+<link rel="icon" href="/img/kt-mark.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
+<link rel="preload" href="/fonts/archivo-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
+<script src="/js/theme.js"></script>
 <link rel="stylesheet" href="/css/site.css">
 <script src="/js/site.js" defer></script>
 <script type="application/ld+json">${JSON.stringify(graph)}</script>
@@ -198,6 +195,16 @@ ${footer()}
 }
 
 // ---------- reusable sections ----------
+const serviceRow = (s) => `<li class="svc-row rv">
+  <a href="/services/${s.slug}/">
+    <span class="svc-code">${s.code}</span>
+    ${icon(s.slug)}
+    <span class="svc-name">${s.name}</span>
+    <span class="svc-short">${s.short}</span>
+    <span class="svc-go" aria-hidden="true">${arrow}</span>
+  </a>
+</li>`;
+
 const serviceCard = (s) => `<li class="card svc-card rv">
   <p class="card-top">${icon(s.slug)}<span class="code">${s.code} · ${s.group}</span></p>
   <h3><a class="stretch" href="/services/${s.slug}/">${s.name}</a></h3>
@@ -209,24 +216,35 @@ const processSteps = () => `<ol class="steps rv">${PROCESS.map(
   (p) => `<li><span class="step-n">${p.n}</span><h3>${p.name} <span class="muted">/ ${p.label}</span></h3><p>${p.text}</p></li>`
 ).join('')}</ol>`;
 
-const ctaBand = (heading = 'Start with the problem, not the technology.', text = 'Tell us what you want to build, improve or investigate. We will tell you which combination of software, electronics, AI and design fits, and what it involves.') => `<section class="band band-dark cta-band" aria-labelledby="cta-h">
+// Periodic-table style tiles using the sector codes from the original site.
+const sectorTable = (detailed = false) => `<ul class="ptable${detailed ? ' ptable-lg' : ''}">${SECTORS.map((s, i) => `<li class="el rv">
+  <span class="el-n">${String(i + 1).padStart(2, '0')}</span>
+  <span class="el-sym">${SECTOR_CODES[i]}</span>
+  <span class="el-name">${s.name}</span>
+  <span class="el-status">${s.status}</span>${detailed ? `\n  <span class="el-text">${s.text}</span>` : ''}
+</li>`).join('')}</ul>`;
+
+let ctaCount = 0;
+const ctaBand = (heading = 'Start with the problem, not the technology.', text = 'Tell us what you want to build, improve or investigate. We will tell you which combination of software, electronics, AI and design fits, and what it involves.') => `<section class="cta" aria-labelledby="cta-h">
+  <div class="cta-mark" aria-hidden="true">${markSvg({ id: 'cm' + ctaCount++, cls: 'kt-mark', tFill: '#edf7f1' })}</div>
   <div class="wrap cta-row">
     <div><h2 id="cta-h">${heading}</h2><p>${text}</p></div>
-    <p class="cta-actions"><a class="btn" href="/contact/">Start a project ${arrow}</a> <a class="btn btn-ghost" href="${SITE.whatsappLink}" rel="noopener">WhatsApp us</a></p>
+    <p class="cta-actions"><a class="btn btn-light" href="/contact/">Start a project ${arrow}</a> <a class="btn btn-ghost" href="${SITE.whatsappLink}" rel="noopener">WhatsApp us</a></p>
   </div>
 </section>`;
 
-const factsStrip = () => `<div class="wrap"><dl class="facts-strip">
-  <div><dt>Founded</dt><dd><span class="num">${SITE.founded}</span> Nadiad, Gujarat</dd></div>
-  <div><dt>Services</dt><dd><span class="num">${SERVICES.length}</span> one team</dd></div>
-  <div><dt>Technology sectors</dt><dd><span class="num">${SECTORS.length}</span> connected</dd></div>
-  <div><dt>Startup India</dt><dd><span class="num">✓</span> recognised · <span class="mono">${SITE.startupIndia}</span></dd></div>
-</dl></div>`;
-
-const testimonialPlaceholder = () => `<figure class="quote quote-ph">
+const testimonialPlaceholder = () => `<figure class="quote quote-ph rv">
   <blockquote><p>{{ph:Client testimonial, quoted with written permission. Two or three sentences on the problem, what KT INDIA delivered and the result.}}</p></blockquote>
   <figcaption>{{ph:Name, role, organisation}}</figcaption>
 </figure>`;
+
+// Engineering-drawing zone markers around a sheet.
+const sheetZones = () => `<div class="zones" aria-hidden="true"><span>A</span><span>B</span><span>C</span><span>D</span><span>E</span><span>F</span></div>`;
+
+const layersViz = () => `<div class="layers" aria-hidden="true">
+  <svg viewBox="0 0 240 240"><circle class="ly ly1" cx="120" cy="120" r="104"/><circle class="ly ly2" cx="120" cy="120" r="76"/><circle class="ly ly3" cx="120" cy="120" r="48"/><circle class="ly-core" cx="120" cy="120" r="20"/></svg>
+  <span class="ly-l l1">Ayurveda</span><span class="ly-l l2">Data</span><span class="ly-l l3">ML</span>
+</div>`;
 
 // ---------- pages ----------
 const pages = [];
@@ -237,24 +255,42 @@ add({
   path: '/',
   title: 'KT INDIA | Software, AI & Electronics Engineering in Nadiad, Gujarat',
   description: 'Kavaiya Technologies (KT INDIA) builds custom software, ERP and POS systems, AI/ML, smart contracts and PCB/embedded electronics from Nadiad, Gujarat.',
-  schema: [{ '@type': 'WebSite', '@id': SITE.url + '/#website', url: SITE.url + '/', name: 'KT INDIA', alternateName: 'Kavaiya Technologies', publisher: { '@id': ORG_ID }, inLanguage: 'en-IN' }],
-  body: `<section class="hero" aria-labelledby="hero-h">
+  schema: [{ '@type': 'WebSite', '@id': SITE.url + '/#website', url: SITE.url + '/', name: 'KT INDIA', alternateName: ['Kavaiyatech', 'Kavaiya Technologies'], publisher: { '@id': ORG_ID }, inLanguage: 'en-IN' }],
+  body: `<section class="hero sheet" aria-labelledby="hero-h">
+  ${sheetZones()}
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <p class="eyebrow">Kavaiya Technologies · Nadiad, Gujarat · Est. ${SITE.founded}</p>
-      <h1 id="hero-h">Software, AI and electronics, <span class="grad">engineered around your problem.</span></h1>
+      <p class="eyebrow">Kavaiya Technologies · Nadiad, Gujarat</p>
+      <h1 id="hero-h">Software, AI and electronics, <span class="ul">engineered around your problem.</span></h1>
       <p class="lede">KT INDIA designs custom software, ERP and point-of-sale systems, machine learning, smart contracts and PCB and embedded electronics. One multidisciplinary team takes your requirement from first question to working product.</p>
       <p class="hero-actions"><a class="btn" href="/contact/">Start a project ${arrow}</a> <a class="btn btn-ghost" href="/services/">Explore services</a></p>
     </div>
-    ${orbit('orbit-hero')}
+    <figure class="hero-art" id="hero-art" aria-hidden="true">
+      <span class="reg r-tl"></span><span class="reg r-tr"></span><span class="reg r-bl"></span><span class="reg r-br"></span>
+      ${markSvg({ id: 'hero', cls: 'kt-mark hero-mark' })}
+      <figcaption>FIG. 01 · KT MARK · RIBBON CONSTRUCTION</figcaption>
+    </figure>
   </div>
-  ${factsStrip()}
+  <div class="wrap">
+    <dl class="titleblock">
+      <div><dt>Company</dt><dd>${SITE.legalName}</dd></div>
+      <div><dt>Established</dt><dd>${SITE.founded} · Nadiad, Gujarat</dd></div>
+      <div><dt>CIN</dt><dd class="mono">${SITE.cin}</dd></div>
+      <div><dt>Startup India</dt><dd class="mono">${SITE.startupIndia}</dd></div>
+      <div><dt>Disciplines</dt><dd>${SERVICES.length} services · ${SECTORS.length} sectors</dd></div>
+    </dl>
+  </div>
 </section>
 
 <section class="band" aria-labelledby="svc-h">
-  <div class="wrap">
-    <div class="section-head rv"><p class="eyebrow">What we do</p><h2 id="svc-h">Eight services, one team</h2><p class="lede-sm">A project can combine several of these. You do not need to know which ones before you talk to us.</p></div>
-    <ul class="grid grid-4 cards">${SERVICES.map(serviceCard).join('')}</ul>
+  <div class="wrap split">
+    <div class="split-head rv">
+      <p class="eyebrow">What we do</p>
+      <h2 id="svc-h">Eight services, one team</h2>
+      <p class="lede-sm">A project can combine several of these. You do not need to know which ones before you talk to us.</p>
+      <p><a class="btn btn-ghost-ink" href="/services/">All services ${arrow}</a></p>
+    </div>
+    <ul class="svc-index">${SERVICES.map(serviceRow).join('')}</ul>
   </div>
 </section>
 
@@ -268,20 +304,21 @@ add({
 <section class="band" aria-labelledby="work-h">
   <div class="wrap">
     <div class="section-head rv"><p class="eyebrow">Work and research</p><h2 id="work-h">What we are building</h2></div>
-    <div class="grid grid-3">
-      <article class="card feature rv">
-        <p class="code">Product · In development</p>
+    <div class="bento">
+      <article class="tile tile-an rv">
+        <div><p class="code">Product · In development</p>
         <h3>ANNAVEDA</h3>
         <p>A planned lifestyle and nutrition app that combines Ayurveda-inspired principles with machine learning to suggest personalised dietary guidance. Target launch: December 2026 on Google Play.</p>
-        <p><a href="/work/#annaveda">About ANNAVEDA ${arrow}</a></p>
+        <p><a href="/work/#annaveda">About ANNAVEDA ${arrow}</a></p></div>
+        ${layersViz()}
       </article>
-      <article class="card feature rv">
+      <article class="tile tile-wp rv">
         <p class="code">White paper · ${PAPER.id}</p>
         <h3>Scalable embedded systems on ARM platforms</h3>
         <p>${PAPER.summary} Published ${PAPER.date}.</p>
         <p><a href="/work/#publications">Read the summary ${arrow}</a></p>
       </article>
-      <article class="card feature card-ph rv">
+      <article class="tile card-ph rv">
         <p class="code">Case study</p>
         <h3>{{ph:Client project title}}</h3>
         <p>{{ph:Case study pending client permission: the problem, what was built, and a measurable result.}}</p>
@@ -293,15 +330,14 @@ add({
 </section>
 
 <section class="band band-alt" aria-labelledby="eco-h">
-  <div class="wrap two-col">
-    <div>
+  <div class="wrap">
+    <div class="section-head rv">
       <p class="eyebrow">The KT ecosystem</p>
       <h2 id="eco-h">Ten technology sectors behind every project</h2>
-      <p>KT INDIA is organised as a connected ecosystem rather than separate departments. Research and education generate knowledge, engineering turns it into systems and products, and design and services put it in front of users.</p>
-      <p>For clients, that means one point of contact for work that crosses software, hardware and AI.</p>
-      <p><a href="/about/#sectors">Explore the ten sectors ${arrow}</a></p>
+      <p class="lede-sm">KT INDIA is organised as a connected ecosystem rather than separate departments. For clients, that means one point of contact for work that crosses software, hardware and AI.</p>
     </div>
-    <ul class="sector-list rv">${SECTORS.map((s, i) => `<li><span class="mono">${String(i + 1).padStart(2, '0')}</span> ${s.name} <span class="tag">${s.status}</span></li>`).join('')}</ul>
+    ${sectorTable()}
+    <p class="mt-s"><a href="/about/#sectors">Explore the ten sectors ${arrow}</a></p>
   </div>
 </section>
 ${ctaBand()}`,
@@ -324,7 +360,7 @@ add({
       ].map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
     },
   ],
-  body: `<section class="page-hero">
+  body: `<section class="page-hero sheet">
   <div class="wrap">
     ${crumbsHtml([['Home', '/'], ['Services', '/services/']])}
     <p class="eyebrow">Services</p>
@@ -335,7 +371,7 @@ add({
 <section class="band" aria-labelledby="all-h">
   <div class="wrap">
     <h2 id="all-h" class="sr-only">All services</h2>
-    <ul class="grid grid-2 cards">${SERVICES.map(serviceCard).join('')}</ul>
+    <ul class="svc-index svc-index-full">${SERVICES.map(serviceRow).join('')}</ul>
   </div>
 </section>
 <section class="band band-alt" aria-labelledby="how-h">
@@ -370,7 +406,7 @@ for (const s of SERVICES) {
       breadcrumb([['Home', '/'], ['Services', '/services/'], [s.name, path]]),
       { '@type': 'Service', '@id': abs(path) + '#service', name: s.name, serviceType: s.name, description: s.short, url: abs(path), provider: { '@id': ORG_ID }, areaServed: { '@type': 'Country', name: 'India' } },
     ],
-    body: `<section class="page-hero">
+    body: `<section class="page-hero sheet">
   <div class="wrap">
     ${crumbsHtml([['Home', '/'], ['Services', '/services/'], [s.name, path]])}
     <p class="eyebrow">${s.code} · ${s.group}</p>
@@ -423,7 +459,7 @@ add({
     breadcrumb([['Home', '/'], ['Work & research', '/work/']]),
     { '@type': 'TechArticle', '@id': abs('/work/#publications'), headline: PAPER.title, abstract: PAPER.summary, datePublished: '2026-07', author: PAPER.authors.map((n) => ({ '@type': 'Person', name: n })), publisher: { '@id': ORG_ID }, identifier: PAPER.id, url: abs(PAPER.file), keywords: PAPER.keywords.join(', ') },
   ],
-  body: `<section class="page-hero">
+  body: `<section class="page-hero sheet">
   <div class="wrap">
     ${crumbsHtml([['Home', '/'], ['Work & research', '/work/']])}
     <p class="eyebrow">Work and research</p>
@@ -451,10 +487,7 @@ add({
       <p><a href="/contact/?service=annaveda">Get ANNAVEDA updates ${arrow}</a></p>
     </div>
     <div class="an-side">
-    <div class="layers" aria-hidden="true">
-      <svg viewBox="0 0 240 240"><circle class="ly ly1" cx="120" cy="120" r="104"/><circle class="ly ly2" cx="120" cy="120" r="76"/><circle class="ly ly3" cx="120" cy="120" r="48"/><circle class="ly-core" cx="120" cy="120" r="20"/></svg>
-      <span class="ly-l l1">Ayurveda</span><span class="ly-l l2">Data</span><span class="ly-l l3">ML</span>
-    </div>
+    ${layersViz()}
     <dl class="card facts">
       <div><dt>Model</dt><dd>Free + subscription</dd></div>
       <div><dt>Platform</dt><dd>Google Play</dd></div>
@@ -498,7 +531,7 @@ add({
   title: 'About Kavaiya Technologies',
   description: 'Kavaiya Technologies India Private Limited (KT INDIA) is a research-driven technology company founded in 2024 in Nadiad, Gujarat, working across ten technology sectors.',
   schema: [breadcrumb([['Home', '/'], ['About', '/about/']]), { '@type': 'AboutPage', '@id': abs('/about/') + '#about', url: abs('/about/'), about: { '@id': ORG_ID } }],
-  body: `<section class="page-hero">
+  body: `<section class="page-hero sheet">
   <div class="wrap">
     ${crumbsHtml([['Home', '/'], ['About', '/about/']])}
     <p class="eyebrow">About KT INDIA</p>
@@ -520,8 +553,8 @@ add({
 </section>
 <section class="band" id="sectors" aria-labelledby="sec-h">
   <div class="wrap">
-    <div class="sectors-intro"><div class="section-head rv"><p class="eyebrow">The KT ecosystem</p><h2 id="sec-h">Ten connected sectors</h2><p class="lede-sm">Discovery and Education create and share knowledge. Engineering sectors turn it into systems, products and IP. Design, Animation and Services connect technology with users and organisations.</p></div>${orbit('orbit-about')}</div>
-    <ul class="grid grid-2 cards">${SECTORS.map((s, i) => `<li class="card sector rv"><p class="code">${String(i + 1).padStart(2, '0')} · <span class="tag">${s.status}</span></p><h3>${s.name}</h3><p>${s.text}</p></li>`).join('')}</ul>
+    <div class="section-head rv"><p class="eyebrow">The KT ecosystem</p><h2 id="sec-h">Ten connected sectors</h2><p class="lede-sm">Discovery and Education create and share knowledge. Engineering sectors turn it into systems, products and IP. Design, Animation and Services connect technology with users and organisations.</p></div>
+    ${sectorTable(true)}
     <p class="muted small mt">Our sector work is aligned with the <a href="https://sdgs.un.org/goals" rel="noopener">UN Sustainable Development Goals</a> 4, 9, 12 and 17.</p>
   </div>
 </section>
@@ -558,7 +591,7 @@ add({
   title: 'Careers & Internships',
   description: 'Rolling internships (3 to 12 months) and selected roles at KT INDIA, Nadiad, across software, AI/ML, electronics, VLSI, telecom, blockchain, design and research.',
   schema: [breadcrumb([['Home', '/'], ['Careers', '/careers/']])],
-  body: `<section class="page-hero">
+  body: `<section class="page-hero sheet">
   <div class="wrap">
     ${crumbsHtml([['Home', '/'], ['Careers', '/careers/']])}
     <p class="eyebrow">Careers · Internships · Research</p>
@@ -597,7 +630,7 @@ add({
   title: 'Contact KT INDIA',
   description: 'Start a software, AI or engineering project with KT INDIA, Nadiad, Gujarat. Contact form, email contact@kavaiyatech.com or WhatsApp.',
   schema: [breadcrumb([['Home', '/'], ['Contact', '/contact/']]), { '@type': 'ContactPage', '@id': abs('/contact/') + '#contact', url: abs('/contact/'), about: { '@id': ORG_ID } }],
-  body: `<section class="page-hero">
+  body: `<section class="page-hero sheet">
   <div class="wrap">
     ${crumbsHtml([['Home', '/'], ['Contact', '/contact/']])}
     <p class="eyebrow">Contact</p>
@@ -656,7 +689,7 @@ add({
   title: 'Thank you',
   description: 'Your enquiry has been sent to KT INDIA.',
   noindex: true,
-  body: `<section class="page-hero"><div class="wrap narrow">
+  body: `<section class="page-hero sheet"><div class="wrap narrow">
   <p class="eyebrow">Message sent</p>
   <h1>Thank you. Your enquiry is with us.</h1>
   <p class="lede">We will reply to the email address you gave. If it is urgent, message us on <a href="${SITE.whatsappLink}" rel="noopener">WhatsApp</a>.</p>
@@ -670,7 +703,7 @@ add({
   title: 'Privacy Notice',
   description: 'How Kavaiya Technologies India Private Limited (KT INDIA) collects, uses and protects personal data submitted through this website.',
   schema: [breadcrumb([['Home', '/'], ['Privacy', '/privacy/']])],
-  body: `<section class="page-hero"><div class="wrap narrow">
+  body: `<section class="page-hero sheet"><div class="wrap narrow">
   ${crumbsHtml([['Home', '/'], ['Privacy', '/privacy/']])}
   <h1>Privacy notice</h1>
   <p class="muted">Last updated: {{ph:date of publication}}. {{ph:Draft for review by the company's legal adviser before publication.}}</p>
@@ -706,7 +739,7 @@ add({
   title: 'Website Terms, Disclaimer & Recruitment Notice',
   description: 'Website terms, disclaimer and recruitment notice for kavaiyatech.com, operated by Kavaiya Technologies India Private Limited.',
   schema: [breadcrumb([['Home', '/'], ['Terms', '/terms/']])],
-  body: `<section class="page-hero"><div class="wrap narrow">
+  body: `<section class="page-hero sheet"><div class="wrap narrow">
   ${crumbsHtml([['Home', '/'], ['Terms', '/terms/']])}
   <h1>Website terms, disclaimer and recruitment notice</h1>
 </div></section>
@@ -732,7 +765,7 @@ add({
   title: 'Page not found',
   description: 'The page you were looking for is not on kavaiyatech.com.',
   noindex: true,
-  body: `<section class="page-hero"><div class="wrap narrow">
+  body: `<section class="page-hero sheet"><div class="wrap narrow">
   <p class="eyebrow">Error 404</p>
   <h1>This page does not exist, or it moved.</h1>
   <p class="lede">The site was reorganised into separate pages. These are the most useful places to start:</p>

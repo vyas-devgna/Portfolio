@@ -1,11 +1,11 @@
 {
-  "name": "KT INDIA, Kavaiya Technologies",
+  "name": "Kavaiyatech, KT INDIA",
   "short_name": "KT INDIA",
   "icons": [
     { "src": "/img/logo-192.png", "sizes": "192x192", "type": "image/png" },
     { "src": "/img/logo-512.png", "sizes": "512x512", "type": "image/png" }
   ],
-  "theme_color": "#0b0f1a",
-  "background_color": "#0b0f1a",
+  "theme_color": "#061015",
+  "background_color": "#061015",
   "display": "browser"
 }

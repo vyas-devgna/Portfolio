@@ -5,7 +5,7 @@ Updated: 2026-10-03
 ## Done
 - Phase 1 discovery: `01-discovery/brand-and-content-inventory.md`, `01-discovery/social-local-competitors-raw.md`.
 - Phase 2 audit: `02-audit/audit-report.md`, `02-audit/findings.csv` (33 findings: 0 Critical, 7 High, 14 Medium, 12 Low).
-- Phase 3 new site: `03-new-site/` (18 pages in `dist/`, Lighthouse 97–100, README with deploy steps, BUILD-NOTES, PLACEHOLDERS). Design upgraded at the user's request: concept logo mark, motion and visualisation, accessible mobile menu.
+- Phase 3 new site: `03-new-site/` (18 pages in `dist/`, Lighthouse 97–100, README with deploy steps, BUILD-NOTES, PLACEHOLDERS). Redesigned with the user-supplied KAVAIYATECH / KT INDIA logo (vectorised, animated), engineering-drawing layout, self-hosted type, light and dark themes.
 - Phase 4 proposal: `04-proposal/` (executive summary, full proposal, pricing, roadmap, why-me, outreach emails, `proposal.pdf` + source).
 - Phase 5 verification: cross-document consistency check, `00-START-HERE.md`.
 

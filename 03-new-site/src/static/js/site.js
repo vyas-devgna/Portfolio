@@ -27,7 +27,42 @@
     return;
   }
 
-  // 2. Card spotlight follows the pointer (mouse/pen only; touch and keyboard use :focus-within styles).
+  // 2. Theme toggle: flips between light and dark and remembers the choice.
+  var root = document.documentElement;
+  var themeBtn = document.getElementById('theme-btn');
+  var dark = window.matchMedia('(prefers-color-scheme: dark)');
+  function current() { return root.getAttribute('data-theme') || (dark.matches ? 'dark' : 'light'); }
+  function label() { if (themeBtn) themeBtn.setAttribute('aria-label', 'Switch to ' + (current() === 'dark' ? 'light' : 'dark') + ' theme'); }
+  if (themeBtn) {
+    label();
+    themeBtn.addEventListener('click', function () {
+      var next = current() === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      try { localStorage.setItem('kt-theme', next); } catch (e) {}
+      label();
+    });
+    dark.addEventListener && dark.addEventListener('change', label);
+  }
+
+  // 3. Hero mark: ribbons drift with the pointer (mouse/pen only, never under reduced motion).
+  var art = document.getElementById('hero-art');
+  var still = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (art && window.matchMedia('(hover: hover) and (pointer: fine)').matches && !still.matches) {
+    var raf = 0;
+    document.addEventListener('pointermove', function (e) {
+      if (raf) return;
+      raf = requestAnimationFrame(function () {
+        raf = 0;
+        var r = art.getBoundingClientRect();
+        var x = Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width / 2)) / (r.width)));
+        var y = Math.max(-1, Math.min(1, (e.clientY - (r.top + r.height / 2)) / (r.height)));
+        art.style.setProperty('--px', x.toFixed(3));
+        art.style.setProperty('--py', y.toFixed(3));
+      });
+    }, { passive: true });
+  }
+
+  // 4. Card spotlight follows the pointer (mouse/pen only; touch and keyboard use :focus-within styles).
   if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
     document.addEventListener('pointermove', function (e) {
       var card = e.target.closest && e.target.closest('.svc-card');
@@ -38,7 +73,7 @@
     }, { passive: true });
   }
 
-  // 3. Close the mobile menu when a link inside it is chosen.
+  // 5. Close the mobile menu when a link inside it is chosen.
   var nav = document.getElementById('site-nav');
   if (nav && nav.hidePopover) {
     nav.addEventListener('click', function (e) {
@@ -46,7 +81,7 @@
     });
   }
 
-  // 4. Contact form: preselect service from ?service=, submit without leaving the page.
+  // 6. Contact form: preselect service from ?service=, submit without leaving the page.
   var form = document.getElementById('contact-form');
   if (!form) return;
   var select = document.getElementById('f-service');

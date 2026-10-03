@@ -1,0 +1,6 @@
+# Old URLs -> new URLs (Netlify and Cloudflare Pages). Fragments (#services etc.) are handled in js/site.js.
+/index.html      /                 301
+/policies.html   /privacy/         301
+/policies        /privacy/         301
+/assets/publications/KT-WP-2026-ARM-001.pdf   /files/KT-WP-2026-ARM-001.pdf   301
+/assets/logo.png /img/logo-512.png 301

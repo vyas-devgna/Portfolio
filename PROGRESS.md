@@ -7,8 +7,9 @@ Updated: 2026-10-03
 - Phase 2 audit: `02-audit/audit-report.md` and `02-audit/findings.csv` (33 findings: 0 Critical, 7 High, 14 Medium, 12 Low).
 - Lighthouse run on a local mirror of the live files (live URL returned 403 to Chrome-like user-agents from this environment).
 
-## Next (building phases, intended for Opus)
-- Phase 3: new site in `03-new-site/` (build, Lighthouse 95+ on all four, README, BUILD-NOTES.md).
+- Phase 3 new site: `03-new-site/` (18 pages, built to `dist/`, Lighthouse 97-100 on all pages, README, BUILD-NOTES.md, PLACEHOLDERS.md). Design upgraded per user request: concept logo mark, motion and visualisation, accessible mobile menu.
+
+## Next
 - Phase 4: `04-proposal/` documents and `proposal.pdf`.
 - Phase 5: verification and `00-START-HERE.md`.
 

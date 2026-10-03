@@ -9,7 +9,7 @@ const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map((m) => m[1]);
 if (new Set(ids).size !== ids.length) throw new Error('index.html contains duplicate IDs');
 
 const idSet = new Set(ids);
-for (const required of ['main', 'home', 'work', 'research', 'about', 'photography', 'contact', 'swarm', 'packets', 'gallery', 'lightbox', 'palette', 'swarm-pulse', 'swarm-freeze']) {
+for (const required of ['main', 'home', 'work', 'research', 'about', 'photography', 'contact', 'art', 'art2', 'packets', 'gallery', 'lightbox', 'palette']) {
   if (!idSet.has(required)) throw new Error(`Missing #${required}`);
 }
 for (const [, target] of html.matchAll(/href="#([^"]+)"/g)) {

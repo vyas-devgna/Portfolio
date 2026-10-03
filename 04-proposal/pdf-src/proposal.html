@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Website proposal for KT INDIA</title>
+<style>
+@page { size: A4; margin: 0; }
+:root { --night: #0b0f1a; --ink: #10131c; --ink-2: #4a5163; --line: #dcdad2; --paper: #f6f5f1; --lime: #c8f560; --blue: #2b45c9; --grad: linear-gradient(100deg, #c8f560, #8fd6a8, #6c8cff); }
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { font: 10.5pt/1.5 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; color: var(--ink); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.page { width: 210mm; height: 297mm; padding: 18mm 18mm 16mm; position: relative; page-break-after: always; overflow: hidden; }
+.page:last-child { page-break-after: auto; }
+.page::after { content: attr(data-n); position: absolute; right: 18mm; bottom: 9mm; font: 8pt ui-monospace, Menlo, monospace; color: #8a8f9c; }
+.page::before { content: "KT INDIA · Website proposal · [YOUR NAME]"; position: absolute; left: 18mm; bottom: 9mm; font: 8pt ui-monospace, Menlo, monospace; color: #8a8f9c; }
+.cover::before, .cover::after { display: none; }
+h1, h2, h3 { letter-spacing: -0.02em; line-height: 1.12; margin: 0 0 .5em; }
+h2 { font-size: 20pt; }
+h3 { font-size: 12pt; margin-top: 1.1em; }
+p { margin: 0 0 .7em; }
+.eyebrow { font: 8pt ui-monospace, Menlo, monospace; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); margin-bottom: 6pt; display: flex; align-items: center; gap: 8px; }
+.eyebrow::before { content: ""; width: 18px; height: 2px; background: var(--grad); }
+.muted { color: var(--ink-2); }
+.small { font-size: 8.5pt; }
+.ph { background: #fff3cd; color: #4d3500; border: 1px dashed #a87700; border-radius: 3px; padding: 0 3px; }
+
+/* cover */
+.cover { background: var(--night); color: #eef1f7; padding: 22mm 20mm; }
+.cover .grid-bg { position: absolute; inset: 0; background-image: linear-gradient(#1c2438 1px, transparent 1px), linear-gradient(90deg, #1c2438 1px, transparent 1px); background-size: 12mm 12mm; opacity: .5; -webkit-mask-image: radial-gradient(ellipse at 80% 20%, #000, transparent 65%); }
+.cover .bar { position: absolute; left: 0; right: 0; bottom: 0; height: 4mm; background: var(--grad); }
+.cover .eyebrow { color: var(--lime); }
+.cover h1 { font-size: 34pt; margin-top: 52mm; max-width: 150mm; }
+.cover h1 span { color: var(--lime); }
+.cover .lede { font-size: 13pt; color: #cfd6e4; max-width: 140mm; }
+.cover dl { position: absolute; left: 20mm; right: 20mm; bottom: 22mm; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8mm; margin: 0; border-top: 1px solid #263049; padding-top: 6mm; }
+.cover dt { font: 7.5pt ui-monospace, Menlo, monospace; letter-spacing: .12em; text-transform: uppercase; color: #a6b0c4; }
+.cover dd { margin: 2pt 0 0; font-size: 10.5pt; }
+.cover .ph { font-size: 10pt; }
+
+/* tiles */
+.tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4mm; margin: 5mm 0 6mm; }
+.tile { border: 1px solid var(--line); border-radius: 3mm; padding: 4mm; background: #fff; }
+.tile .k { font: 7.5pt ui-monospace, Menlo, monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); }
+.tile .v { font-size: 22pt; font-weight: 750; letter-spacing: -0.03em; line-height: 1.1; margin: 1mm 0; }
+.tile .v small { font-size: 11pt; font-weight: 500; color: var(--ink-2); }
+.tile .s { font-size: 8.5pt; color: var(--ink-2); }
+.tile.dark { background: var(--night); color: #eef1f7; border-color: var(--night); }
+.tile.dark .k, .tile.dark .s, .tile.dark .v small { color: #a6b0c4; }
+
+/* tables */
+table { width: 100%; border-collapse: collapse; font-size: 9pt; }
+th { text-align: left; font: 7.5pt ui-monospace, Menlo, monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); border-bottom: 1.5px solid var(--ink); padding: 2mm 2mm 2mm 0; }
+td { border-bottom: 1px solid var(--line); padding: 2.2mm 2mm 2.2mm 0; vertical-align: top; }
+td.id { font-family: ui-monospace, Menlo, monospace; font-size: 8.5pt; white-space: nowrap; }
+.sev { display: inline-flex; align-items: center; gap: 4px; font-size: 8pt; font-weight: 650; white-space: nowrap; }
+.sev::before { content: ""; width: 7px; height: 7px; border-radius: 50%; }
+.sev.high::before { background: #c2410c; }
+.sev.med::before { background: #b88400; }
+.sev.low::before { background: #6b7280; }
+
+/* screenshots */
+.shots { display: grid; grid-template-columns: 1fr 34mm; gap: 5mm; align-items: start; margin: 4mm 0; }
+.shots img { width: 100%; border-radius: 2.5mm; border: 1px solid var(--line); display: block; }
+.shots .stack { display: grid; gap: 4mm; }
+ul.tight { margin: 0 0 .6em; padding-left: 1.1em; }
+ul.tight li { margin-bottom: 1.2mm; }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 7mm; }
+
+/* roadmap */
+.road { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5mm; margin-top: 5mm; }
+.phase { border-radius: 3mm; border: 1px solid var(--line); padding: 5mm; background: #fff; position: relative; }
+.phase::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1.6mm; border-radius: 3mm 3mm 0 0; background: var(--grad); }
+.phase h3 { margin-top: 2mm; }
+.phase .d { font: 8pt ui-monospace, Menlo, monospace; color: var(--ink-2); letter-spacing: .08em; }
+.phase ul { padding-left: 1.05em; margin: 0; font-size: 9pt; }
+.phase li { margin-bottom: 1.6mm; }
+.goal { margin-top: 3mm; font-size: 8.5pt; background: var(--paper); border-radius: 2mm; padding: 2.5mm 3mm; }
+
+/* pricing */
+.plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; margin: 4mm 0 5mm; }
+.plan { border: 1px solid var(--line); border-radius: 3mm; padding: 5mm; background: #fff; }
+.plan.feat { border: 2px solid var(--ink); }
+.plan h3 { margin: 0 0 1mm; }
+.plan .price { font-size: 15pt; font-weight: 750; margin: 1mm 0 2mm; }
+.plan ul { padding-left: 1.05em; margin: 0; font-size: 8.6pt; }
+.plan li { margin-bottom: 1.2mm; }
+.launch { display: flex; justify-content: space-between; align-items: center; background: var(--night); color: #eef1f7; border-radius: 3mm; padding: 5mm 6mm; }
+.launch .price { font-size: 15pt; font-weight: 750; }
+.next { display: grid; grid-template-columns: repeat(5, 1fr); gap: 3mm; margin-top: 4mm; counter-reset: n; }
+.next div { border-top: 2px solid var(--ink); padding-top: 2mm; font-size: 8.6pt; }
+.next div::before { counter-increment: n; content: "0" counter(n); display: block; font: 8pt ui-monospace, Menlo, monospace; color: var(--ink-2); }
+</style>
+</head>
+<body>
+
+<!-- 1. Cover -->
+<section class="page cover">
+  <div class="grid-bg"></div>
+  <p class="eyebrow">Website &amp; online presence proposal</p>
+  <h1>kavaiyatech.com, rebuilt to <span>win and handle enquiries.</span></h1>
+  <p class="lede">Audit findings, a ready-to-launch new website, a 90-day plan and simple monthly care for Kavaiya Technologies India Private Limited (KT INDIA).</p>
+  <dl>
+    <div><dt>Prepared for</dt><dd>KT INDIA, Nadiad, Gujarat</dd></div>
+    <div><dt>Prepared by</dt><dd><span class="ph">[YOUR NAME]</span></dd></div>
+    <div><dt>Date</dt><dd><span class="ph">[DATE]</span></dd></div>
+  </dl>
+  <div class="bar"></div>
+</section>
+
+<!-- 2. Executive summary -->
+<section class="page" data-n="02">
+  <p class="eyebrow">Executive summary</p>
+  <h2>A careful site, built for reading, not yet for enquiries.</h2>
+  <p>The current site has correct titles, structured data, a privacy page, honest R&amp;D notes and fast desktop loading. A passive review on 3 October 2026 found <strong>33 improvement points</strong> (no critical issues). The biggest opportunity is to turn a one-page research brochure into a site that is found, trusted and contacted.</p>
+  <div class="tiles">
+    <div class="tile"><div class="k">Findings</div><div class="v">33</div><div class="s">0 critical · 7 high · 14 medium · 12 low</div></div>
+    <div class="tile"><div class="k">Indexable pages</div><div class="v">2 <small>→ 16</small></div><div class="s">current sitemap → new site</div></div>
+    <div class="tile"><div class="k">Mobile performance</div><div class="v">69 <small>→ 97</small></div><div class="s">Lighthouse lab score, home page</div></div>
+    <div class="tile dark"><div class="k">Enquiry form</div><div class="v">Live</div><div class="s">none today → spam-protected form</div></div>
+  </div>
+  <h3>Top five findings</h3>
+  <table>
+    <thead><tr><th>#</th><th>Finding</th><th>Why it matters</th></tr></thead>
+    <tbody>
+      <tr><td class="id">1</td><td><strong>The whole company is on one page.</strong> Search engines see 2 URLs, so no service can rank on its own.</td><td>Buyers search for the service, not the company name.</td></tr>
+      <tr><td class="id">2</td><td><strong>No enquiry form.</strong> "Request service" buttons scroll to an email link.</td><td>Every extra step loses enquiries, and none are tracked.</td></tr>
+      <tr><td class="id">3</td><td><strong>No published proof.</strong> No case studies or testimonials, yet the page states "05 major clients".</td><td>Buyers look for evidence before getting in touch.</td></tr>
+      <tr><td class="id">4</td><td><strong>Slow on phones.</strong> Mobile 69/100, total blocking time 1.4 s (desktop 100).</td><td>Most first visits are on a phone.</td></tr>
+      <tr><td class="id">5</td><td><strong>Hard to find and to measure.</strong> No analytics, unverified Google profile, no listings, no DMARC.</td><td>You cannot improve what you cannot see; email can be spoofed.</td></tr>
+    </tbody>
+  </table>
+  <h3>What I will deliver</h3>
+  <div class="cols">
+    <ul class="tight">
+      <li><strong>The new website, already built:</strong> 18 pages, one page per service, enquiry form, proof sections, redirects for every old link.</li>
+      <li><strong>Week-one fixes:</strong> security headers, caching, DMARC, Search Console, analytics.</li>
+    </ul>
+    <ul class="tight">
+      <li><strong>Monthly care:</strong> updates, backups, monitoring, content edits, SEO and a monthly report.</li>
+      <li><strong>You own everything:</strong> domain, code, analytics and content stay in your name.</li>
+    </ul>
+  </div>
+  <p class="small muted">Goals, not guarantees: enquiry possible in under a minute from any page; every service indexable; security headers grade A and DMARC live within 30 days; 2–3 approved case studies within 60 days.</p>
+</section>
+
+<!-- 3. Key findings -->
+<section class="page" data-n="03">
+  <p class="eyebrow">Key findings</p>
+  <h2>What the audit found, with evidence.</h2>
+  <p class="muted">Passive checks only: public pages, response headers, public DNS and Lighthouse 13.5 on a mirror of the live files (the live site blocked headless testing). The full list of 33 findings with evidence is in the audit report.</p>
+  <table>
+    <thead><tr><th>ID</th><th>Finding</th><th>Evidence</th><th>Severity</th><th>Effort</th></tr></thead>
+    <tbody>
+      <tr><td class="id">F30</td><td>One-page site; ~39,000 px tall on mobile</td><td>sitemap.xml lists 2 URLs</td><td><span class="sev high">High</span></td><td>L</td></tr>
+      <tr><td class="id">F31</td><td>No page per service for buyers' searches</td><td>Single title/description theme</td><td><span class="sev high">High</span></td><td>M</td></tr>
+      <tr><td class="id">F21</td><td>No enquiry form; buttons only scroll</td><td>script.js · requestService()</td><td><span class="sev high">High</span></td><td>M</td></tr>
+      <tr><td class="id">F22</td><td>No proof; "05 major clients" unsupported</td><td>Full page text</td><td><span class="sev high">High</span></td><td>M</td></tr>
+      <tr><td class="id">F18</td><td>Mobile performance 69; TBT 1,370 ms</td><td>Lighthouse, 20 long tasks</td><td><span class="sev high">High</span></td><td>M</td></tr>
+      <tr><td class="id">F32</td><td>Peers show 165–847 pages, case studies, reviews</td><td>Competitor sitemaps</td><td><span class="sev high">High</span></td><td>L</td></tr>
+      <tr><td class="id">F33</td><td>Ten sectors may dilute the buyer message</td><td>Page structure</td><td><span class="sev high">High</span></td><td>L</td></tr>
+      <tr><td class="id">F01</td><td>No security headers (HSTS, CSP, …)</td><td>HTTP response headers</td><td><span class="sev med">Medium</span></td><td>S</td></tr>
+      <tr><td class="id">F02</td><td>No browser caching on any asset</td><td>No Cache-Control header</td><td><span class="sev med">Medium</span></td><td>S</td></tr>
+      <tr><td class="id">F10</td><td>No DMARC; DKIM unconfirmed</td><td>Public DNS</td><td><span class="sev med">Medium</span></td><td>S</td></tr>
+      <tr><td class="id">F15</td><td>No analytics or tag manager</td><td>Page source</td><td><span class="sev med">Medium</span></td><td>S</td></tr>
+      <tr><td class="id">F20</td><td>Privacy notice lacks DPDP Act 2023 items</td><td>policies.html</td><td><span class="sev med">Medium</span></td><td>M</td></tr>
+      <tr><td class="id">F25</td><td>Google Business Profile not verified; no LocalBusiness data</td><td>Search; JSON-LD</td><td><span class="sev med">Medium</span></td><td>M</td></tr>
+      <tr><td class="id">F26</td><td>No directory listings or reviews found</td><td>Search across 8 platforms</td><td><span class="sev med">Medium</span></td><td>M</td></tr>
+    </tbody>
+  </table>
+  <h3>Already good, and kept</h3>
+  <p class="small">Canonical URL and Open Graph tags · organisation and service structured data · honest R&amp;D disclaimers · published company identifiers · skip link and reduced-motion support · light page weight · gzip compression · SPF record.</p>
+</section>
+
+<!-- 4. New website -->
+<section class="page" data-n="04">
+  <p class="eyebrow">The new website</p>
+  <h2>Built, tested and ready to preview.</h2>
+  <div class="shots">
+    <div class="stack"><img src="img/new-home-desktop.jpg" alt="New home page on desktop"><img src="img/new-service-desktop.jpg" alt="New ERP service page on desktop"></div>
+    <img src="img/new-home-mobile.jpg" alt="New home page on a phone">
+  </div>
+  <div class="cols">
+    <div>
+      <h3>Inside</h3>
+      <ul class="tight small">
+        <li>Home, Services, 8 service pages, Work &amp; research, About, Careers, Contact, Privacy, Terms, 404</li>
+        <li>Enquiry form with spam protection; service pre-selected from each page</li>
+        <li>Case-study, testimonial and team sections ready for your approved content</li>
+        <li>301 redirects for every old link, including the white-paper URL</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Tested</h3>
+      <ul class="tight small">
+        <li>Lighthouse 97–100 on performance, accessibility, best practices and SEO (mobile and desktop)</li>
+        <li>0 broken links; 0 HTML validation errors; 10 of 10 redirect tests passed</li>
+        <li>Works by touch, mouse and keyboard; motion turns off for visitors who prefer it</li>
+        <li>No third-party scripts or cookies; strict security headers</li>
+      </ul>
+    </div>
+  </div>
+  <p class="small muted">The logo shown is a concept refresh; your current logo can be kept. Placeholders (yellow) mark content only you can supply.</p>
+</section>
+
+<!-- 5. Roadmap -->
+<section class="page" data-n="05">
+  <p class="eyebrow">30-60-90-day roadmap</p>
+  <h2>Fix and launch, get found, then grow.</h2>
+  <div class="road">
+    <div class="phase">
+      <div class="d">DAYS 1–30</div><h3>Fix, launch, measure</h3>
+      <ul>
+        <li>Security headers and caching</li>
+        <li>DMARC, DKIM check, CAA</li>
+        <li>Search Console, Bing, analytics with enquiry goals</li>
+        <li>Check the firewall rule that blocks testing tools</li>
+        <li>Collect case studies, testimonials, team</li>
+        <li>Launch the new site; submit the sitemap</li>
+        <li>First monthly report</li>
+      </ul>
+      <div class="goal">Goal: enquiry form live; 16 pages indexable; mobile 95+.</div>
+    </div>
+    <div class="phase">
+      <div class="d">DAYS 31–60</div><h3>Get found</h3>
+      <ul>
+        <li>Complete the Google Business Profile</li>
+        <li>5 consistent directory listings</li>
+        <li>Publish 2 approved case studies</li>
+        <li>Align LinkedIn and Instagram profiles</li>
+        <li>Move DMARC to quarantine</li>
+        <li>Fix Search Console issues</li>
+      </ul>
+      <div class="goal">Goal: same name, address and phone everywhere; proof on every service page.</div>
+    </div>
+    <div class="phase">
+      <div class="d">DAYS 61–90</div><h3>Grow</h3>
+      <ul>
+        <li>One practical article per month tied to a service</li>
+        <li>Third case study; ask for Google reviews</li>
+        <li>Adjust copy based on analytics</li>
+        <li>1-hour positioning session: buyers vs. research partners</li>
+        <li>Quarterly speed, accessibility and security re-test</li>
+      </ul>
+      <div class="goal">Goal: decisions based on data; growing search entry points.</div>
+    </div>
+  </div>
+  <h3>Monthly report includes</h3>
+  <p class="small">Visits · enquiries (form, WhatsApp, email clicks) · top pages · search queries and positions · uptime · issues fixed · next month's plan.</p>
+</section>
+
+<!-- 6. Pricing and next steps -->
+<section class="page" data-n="06">
+  <p class="eyebrow">Investment</p>
+  <h2>One launch price, one simple monthly plan.</h2>
+  <div class="launch"><div><strong>Launch project</strong><br><span class="small">Content edits, form, deployment, redirects, DNS email security, analytics, handover</span></div><div class="price"><span class="ph">[₹ ______]</span></div></div>
+  <div class="plans">
+    <div class="plan"><h3>Essential</h3><div class="price"><span class="ph">[₹ ____]</span><span class="small muted"> /month</span></div>
+      <ul><li>Monthly checks; quarterly security review</li><li>Uptime alerts (5-min)</li><li>Monthly backups</li><li>Up to [1] h content edits</li><li>Quarterly SEO and speed check</li><li>Short monthly email report</li><li>Urgent: within [8] working hours</li></ul></div>
+    <div class="plan feat"><h3>Growth</h3><div class="price"><span class="ph">[₹ ____]</span><span class="small muted"> /month</span></div>
+      <ul><li>Everything in Essential, plus:</li><li>1-min uptime checks; weekly backups</li><li>Up to [3] h edits + 1 new page or case study</li><li>Monthly SEO, Search Console, speed</li><li>Monthly Google Business post; listings check</li><li>2 social post drafts/month</li><li>Report + 15-min call · urgent in [4] h</li></ul></div>
+    <div class="plan"><h3>Premium</h3><div class="price"><span class="ph">[₹ ____]</span><span class="small muted"> /month</span></div>
+      <ul><li>Everything in Growth, plus:</li><li>Weekly checks; backup before every change</li><li>Up to [8] h edits + 3 new pages</li><li>2 GBP posts/month + review replies</li><li>Content calendar + 8 social drafts/month</li><li>Report + 30-min call</li><li>Urgent: within [2] working hours</li></ul></div>
+  </div>
+  <p class="small muted">Prices exclude GST and third-party costs. Minimum term [3] months. You own all accounts, code and content; full handover within [5] working days if you cancel.</p>
+  <h3>Next steps</h3>
+  <div class="next">
+    <div>30-minute call to preview the new site</div>
+    <div>Choose a care plan and confirm the launch</div>
+    <div>Share DNS, hosting and Google access</div>
+    <div>Send case studies, testimonials, team</div>
+    <div>Launch in 3–4 weeks</div>
+  </div>
+  <p style="margin-top:8mm"><strong><span class="ph">[YOUR NAME]</span></strong> · <span class="ph">[EMAIL]</span> · <span class="ph">[PHONE / WHATSAPP]</span> · <span class="ph">[PORTFOLIO URL]</span> · <span class="ph">[BOOKING LINK]</span></p>
+</section>
+
+</body>
+</html>

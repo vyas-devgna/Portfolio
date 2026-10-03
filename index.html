@@ -3,226 +3,412 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#f7f6f2" />
   <title>Devgna Vyas — Systems Engineer & Open Source Builder</title>
-  <meta name="description" content="Devgna Vyas builds reliable systems, agent infrastructure, local-first software, networking tools and open-source projects." />
-  <meta property="og:title" content="Devgna Vyas — Systems Engineer & Builder" />
-  <meta property="og:description" content="Selected systems work, research, open source, writing and photography." />
+  <meta name="description" content="Devgna Vyas is a systems engineer and published researcher building agent infrastructure, local-first software, networking and security tools, and open source." />
+  <meta name="author" content="Devgna Vyas" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#f2f0ea" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0d0e0c" media="(prefers-color-scheme: dark)" />
+  <link rel="canonical" href="https://vyasdevgna.online/" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://vyasdevgna.online/" />
+  <meta property="og:title" content="Devgna Vyas — Systems Engineer & Builder" />
+  <meta property="og:description" content="Selected systems work, research, open source, writing and photography." />
+  <meta property="og:image" content="https://vyasdevgna.online/images/og.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
-  <link rel="canonical" href="https://vyasdevgna.online/" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22><rect width=%2264%22 height=%2264%22 rx=%2216%22 fill=%22%23b8ff3d%22/><path d=%22M16 17h15c11 0 18 6 18 15S42 47 31 47H16zm10 8v14h5c5 0 8-2 8-7s-3-7-8-7z%22 fill=%22%230a0c0b%22/></svg>" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
+  <script>
+    // Theme + capability flags before first paint (no flash).
+    (function () {
+      var d = document.documentElement, t = null;
+      try { t = localStorage.getItem('theme'); } catch (e) {}
+      if (t === 'light' || t === 'dark') d.dataset.theme = t;
+      d.classList.add('js');
+      try { if (!sessionStorage.getItem('seen') && !matchMedia('(prefers-reduced-motion: reduce)').matches) d.classList.add('is-loading'); } catch (e) {}
+      setTimeout(function () { d.classList.remove('is-loading'); }, 5000);
+    })();
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Devgna Vyas",
+    "url": "https://vyasdevgna.online/",
+    "email": "mailto:vyasdevgna@gmail.com",
+    "jobTitle": "Systems Engineer",
+    "alumniOf": "CHARUSAT",
+    "sameAs": ["https://github.com/vyas-devgna", "https://linkedin.com/in/devgna-vyas"]
+  }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+  <script defer src="js/main.js"></script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
-  <canvas id="fluid-background" aria-hidden="true"></canvas>
-  <div class="ambient" aria-hidden="true"></div>
-  <div class="scroll-progress" aria-hidden="true"><i id="scroll-progress"></i></div>
 
-  <header class="topbar" id="topbar">
-    <a class="identity" href="#home" aria-label="Devgna Vyas, home">
-      <span><strong>DEVGNA VYAS</strong><small>SYSTEMS · RESEARCH · OPEN SOURCE</small></span>
+  <div class="loader" aria-hidden="true">
+    <div class="loader-name"><span>Devgna</span><span>Vyas</span></div>
+    <div class="loader-meta"><span>Systems · Research · Open source</span><span class="loader-count">000</span></div>
+    <i class="loader-bar"></i>
+  </div>
+
+  <div class="grain" aria-hidden="true"></div>
+  <div class="progress" aria-hidden="true"><i></i></div>
+  <div class="cursor-chip" aria-hidden="true"><span></span></div>
+
+  <header class="topbar">
+    <a class="brand" href="#home" aria-label="Devgna Vyas — back to top">
+      <span class="brand-mark" aria-hidden="true">D</span>
+      <span class="brand-text"><strong>Devgna Vyas</strong><small>Systems · Research · Open source</small></span>
     </a>
-    <nav class="desktop-nav" aria-label="Primary navigation">
-      <a class="nav-link active" href="#home">Home</a>
-      <a class="nav-link" href="#work">Work</a>
-      <a class="nav-link" href="#research">Research</a>
-      <a class="nav-link" href="#about">About</a>
-      <a class="nav-link" href="#photography">Photography</a>
+    <nav class="nav" aria-label="Primary">
+      <i class="nav-pill" aria-hidden="true"></i>
+      <a href="#work">Work</a>
+      <a href="#research">Research</a>
+      <a href="#about">About</a>
+      <a href="#photography">Photography</a>
+      <a href="#contact">Contact</a>
     </nav>
     <div class="top-actions">
-      <a class="availability" href="#contact"><i></i> Let’s build something</a>
-      <button class="menu-button" id="menu-button" type="button" aria-expanded="false" aria-controls="mobile-menu"><span>Menu</span><i></i></button>
+      <button class="icon-btn kbd-only" type="button" data-palette-open aria-label="Open command menu" title="Command menu"><kbd>⌘K</kbd></button>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Toggle colour theme" title="Toggle light / dark">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="5" /><path d="M12 7a5 5 0 0 0 0 10z" class="fill" /></svg>
+      </button>
+      <a class="talk" href="#contact"><i></i><span>Let’s build something</span></a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu"><span>Menu</span><i aria-hidden="true"></i></button>
     </div>
   </header>
 
-  <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
-    <a class="nav-link" href="#home"><small>01</small><span>Home</span></a>
-    <a class="nav-link" href="#work"><small>02</small><span>Selected work</span></a>
-    <a class="nav-link" href="#research"><small>03</small><span>Research</span></a>
-    <a class="nav-link" href="#about"><small>04</small><span>About</span></a>
-    <a class="nav-link" href="#photography"><small>05</small><span>Photography</span></a>
-    <a class="nav-link" href="#contact"><small>06</small><span>Contact</span></a>
-  </nav>
+  <div class="menu" id="menu" data-lenis-prevent hidden>
+    <nav aria-label="Mobile">
+      <a href="#home"><small>00</small>Home</a>
+      <a href="#work"><small>01</small>Selected work</a>
+      <a href="#research"><small>02</small>Research</a>
+      <a href="#about"><small>03</small>About</a>
+      <a href="#photography"><small>04</small>Photography</a>
+      <a href="#contact"><small>05</small>Contact</a>
+    </nav>
+    <div class="menu-foot">
+      <a href="mailto:vyasdevgna@gmail.com">vyasdevgna@gmail.com</a>
+      <span><a href="https://github.com/vyas-devgna" target="_blank" rel="noopener">GitHub ↗</a> <a href="https://linkedin.com/in/devgna-vyas" target="_blank" rel="noopener">LinkedIn ↗</a></span>
+    </div>
+  </div>
 
   <main id="main">
-    <section class="section hero" id="home" aria-labelledby="hero-title">
-      <div class="section-shell hero-grid">
-        <article class="bento hero-copy reveal">
-          <p class="eyebrow"><span>SYS.ENGINEER</span><span>INDIA / 22.59° N</span></p>
-          <h1 id="hero-title">I build systems that <em>survive reality.</em></h1>
-          <p class="hero-intro">I’m <strong>Devgna Vyas</strong> — a systems engineer and published researcher working across agent infrastructure, local-first software, networking, security and open source.</p>
-          <div class="hero-actions">
-            <a class="button button-primary" href="#work">Explore the work <span>↘</span></a>
-            <a class="button button-quiet" href="mailto:vyasdevgna@gmail.com">Start a conversation <span>↗</span></a>
-          </div>
-        </article>
-
-        <aside class="bento hero-visual reveal" data-tilt>
-          <canvas id="system-map" aria-hidden="true"></canvas>
-          <div class="visual-label"><span>FIELD NOTES / 01</span><span>© 2026</span></div>
-          <div class="visual-note" aria-hidden="true"><span>ENGINEERING IN PRACTICE</span><strong>Systems<br /><em>in motion.</em></strong><small>OBSERVE · TEST · IMPROVE</small></div>
-          <div class="swarm-controls">
-            <span><i></i> SWARM ONLINE</span>
-            <button id="swarm-pulse" type="button">Pulse</button>
-            <button id="swarm-freeze" type="button" aria-pressed="false">Freeze</button>
-          </div>
-          <div class="signal-chip"><i></i><span>BUILDING AT THE EDGE<br /><small>SOFTWARE × RESEARCH</small></span></div>
-        </aside>
-
-        <article class="bento proof-card reveal">
-          <span class="proof-value">94.7%</span>
-          <p>Detection accuracy achieved by HERMES on constrained ARM edge nodes.</p>
-          <small>PUBLISHED RESEARCH / 2025</small>
-        </article>
-
-        <article class="bento manifesto-card reveal">
-          <span class="eyebrow">WORKING PRINCIPLE</span>
-          <blockquote>Proof over posture.<br />Failure modes over diagrams.</blockquote>
-          <div class="mini-stack"><span>LINUX</span><span>NETWORKS</span><span>AI SYSTEMS</span></div>
-        </article>
+    <!-- HERO -->
+    <section class="hero" id="home" aria-labelledby="hero-title">
+      <canvas class="swarm" id="swarm" aria-hidden="true"></canvas>
+      <div class="hero-meta wrap">
+        <span>Systems engineer<br />& published researcher</span>
+        <span>India<br />22.59° N</span>
+        <span>Local time<br /><b class="clock" data-clock>—</b></span>
+        <span class="status"><i></i> Open to interesting problems</span>
+      </div>
+      <h1 class="hero-title wrap" id="hero-title">
+        <span class="line">I build systems</span>
+        <span class="line">that <em>survive reality.</em></span>
+      </h1>
+      <div class="hero-foot wrap">
+        <p class="hero-intro">I’m <strong>Devgna Vyas</strong> — I work across agent infrastructure, local-first software, networking, security and open source.</p>
+        <div class="hero-cta">
+          <a class="btn btn-solid magnetic" href="#work"><span>Explore the work</span><i>↘</i></a>
+          <a class="btn btn-ghost magnetic" href="mailto:vyasdevgna@gmail.com"><span>Start a conversation</span><i>↗</i></a>
+        </div>
+        <div class="swarm-ui" role="group" aria-label="Background animation">
+          <span><i></i> Swarm online · <em class="hint-fine">move, press or tap</em><em class="hint-touch">drag or tap</em></span>
+          <button type="button" id="swarm-pulse">Pulse</button>
+          <button type="button" id="swarm-freeze" aria-pressed="false">Freeze</button>
+        </div>
       </div>
     </section>
 
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track">
+        <span>Linux</span><b>✳</b><span>Networks</span><b>✳</b><span><em>AI systems</em></span><b>✳</b><span>Security</span><b>✳</b><span>Local-first</span><b>✳</b><span><em>Open source</em></span><b>✳</b>
+      </div>
+    </div>
+
+    <!-- PROOF -->
+    <section class="proof wrap" aria-label="Highlights">
+      <p class="proof-lede reveal-words">Proof over posture. Failure modes over diagrams. <span class="dim">That’s the working principle — and the reason the numbers below come with a paper attached.</span></p>
+      <dl class="proof-stats">
+        <div><dt><span data-count="94.7" data-decimals="1">94.7</span>%</dt><dd>Detection accuracy achieved by HERMES on constrained ARM edge nodes</dd></div>
+        <div><dt><span data-count="15">15</span>k</dt><dd>Packets per second through the HERMES pipeline</dd></div>
+        <div><dt><span data-count="4.2" data-decimals="1">4.2</span>W</dt><dd>Per active node — published research, 2025</dd></div>
+        <div><dt><span data-count="6">6</span></dt><dd>Merged upstream changes to WinUtil</dd></div>
+      </dl>
+    </section>
+
+    <!-- WORK -->
     <section class="section" id="work" aria-labelledby="work-title">
-      <div class="section-shell">
-        <header class="section-heading reveal">
-          <div><p class="eyebrow">01 / SELECTED WORK</p><h2 id="work-title">Things I’ve shipped into the world.</h2></div>
-          <p>Agent infrastructure, local-first collaboration and practical tools — built to be inspected, used and improved.</p>
-        </header>
+      <header class="section-head wrap">
+        <p class="kicker"><span>01</span> Selected work</p>
+        <h2 id="work-title" class="split">Things I’ve shipped <em>into the world.</em></h2>
+        <p class="section-sub">Agent infrastructure, local-first collaboration and practical tools — built to be inspected, used and improved.</p>
+      </header>
 
-        <div class="project-stage" id="project-stage">
-          <div class="project-sticky">
-            <div class="project-center" aria-hidden="true"><span>BUILT TO BE USED</span><strong>Work that<br /><em>responds.</em></strong><p>SIX SYSTEMS · ONE BODY OF WORK</p></div>
-            <div class="project-grid">
-          <a class="project-card project-lead reveal" href="https://github.com/vyas-devgna/liwm-agent-framework" target="_blank" rel="noopener">
-            <img src="https://raw.githubusercontent.com/vyas-devgna/liwm-agent-framework/main/assets/social-preview.png" alt="LIWM agent framework interface" loading="lazy" decoding="async" />
-            <span class="project-index">01</span><span class="project-arrow">↗</span>
-            <div class="project-copy"><p>AGENT MEMORY / INTENT</p><h3>LIWM</h3><span>Auditable, provenance-gated intent and memory infrastructure for coding agents.</span><div class="tags"><b>PYTHON</b><b>AI INFRA</b><b>LOCAL-FIRST</b></div></div>
+      <ol class="projects wrap">
+        <li class="project" data-preview="images/work/liwm.webp">
+          <a href="https://github.com/vyas-devgna/liwm-agent-framework" target="_blank" rel="noopener">
+            <span class="p-index">01</span>
+            <span class="p-media"><img src="images/work/liwm.webp" alt="LIWM agent framework interface" width="1280" height="640" loading="lazy" decoding="async" /></span>
+            <span class="p-title">LIWM</span>
+            <span class="p-cat">Agent memory / intent</span>
+            <span class="p-desc">Auditable, provenance-gated intent and memory infrastructure for coding agents.</span>
+            <span class="p-tags"><b>Python</b><b>AI infra</b><b>Local-first</b></span>
+            <span class="p-arrow" aria-hidden="true">↗</span>
           </a>
+        </li>
+        <li class="project" data-preview="images/work/braids.webp">
+          <a href="https://github.com/vyas-devgna/braids" target="_blank" rel="noopener">
+            <span class="p-index">02</span>
+            <span class="p-media"><img src="images/work/braids.webp" alt="Braids engineering system artwork" width="1400" height="788" loading="lazy" decoding="async" /></span>
+            <span class="p-title">Braids</span>
+            <span class="p-cat">Engineering governance</span>
+            <span class="p-desc">Rigor for coding agents: evidence, failure paths, fallbacks and verification.</span>
+            <span class="p-tags"><b>Agents</b><b>Open source</b></span>
+            <span class="p-arrow" aria-hidden="true">↗</span>
+          </a>
+        </li>
+        <li class="project" data-preview="art-ezboard">
+          <a href="https://github.com/vyas-devgna/ezboard" target="_blank" rel="noopener">
+            <span class="p-index">03</span>
+            <span class="p-media art art-ezboard" aria-hidden="true"><b>EZ/<br />BOARD</b></span>
+            <span class="p-title">EzBoard</span>
+            <span class="p-cat">Local-first / WebRTC</span>
+            <span class="p-desc">A private collaborative canvas for people and AI agents.</span>
+            <span class="p-tags"><b>WebRTC</b><b>Canvas</b></span>
+            <span class="p-arrow" aria-hidden="true">↗</span>
+          </a>
+        </li>
+        <li class="project" data-preview="images/work/ez-drop.webp">
+          <a href="https://github.com/vyas-devgna/ez-drop" target="_blank" rel="noopener">
+            <span class="p-index">04</span>
+            <span class="p-media"><img src="images/work/ez-drop.webp" alt="ez-drop logo: two arrows around a water drop" width="1280" height="800" loading="lazy" decoding="async" /></span>
+            <span class="p-title">ez-drop</span>
+            <span class="p-cat">Peer to peer</span>
+            <span class="p-desc">Browser-to-browser file and text transfer.</span>
+            <span class="p-tags"><b>P2P</b><b>Browser</b></span>
+            <span class="p-arrow" aria-hidden="true">↗</span>
+          </a>
+        </li>
+        <li class="project" data-preview="art-same">
+          <a href="https://github.com/vyas-devgna/same-energy-android" target="_blank" rel="noopener">
+            <span class="p-index">05</span>
+            <span class="p-media art art-same" aria-hidden="true"><b>S/E</b></span>
+            <span class="p-title">Same.Energy</span>
+            <span class="p-cat">Flutter / visual search</span>
+            <span class="p-desc">A native-feeling semantic image-search client.</span>
+            <span class="p-tags"><b>Flutter</b><b>Android</b></span>
+            <span class="p-arrow" aria-hidden="true">↗</span>
+          </a>
+        </li>
+        <li class="project" data-preview="images/work/beatblocks.webp">
+          <a href="https://github.com/vyas-devgna/beatblocks-control" target="_blank" rel="noopener">
+            <span class="p-index">06</span>
+            <span class="p-media"><img src="images/work/beatblocks.webp" alt="BeatBlocks Control banner with a headphone-wearing skeleton" width="1280" height="800" loading="lazy" decoding="async" /></span>
+            <span class="p-title">BeatBlocks</span>
+            <span class="p-cat">Fabric / Spotify</span>
+            <span class="p-desc">Minecraft-side music control through a local bridge.</span>
+            <span class="p-tags"><b>Fabric</b><b>Spotify</b></span>
+            <span class="p-arrow" aria-hidden="true">↗</span>
+          </a>
+        </li>
+      </ol>
+      <div class="preview" aria-hidden="true"><div class="preview-inner"></div></div>
+    </section>
 
-          <a class="project-card project-tall reveal" href="https://github.com/vyas-devgna/braids" target="_blank" rel="noopener">
-            <img src="https://raw.githubusercontent.com/vyas-devgna/braids/main/assets/hero/braids-hero.png" alt="Braids engineering system artwork" loading="lazy" decoding="async" />
-            <span class="project-index">02</span><span class="project-arrow">↗</span>
-            <div class="project-copy"><p>ENGINEERING GOVERNANCE</p><h3>Braids</h3><span>Rigor for coding agents: evidence, failure paths, fallbacks and verification.</span><div class="tags"><b>AGENTS</b><b>OPEN SOURCE</b></div></div>
-          </a>
+    <!-- RESEARCH -->
+    <section class="section" id="research" aria-labelledby="research-title">
+      <header class="section-head wrap">
+        <p class="kicker"><span>02</span> Research & open source</p>
+        <h2 id="research-title" class="split">Work that can withstand <em>inspection.</em></h2>
+        <p class="section-sub">Claims are only useful when someone else can reproduce them, challenge them and learn from them.</p>
+      </header>
 
-          <a class="project-card project-wide reveal" href="https://github.com/vyas-devgna/ezboard" target="_blank" rel="noopener">
-            <div class="project-mark">EZ/<br />BOARD</div>
-            <span class="project-index">03</span><span class="project-arrow">↗</span>
-            <div class="project-copy"><p>LOCAL-FIRST / WEBRTC</p><h3>EzBoard</h3><span>A private collaborative canvas for people and AI agents.</span><div class="tags"><b>WEBRTC</b><b>CANVAS</b></div></div>
-          </a>
+      <div class="research wrap">
+        <article class="hermes">
+          <div class="hermes-copy">
+            <p class="badge"><i></i> Published · icSoftComp 2025 · Springer CCIS</p>
+            <h3>HERMES</h3>
+            <p class="hermes-lede">Hybrid AI/ML network security on ARM clusters for edge environments.</p>
+            <p>Signature filtering and quantized neural inference, designed for practical inline detection where compute and power are limited.</p>
+            <dl class="hermes-stats">
+              <div><dt><span data-count="94.7" data-decimals="1">94.7</span>%</dt><dd>Detection</dd></div>
+              <div><dt><span data-count="15">15</span>k</dt><dd>Packets / sec</dd></div>
+              <div><dt><span data-count="4.2" data-decimals="1">4.2</span>W</dt><dd>Per active node</dd></div>
+            </dl>
+          </div>
+          <figure class="hermes-viz">
+            <canvas id="packets" aria-hidden="true"></canvas>
+            <figcaption><span>Ingress</span><span>Signature filter</span><span>Quantized inference</span><span>Verdict</span></figcaption>
+          </figure>
+        </article>
 
-          <a class="project-card reveal" href="https://github.com/vyas-devgna/ez-drop" target="_blank" rel="noopener">
-            <img src="images/project-art/ez-drop.webp" alt="ez-drop peer-to-peer transfer artwork" loading="lazy" decoding="async" />
-            <span class="project-index">04</span><span class="project-arrow">↗</span>
-            <div class="project-copy"><p>PEER TO PEER</p><h3>ez-drop</h3><span>Browser-to-browser file and text transfer.</span></div>
-          </a>
+        <article class="card winutil">
+          <p class="kicker-sm">Upstream engineering</p>
+          <pre class="term" aria-label="Terminal: git log --author=vyas shows 6 merged changes across ui, storage, shell and a11y"><code data-type>$ git log --author=vyas
+<span class="ok">✓ 6 merged changes</span>
+ui · storage · shell · a11y</code></pre>
+          <h3>WinUtil</h3>
+          <p>Contributions inside a mature codebase: drift detection, UI state sync, accessibility, storage controls and shell integration.</p>
+          <a class="link-arrow" href="https://github.com/ChrisTitusTech/winutil/pulls?q=is%3Apr+author%3Avyas-devgna+is%3Amerged" target="_blank" rel="noopener">View merged work <span>↗</span></a>
+        </article>
 
-          <a class="project-card reveal" href="https://github.com/vyas-devgna/same-energy-android" target="_blank" rel="noopener">
-            <div class="project-mark mark-round">S/E</div>
-            <span class="project-index">05</span><span class="project-arrow">↗</span>
-            <div class="project-copy"><p>FLUTTER / VISUAL SEARCH</p><h3>Same.Energy</h3><span>A native-feeling semantic image-search client.</span></div>
-          </a>
+        <article class="card quote">
+          <p class="kicker-sm">Engineering ethos</p>
+          <blockquote>“Being weak is nothing to be ashamed of… <em>Staying weak is.</em>”</blockquote>
+          <small>— Fuegoleon Vermillion</small>
+        </article>
 
-          <a class="project-card reveal" href="https://github.com/vyas-devgna/beatblocks-control" target="_blank" rel="noopener">
-            <img src="images/project-art/beatblocks.webp" alt="BeatBlocks music control artwork" loading="lazy" decoding="async" />
-            <span class="project-index">06</span><span class="project-arrow">↗</span>
-            <div class="project-copy"><p>FABRIC / SPOTIFY</p><h3>BeatBlocks</h3><span>Minecraft-side music control through a local bridge.</span></div>
-          </a>
-            </div>
-            <div class="project-scroll-cue" aria-hidden="true"><span>SCROLL</span><i>↓</i></div>
+        <article class="card freq">
+          <p class="kicker-sm">Frequencies</p>
+          <ul>
+            <li><span>01</span>Systems</li>
+            <li><span>02</span>Networking</li>
+            <li><span>03</span>Security</li>
+            <li><span>04</span>AI agents</li>
+            <li><span>05</span>Local-first</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section about" id="about" aria-labelledby="about-title">
+      <div class="about-grid wrap">
+        <div class="about-left">
+          <p class="kicker"><span>03</span> About</p>
+          <figure class="portrait">
+            <img src="images/portrait.webp" alt="Portrait of Devgna Vyas" width="675" height="900" loading="lazy" decoding="async" />
+            <figcaption>Field notes / 01 — © 2026</figcaption>
+          </figure>
+        </div>
+        <div class="about-right">
+          <h2 id="about-title" class="split">Systems first. <em>Curiosity always.</em></h2>
+          <p class="about-body reveal-words">I work from first principles: understand the data flow, trust boundaries, control paths and failure modes before choosing the abstraction. AI is an execution multiplier — not a substitute for owning the architecture.</p>
+          <div class="profile-links">
+            <a class="btn btn-ghost magnetic" href="https://github.com/vyas-devgna" target="_blank" rel="noopener"><span>GitHub</span><i>↗</i></a>
+            <a class="btn btn-ghost magnetic" href="https://linkedin.com/in/devgna-vyas" target="_blank" rel="noopener"><span>LinkedIn</span><i>↗</i></a>
+          </div>
+
+          <div class="facts">
+            <article class="card edu">
+              <p class="kicker-sm">Education</p>
+              <p class="big"><span data-count="8.25" data-decimals="2">8.25</span><small>CGPA</small></p>
+              <h3>BCA · CHARUSAT</h3>
+              <p>2023 — 2026<br />Architecture · OS · databases · networking</p>
+            </article>
+            <article class="card recog">
+              <p class="kicker-sm">Recognition</p>
+              <ul>
+                <li><strong>Published researcher</strong><span>HERMES · Springer CCIS</span></li>
+                <li><strong>Google</strong><span>Python · Linux · SQL</span></li>
+                <li><strong>Oracle</strong><span>Java Foundations</span></li>
+              </ul>
+            </article>
           </div>
         </div>
       </div>
-    </section>
 
-    <section class="section" id="research" aria-labelledby="research-title">
-      <div class="section-shell">
-        <header class="section-heading reveal">
-          <div><p class="eyebrow">02 / RESEARCH & OPEN SOURCE</p><h2 id="research-title">Work that can withstand inspection.</h2></div>
-          <p>Claims are only useful when someone else can reproduce them, challenge them and learn from them.</p>
-        </header>
-
-        <div class="research-grid">
-          <article class="bento research-main reveal">
-            <div class="orbit" aria-hidden="true"><i></i><i></i><i></i></div>
-            <p class="eyebrow">PUBLISHED / icSoftComp 2025 / SPRINGER CCIS</p>
-            <div><h3>HERMES</h3><h4>Hybrid AI/ML network security on ARM clusters for edge environments.</h4><p>Signature filtering and quantized neural inference designed for practical inline detection where compute and power are limited.</p></div>
-            <dl><div><dt>94.7%</dt><dd>DETECTION</dd></div><div><dt>15k</dt><dd>PACKETS / SEC</dd></div><div><dt>4.2W</dt><dd>PER ACTIVE NODE</dd></div></dl>
-          </article>
-
-          <article class="bento open-source-card reveal">
-            <p class="eyebrow">UPSTREAM ENGINEERING</p>
-            <div class="terminal-lines" aria-hidden="true"><span>$ git log --author=vyas</span><span class="ok">✓ 6 merged changes</span><span>ui · storage · shell · a11y</span></div>
-            <div><h3>WinUtil</h3><p>Contributions inside a mature codebase: drift detection, UI state sync, accessibility, storage controls and shell integration.</p></div>
-            <a href="https://github.com/ChrisTitusTech/winutil/pulls?q=is%3Apr+author%3Avyas-devgna+is%3Amerged" target="_blank" rel="noopener">View merged work <span>↗</span></a>
-          </article>
-
-          <article class="bento quote-card reveal"><p class="eyebrow">ENGINEERING ETHOS</p><blockquote>“Being weak is nothing to be ashamed of… Staying weak is.”</blockquote><small>— FUEGOLEON VERMILLION</small></article>
-          <article class="bento stack-card reveal"><p class="eyebrow">FREQUENCIES</p><div class="stack-list"><span>01 <b>SYSTEMS</b></span><span>02 <b>NETWORKING</b></span><span>03 <b>SECURITY</b></span><span>04 <b>AI AGENTS</b></span><span>05 <b>LOCAL-FIRST</b></span></div></article>
+      <div class="notes wrap" aria-roledescription="carousel" aria-labelledby="notes-title">
+        <div class="notes-head">
+          <p class="kicker-sm">Writing / notes</p>
+          <h3 id="notes-title">I write to make an idea harder to hide from itself.</h3>
+          <p>On ambiguity, people, systems and the gap between what sounds true and what survives scrutiny.</p>
+          <div class="notes-ctrl">
+            <button type="button" data-note="-1" aria-label="Previous note">←</button>
+            <span class="notes-count" aria-live="polite">01 / 05</span>
+            <button type="button" data-note="1" aria-label="Next note">→</button>
+          </div>
+        </div>
+        <div class="notes-deck">
+          <figure class="note"><span>I.</span><blockquote>The most selfless people on earth are not saints — they are people who wanted desperately to stop caring and discovered, to their quiet devastation, that they simply could not.</blockquote><figcaption>On selflessness</figcaption></figure>
+          <figure class="note"><span>II.</span><blockquote>Your alter ego doesn’t fear your success. It fears you noticing how long it has been signing your name on things it built from your wreckage.</blockquote><figcaption>On the alter ego</figcaption></figure>
+          <figure class="note"><span>III.</span><blockquote>Beauty and disgust were never opposites in a human being — they are the same root, grown in two directions, and the ones who pretend otherwise have simply stopped looking closely at themselves.</blockquote><figcaption>On duality</figcaption></figure>
+          <figure class="note"><span>IV.</span><blockquote>The middle is not a safe place to stand. It is a place where you feel everything twice — once when it happens, and once when you realize no one around you felt it at all.</blockquote><figcaption>On the middle</figcaption></figure>
+          <figure class="note"><span>V.</span><blockquote>A true lover is not someone who gives without limit. They are someone who gives with full knowledge of the cost, receives almost nothing in return, and finds — to their own bewilderment — that they would do it again.</blockquote><figcaption>On true love</figcaption></figure>
         </div>
       </div>
     </section>
 
-    <section class="section" id="about" aria-labelledby="about-title">
-      <div class="section-shell about-grid">
-        <article class="bento about-main reveal">
-          <p class="eyebrow">03 / ABOUT</p>
-          <h2 id="about-title">Systems first.<br /><em>Curiosity always.</em></h2>
-          <p>I work from first principles: understand the data flow, trust boundaries, control paths and failure modes before choosing the abstraction. AI is an execution multiplier, not a substitute for owning the architecture.</p>
-          <div class="profile-links"><a href="https://github.com/vyas-devgna" target="_blank" rel="noopener">GitHub ↗</a><a href="https://linkedin.com/in/devgna-vyas" target="_blank" rel="noopener">LinkedIn ↗</a></div>
-        </article>
-        <article class="bento education-card reveal"><p class="eyebrow">EDUCATION</p><div><span class="big-number">8.25</span><small>CGPA</small></div><h3>BCA · CHARUSAT</h3><p>2023—2026<br />Architecture · OS · databases · networking</p></article>
-        <article class="bento recognition-card reveal"><p class="eyebrow">RECOGNITION</p><ul><li><strong>Published researcher</strong><span>HERMES · Springer CCIS</span></li><li><strong>Google</strong><span>Python · Linux · SQL</span></li><li><strong>Oracle</strong><span>Java Foundations</span></li></ul></article>
-        <article class="bento writing-card reveal"><p class="eyebrow">WRITING / NOTES</p><h3>I write to make an idea harder to hide from itself.</h3><p>On ambiguity, people, systems and the gap between what sounds true and what survives scrutiny.</p><span class="scribble" aria-hidden="true">∿∿∿</span></article>
+    <!-- PHOTOGRAPHY -->
+    <section class="section photos" id="photography" aria-labelledby="photo-title">
+      <header class="section-head wrap">
+        <p class="kicker"><span>04</span> Elsewhere</p>
+        <h2 id="photo-title" class="split">Things I notice when <em>I look up.</em></h2>
+        <p class="section-sub">Photography, mountains, music and writing give the technical work somewhere human to return to.</p>
+      </header>
+      <div class="album-bar wrap">
+        <div class="tabs" role="tablist" aria-label="Albums">
+          <button role="tab" type="button" aria-selected="true" data-album="landscapes">Places <sup data-album-count="landscapes"></sup></button>
+          <button role="tab" type="button" aria-selected="false" data-album="animals">Animals <sup data-album-count="animals"></sup></button>
+        </div>
+        <p class="album-hint"><span class="hint-fine">Drag or scroll sideways · click to open</span><span class="hint-touch">Swipe · tap to open</span></p>
       </div>
-    </section>
-
-    <section class="section photo-section" id="photography" aria-labelledby="photo-title">
-      <div class="section-shell">
-        <header class="section-heading reveal">
-          <div><p class="eyebrow">04 / ELSEWHERE</p><h2 id="photo-title">Things I notice when I look up.</h2></div>
-          <p>Photography, mountains, music and writing give the technical work somewhere human to return to.</p>
-        </header>
-        <div class="photo-shell reveal">
-          <div class="photo-copy"><p class="eyebrow">PERSONAL ARCHIVE / <span id="photo-count">—</span> FRAMES</p><p id="photo-caption">Loading the archive…</p><small>Drag to explore · select a frame to open</small></div>
-          <div class="photo-track" id="photo-track" aria-label="Photography by Devgna Vyas"></div>
+      <div class="gallery" id="gallery" role="tabpanel" aria-label="Photography by Devgna Vyas" tabindex="0"></div>
+      <div class="gallery-foot wrap">
+        <div class="g-progress" aria-hidden="true"><i></i></div>
+        <span class="g-count" aria-hidden="true">— / —</span>
+        <div class="g-btns">
+          <button type="button" data-g="-1" aria-label="Scroll photographs left">←</button>
+          <button type="button" data-g="1" aria-label="Scroll photographs right">→</button>
         </div>
       </div>
     </section>
 
+    <!-- CONTACT -->
     <section class="section contact" id="contact" aria-labelledby="contact-title">
-      <div class="section-shell contact-grid">
-        <article class="bento contact-main reveal">
-          <p class="eyebrow">05 / CONTACT</p>
-          <h2 id="contact-title">Have an interesting problem?</h2>
-          <p>Systems, open source, research, security or a strange product idea — I’d like to hear about it.</p>
-          <a class="button button-primary" href="mailto:vyasdevgna@gmail.com">Send an email <span>↗</span></a>
-        </article>
-        <nav class="contact-links reveal" aria-label="Social links">
-          <a href="mailto:vyasdevgna@gmail.com"><span>EMAIL</span><strong>vyasdevgna@gmail.com</strong><i>↗</i></a>
-          <a href="https://github.com/vyas-devgna" target="_blank" rel="noopener"><span>GITHUB</span><strong>@vyas-devgna</strong><i>↗</i></a>
-          <a href="https://linkedin.com/in/devgna-vyas" target="_blank" rel="noopener"><span>LINKEDIN</span><strong>devgna-vyas</strong><i>↗</i></a>
+      <div class="wrap">
+        <p class="kicker"><span>05</span> Contact</p>
+        <h2 id="contact-title" class="contact-title split">Have an interesting <em>problem?</em></h2>
+        <p class="section-sub">Systems, open source, research, security or a strange product idea — I’d like to hear about it.</p>
+        <div class="mail-row">
+          <a class="mail magnetic" href="mailto:vyasdevgna@gmail.com"><span>vyasdevgna@gmail.com</span><i>↗</i></a>
+          <button class="copy" type="button" data-copy="vyasdevgna@gmail.com"><span class="copy-a">Copy email</span><span class="copy-b" aria-hidden="true">Copied ✓</span></button>
+        </div>
+        <nav class="contact-links" aria-label="Social">
+          <a href="mailto:vyasdevgna@gmail.com"><span>Email</span><strong>vyasdevgna@gmail.com</strong><i>↗</i></a>
+          <a href="https://github.com/vyas-devgna" target="_blank" rel="noopener"><span>GitHub</span><strong>@vyas-devgna</strong><i>↗</i></a>
+          <a href="https://linkedin.com/in/devgna-vyas" target="_blank" rel="noopener"><span>LinkedIn</span><strong>devgna-vyas</strong><i>↗</i></a>
         </nav>
-        <footer><span>DEVGNA VYAS © <i id="year"></i></span><span>DESIGNED TO SURVIVE REALITY</span><a href="#home">BACK TO TOP ↑</a></footer>
       </div>
+      <footer class="footer wrap">
+        <span>Devgna Vyas © <span data-year>2026</span></span>
+        <span>Designed to survive reality</span>
+        <span class="kbd-only">Press <kbd>⌘K</kbd> to navigate</span>
+        <a href="#home">Back to top ↑</a>
+      </footer>
+      <div class="bigname" aria-hidden="true">Devgna&nbsp;Vyas</div>
     </section>
   </main>
 
-  <dialog class="photo-lightbox" id="photo-lightbox" aria-label="Photography viewer">
-    <button class="lightbox-close" id="lightbox-close" type="button" aria-label="Close photograph">Close ×</button>
-    <button class="lightbox-nav" id="lightbox-prev" type="button" aria-label="Previous photograph">←</button>
-    <figure><img id="lightbox-image" alt="" /><figcaption><span id="lightbox-index"></span><p id="lightbox-caption"></p></figcaption></figure>
-    <button class="lightbox-nav" id="lightbox-next" type="button" aria-label="Next photograph">→</button>
+  <dialog class="lightbox" id="lightbox" data-lenis-prevent aria-label="Photograph viewer">
+    <figure>
+      <img alt="" />
+      <figcaption><span class="lb-index"></span><span class="lb-caption"></span></figcaption>
+    </figure>
+    <button class="lb-btn lb-prev" type="button" aria-label="Previous photograph">←</button>
+    <button class="lb-btn lb-next" type="button" aria-label="Next photograph">→</button>
+    <button class="lb-close" type="button" aria-label="Close viewer">Close <span aria-hidden="true">×</span></button>
   </dialog>
 
-  <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
-  <script type="module" src="js/main.js"></script>
+  <dialog class="palette" id="palette" data-lenis-prevent aria-label="Command menu">
+    <input type="text" placeholder="Jump to… (type to filter)" aria-label="Filter commands" autocomplete="off" spellcheck="false" />
+    <ul role="listbox" aria-label="Commands"></ul>
+    <p class="palette-foot"><span><kbd>↑</kbd><kbd>↓</kbd> move</span><span><kbd>↵</kbd> open</span><span><kbd>esc</kbd> close</span></p>
+  </dialog>
+
+  <div class="toast" role="status" aria-live="polite"></div>
 </body>
 </html>

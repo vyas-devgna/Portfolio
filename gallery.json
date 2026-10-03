@@ -1,0 +1,335 @@
+{
+  "landscapes": [
+    {
+      "src": "images/gallery/p01.webp",
+      "thumb": "images/gallery/p01-s.webp",
+      "w": 1800,
+      "h": 1013,
+      "caption": "Sunset at the summit — Himalayan trek"
+    },
+    {
+      "src": "images/gallery/p02.webp",
+      "thumb": "images/gallery/p02-s.webp",
+      "w": 1800,
+      "h": 681,
+      "caption": "Layered peaks — misty mountain range"
+    },
+    {
+      "src": "images/gallery/p03.webp",
+      "thumb": "images/gallery/p03-s.webp",
+      "w": 751,
+      "h": 998,
+      "caption": "Flying Solo, Freedom is always lonely"
+    },
+    {
+      "src": "images/gallery/p04.webp",
+      "thumb": "images/gallery/p04-s.webp",
+      "w": 958,
+      "h": 721,
+      "caption": "The beauty in falling"
+    },
+    {
+      "src": "images/gallery/p05.webp",
+      "thumb": "images/gallery/p05-s.webp",
+      "w": 751,
+      "h": 998,
+      "caption": "Some colors stay"
+    },
+    {
+      "src": "images/gallery/p06.webp",
+      "thumb": "images/gallery/p06-s.webp",
+      "w": 561,
+      "h": 998,
+      "caption": "Blooming is necessary when end is certain"
+    },
+    {
+      "src": "images/gallery/p07.webp",
+      "thumb": "images/gallery/p07-s.webp",
+      "w": 958,
+      "h": 719,
+      "caption": "Stars in land"
+    },
+    {
+      "src": "images/gallery/p08.webp",
+      "thumb": "images/gallery/p08-s.webp",
+      "w": 958,
+      "h": 719,
+      "caption": "Peace"
+    },
+    {
+      "src": "images/gallery/p09.webp",
+      "thumb": "images/gallery/p09-s.webp",
+      "w": 958,
+      "h": 539,
+      "caption": "The flight of freedom"
+    },
+    {
+      "src": "images/gallery/p10.webp",
+      "thumb": "images/gallery/p10-s.webp",
+      "w": 958,
+      "h": 539,
+      "caption": "Pahado ke piche wali dunia"
+    },
+    {
+      "src": "images/gallery/p11.webp",
+      "thumb": "images/gallery/p11-s.webp",
+      "w": 958,
+      "h": 719,
+      "caption": "When the night sky takes over"
+    },
+    {
+      "src": "images/gallery/p12.webp",
+      "thumb": "images/gallery/p12-s.webp",
+      "w": 958,
+      "h": 539,
+      "caption": "Paradise"
+    },
+    {
+      "src": "images/gallery/p13.webp",
+      "thumb": "images/gallery/p13-s.webp",
+      "w": 958,
+      "h": 721,
+      "caption": "Patience"
+    },
+    {
+      "src": "images/gallery/p14.webp",
+      "thumb": "images/gallery/p14-s.webp",
+      "w": 751,
+      "h": 997,
+      "caption": "Company"
+    },
+    {
+      "src": "images/gallery/p15.webp",
+      "thumb": "images/gallery/p15-s.webp",
+      "w": 751,
+      "h": 997,
+      "caption": "Curiosity"
+    },
+    {
+      "src": "images/gallery/p16.webp",
+      "thumb": "images/gallery/p16-s.webp",
+      "w": 751,
+      "h": 997,
+      "caption": "Socialize"
+    },
+    {
+      "src": "images/gallery/p17.webp",
+      "thumb": "images/gallery/p17-s.webp",
+      "w": 958,
+      "h": 638,
+      "caption": ""
+    },
+    {
+      "src": "images/gallery/p18.webp",
+      "thumb": "images/gallery/p18-s.webp",
+      "w": 958,
+      "h": 537,
+      "caption": ""
+    },
+    {
+      "src": "images/gallery/p19.webp",
+      "thumb": "images/gallery/p19-s.webp",
+      "w": 958,
+      "h": 421,
+      "caption": ""
+    },
+    {
+      "src": "images/gallery/p20.webp",
+      "thumb": "images/gallery/p20-s.webp",
+      "w": 958,
+      "h": 421,
+      "caption": ""
+    },
+    {
+      "src": "images/gallery/p21.webp",
+      "thumb": "images/gallery/p21-s.webp",
+      "w": 958,
+      "h": 958,
+      "caption": ""
+    }
+  ],
+  "animals": [
+    {
+      "src": "images/gallery/a01.webp",
+      "thumb": "images/gallery/a01-s.webp",
+      "w": 958,
+      "h": 958,
+      "caption": ""
+    },
+    {
+      "src": "images/gallery/a02.webp",
+      "thumb": "images/gallery/a02-s.webp",
+      "w": 561,
+      "h": 998,
+      "caption": ""
+    },
+    {
+      "src": "images/gallery/a03.webp",
+      "thumb": "images/gallery/a03-s.webp",
+      "w": 749,
+      "h": 998,
+      "caption": ""
+    },
+    {
+      "src": "images/gallery/a04.webp",
+      "thumb": "images/gallery/a04-s.webp",
+      "w": 751,
+      "h": 998,
+      "caption": ""
+    },
+    {
+      "src": "images/gallery/a05.webp",
+      "thumb": "images/gallery/a05-s.webp",
+      "w": 958,
+      "h": 537,
+      "caption": ""
+    },
+    {
+      "src": "images/gallery/a06.webp",
+      "thumb": "images/gallery/a06-s.webp",
+      "w": 958,
+      "h": 574,
+      "caption": ""
+    },
+    {
+      "src": "images/gallery/a07.webp",
+      "thumb": "images/gallery/a07-s.webp",
+      "w": 958,
+      "h": 721,
+      "caption": ""
+    },
+    {
+      "src": "images/gallery/a08.webp",
+      "thumb": "images/gallery/a08-s.webp",
+      "w": 958,
+      "h": 719,
+      "caption": ""
+    },
+    {
+      "src": "images/gallery/a09.webp",
+      "thumb": "images/gallery/a09-s.webp",
+      "w": 958,
+      "h": 719,
+      "caption": ""
+    },
+    {
+      "src": "images/gallery/a10.webp",
+      "thumb": "images/gallery/a10-s.webp",
+      "w": 749,
+      "h": 998,
+      "caption": ""
+    },
+    {
+      "src": "images/gallery/a11.webp",
+      "thumb": "images/gallery/a11-s.webp",
+      "w": 561,
+      "h": 998,
+      "caption": ""
+    },
+    {
+      "src": "images/gallery/a12.webp",
+      "thumb": "images/gallery/a12-s.webp",
+      "w": 751,
+      "h": 997,
+      "caption": ""
+    },
+    {
+      "src": "images/gallery/a13.webp",
+      "thumb": "images/gallery/a13-s.webp",
+      "w": 561,
+      "h": 997,
+      "caption": ""
+    },
+    {
+      "src": "images/gallery/a14.webp",
+      "thumb": "images/gallery/a14-s.webp",
+      "w": 751,
+      "h": 997,
+      "caption": ""
+    },
+    {
+      "src": "images/gallery/a15.webp",
+      "thumb": "images/gallery/a15-s.webp",
+      "w": 751,
+      "h": 997,
+      "caption": ""
+    },
+    {
+      "src": "images/gallery/a16.webp",
+      "thumb": "images/gallery/a16-s.webp",
+      "w": 1324,
+      "h": 997,
+      "caption": ""
+    },
+    {
+      "src": "images/gallery/a17.webp",
+      "thumb": "images/gallery/a17-s.webp",
+      "w": 1329,
+      "h": 997,
+      "caption": ""
+    },
+    {
+      "src": "images/gallery/a18.webp",
+      "thumb": "images/gallery/a18-s.webp",
+      "w": 1324,
+      "h": 997,
+      "caption": ""
+    },
+    {
+      "src": "images/gallery/a19.webp",
+      "thumb": "images/gallery/a19-s.webp",
+      "w": 1767,
+      "h": 997,
+      "caption": ""
+    },
+    {
+      "src": "images/gallery/a20.webp",
+      "thumb": "images/gallery/a20-s.webp",
+      "w": 1324,
+      "h": 997,
+      "caption": ""
+    },
+    {
+      "src": "images/gallery/a21.webp",
+      "thumb": "images/gallery/a21-s.webp",
+      "w": 561,
+      "h": 998,
+      "caption": ""
+    },
+    {
+      "src": "images/gallery/a22.webp",
+      "thumb": "images/gallery/a22-s.webp",
+      "w": 562,
+      "h": 998,
+      "caption": ""
+    },
+    {
+      "src": "images/gallery/a23.webp",
+      "thumb": "images/gallery/a23-s.webp",
+      "w": 561,
+      "h": 998,
+      "caption": ""
+    },
+    {
+      "src": "images/gallery/a24.webp",
+      "thumb": "images/gallery/a24-s.webp",
+      "w": 562,
+      "h": 998,
+      "caption": ""
+    },
+    {
+      "src": "images/gallery/a25.webp",
+      "thumb": "images/gallery/a25-s.webp",
+      "w": 958,
+      "h": 539,
+      "caption": ""
+    },
+    {
+      "src": "images/gallery/a26.webp",
+      "thumb": "images/gallery/a26-s.webp",
+      "w": 749,
+      "h": 998,
+      "caption": ""
+    }
+  ]
+}

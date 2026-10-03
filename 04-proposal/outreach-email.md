@@ -11,7 +11,7 @@ Attach `proposal.pdf`. If possible, include a preview link to the new site: [PRE
 
 Hello [NAME / KT INDIA team],
 
-I am [YOUR NAME], a [ROLE] based in [CITY]. I recently reviewed kavaiyatech.com. It is clearly built with care and is honest about what is still in R&D, which is rare.
+I am Vyas Devgna. I recently reviewed kavaiyatech.com. It is clearly built with care and is honest about what is still in R&D, which is rare.
 
 I noticed three things that are probably costing you enquiries:
 
@@ -23,11 +23,11 @@ Rather than just describe a fix, I built one: a new version of your site with a 
 
 The attached one-page summary has the key findings, a 30-60-90-day plan and three simple monthly care options.
 
-Would a 20-minute call this week or next work to walk you through it? [BOOKING LINK]
+Would a 20-minute call this week or next work to walk you through it? Just reply with a time that suits you.
 
 Best regards,
-[YOUR NAME]
-[PHONE / WHATSAPP] · [PORTFOLIO URL]
+Vyas Devgna
+vyasdevgna@gmail.com · vyasdevgna.online
 
 ---
 
@@ -42,7 +42,7 @@ A quick follow-up with one small fix you can make today at no cost: kavaiyatech.
 The new site preview is still available: [PREVIEW URL]. Would [DAY/TIME] suit a short call?
 
 Regards,
-[YOUR NAME]
+Vyas Devgna
 
 ---
 
@@ -57,4 +57,4 @@ I don't want to fill your inbox, so this is my last note for now. If improving t
 If the timing is better later in the year (for example before the ANNAVEDA launch in December), just reply to this email and I will update the plan.
 
 Thank you, and best of luck with the launch.
-[YOUR NAME]
+Vyas Devgna

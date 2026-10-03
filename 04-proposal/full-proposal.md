@@ -1,7 +1,7 @@
 # Proposal: rebuild and ongoing care for kavaiyatech.com
 
 **For:** Kavaiya Technologies India Private Limited (KT INDIA), Nadiad, Gujarat
-**From:** [YOUR NAME], [YOUR BUSINESS NAME] · [EMAIL] · [PHONE]
+**From:** Vyas Devgna · vyasdevgna@gmail.com · vyasdevgna.online
 **Date:** [DATE] · **Valid until:** [DATE + 30 DAYS]
 
 ---

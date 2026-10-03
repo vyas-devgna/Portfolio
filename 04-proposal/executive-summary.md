@@ -1,7 +1,7 @@
 # Executive summary: kavaiyatech.com website and online presence
 
 **Prepared for:** Kavaiya Technologies India Private Limited (KT INDIA)
-**Prepared by:** [YOUR NAME], [YOUR BUSINESS NAME]
+**Prepared by:** Vyas Devgna · vyasdevgna@gmail.com · vyasdevgna.online
 **Date:** [DATE]
 
 ## Where you are today
@@ -39,4 +39,4 @@ A passive review on 3 October 2026 found 33 improvement points: 0 critical, 7 hi
 
 ## Next step
 
-A 30-minute call to walk through the new site preview and agree a launch date: [BOOKING LINK or PHONE].
+A 30-minute call to walk through the new site preview and agree a launch date. Reply to vyasdevgna@gmail.com.

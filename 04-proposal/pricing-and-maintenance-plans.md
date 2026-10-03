@@ -1,6 +1,6 @@
 # Pricing and maintenance plans
 
-All prices are placeholders for **[YOUR NAME]** to fill in before sending. Prices are shown in [₹] and are exclusive of GST and third-party costs (hosting, domain, paid form or monitoring plans if chosen).
+All prices are placeholders to fill in before sending. Prices are shown in [₹] and are exclusive of GST and third-party costs (hosting, domain, paid form or monitoring plans if chosen).
 
 ## One-time launch project
 

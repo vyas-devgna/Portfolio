@@ -11,7 +11,7 @@
 
 ## About me
 
-**[YOUR NAME]**, [ROLE, e.g. web developer and technical SEO consultant]
+**Vyas Devgna**
 [2–3 sentences: years of experience, what you specialise in, where you are based.]
 
 **Selected work**
@@ -19,12 +19,12 @@
 - [Project 2] · [link]
 - [Project 3] · [link]
 
-**Portfolio:** [PORTFOLIO URL]
+**Portfolio:** [vyasdevgna.online](https://vyasdevgna.online)
 **References:** [available on request / names with permission]
 
 ## Next steps
 
-1. **Reply or book a 30-minute call** to see the new site preview: [BOOKING LINK]
+1. **Reply to vyasdevgna@gmail.com** to arrange a 30-minute call and see the new site preview.
 2. **Choose a care plan** (Essential, Growth or Premium) and confirm the launch project.
 3. **Share access:** domain DNS, hosting and Google account (or add me as a user).
 4. **Send content:** case studies, testimonials, team details, logo decision.
@@ -32,4 +32,4 @@
 
 ## Contact
 
-[YOUR NAME] · [EMAIL] · [PHONE / WHATSAPP] · [LINKEDIN] · [CITY]
+Vyas Devgna · [vyasdevgna@gmail.com](mailto:vyasdevgna@gmail.com) · [vyasdevgna.online](https://vyasdevgna.online) · [LinkedIn](https://linkedin.com/in/devgna-vyas) · [GitHub](https://github.com/vyas-devgna)

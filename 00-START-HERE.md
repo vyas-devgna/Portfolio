@@ -26,7 +26,8 @@ Prepared 2026-10-03. The package lets the KT INDIA decision-maker understand thr
 ## You must fill in or confirm before sending
 
 **About you (all proposal files and the PDF):**
-- [ ] `[YOUR NAME]`, `[YOUR BUSINESS NAME]`, `[ROLE]`, `[CITY]`, `[EMAIL]`, `[PHONE / WHATSAPP]`, `[LINKEDIN]`, `[PORTFOLIO URL]`, `[BOOKING LINK]`, `[DATE]`
+- [x] Your contact details are filled in from vyasdevgna.online: Vyas Devgna, vyasdevgna@gmail.com, LinkedIn, GitHub. No phone, WhatsApp or booking link is listed there, so none is included.
+- [ ] `[DATE]`
 - [ ] Bio and 3 portfolio projects in `why-me-and-next-steps.md`
 - [ ] Recipient name `[NAME]` in the emails
 

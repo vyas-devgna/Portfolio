@@ -647,6 +647,7 @@
       ['Toggle light / dark', 'Action', () => toggleTheme()],
       ['GitHub — @vyas-devgna', 'Link', open('https://github.com/vyas-devgna')],
       ['LinkedIn — devgna-vyas', 'Link', open('https://linkedin.com/in/devgna-vyas')],
+      ['Blog — Notes on software and systems', 'Link', () => { location.href = 'https://blog.vyasdevgna.online/'; }],
       ...$$('.tile').map((a) => [`${$('h3', a).textContent} — ${$('.t-copy > p:not(.t-cat):not(.t-tags)', a).textContent}`, 'Project', open(a.href)]),
       ['WinUtil — merged pull requests', 'Link', open($('.winutil a').href)]
     ];

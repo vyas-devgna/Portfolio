@@ -1,0 +1,18 @@
+{
+  "name": "kt-showcase-video",
+  "private": true,
+  "description": "2-minute Remotion showcase of the new kavaiyatech.com",
+  "scripts": {
+    "studio": "remotion studio",
+    "capture": "node scripts/capture.mjs",
+    "music": "node scripts/music.mjs",
+    "render": "remotion render KTShowcase out/kt-showcase.mp4"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.532",
+    "@remotion/renderer": "^4.0.532",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.532"
+  }
+}

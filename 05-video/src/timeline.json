@@ -1,0 +1,15 @@
+{
+  "fps": 30,
+  "scenes": [
+    { "id": "intro", "start": 0, "end": 8 },
+    { "id": "before", "start": 8, "end": 20 },
+    { "id": "reveal", "start": 20, "end": 34 },
+    { "id": "services", "start": 34, "end": 48 },
+    { "id": "design", "start": 48, "end": 60 },
+    { "id": "themes", "start": 60, "end": 72 },
+    { "id": "mobile", "start": 72, "end": 86 },
+    { "id": "enquiry", "start": 86, "end": 98 },
+    { "id": "quality", "start": 98, "end": 110 },
+    { "id": "outro", "start": 110, "end": 120 }
+  ]
+}

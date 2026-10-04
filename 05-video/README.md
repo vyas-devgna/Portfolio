@@ -37,7 +37,7 @@ npm run render:best
 Output: `out/kt-showcase-1080p.mp4` (1920×1080, 30 fps, about 2:00).
 
 What `render:best` does:
-- `--gl=angle` draws the frames on your **NVIDIA GPU** (the 3D scenes and big screenshots are the slow part). On Linux, if it errors, use `--gl=egl`.
+- `--gl=angle-egl` draws the frames on your **NVIDIA GPU** on Linux (the 3D scenes and big screenshots are the slow part). On Windows use `--gl=angle` instead. On a laptop with hybrid graphics, start the render with `prime-run` so the NVIDIA GPU is used.
 - `--image-format=png` keeps every frame lossless before encoding.
 - `--crf=12 --x264-preset=veryslow` is visually lossless H.264. It runs on the CPU on purpose: NVIDIA's NVENC encoder is faster but lower quality at the same file size, and Remotion only uses NVENC when no quality target is set.
 - `--color-space=bt709` gives correct HD colours, and `--pixel-format=yuv420p` makes the file play everywhere (YouTube, WhatsApp, PowerPoint, phones).

@@ -23,7 +23,20 @@ Output: `out/kt-showcase.mp4` (not committed; regenerate with the steps below).
 
 Numbers shown come from the audit and the local Lighthouse runs in `../03-new-site/BUILD-NOTES.md`.
 
-## Rebuild
+## Render on your own computer (fastest)
+
+The screenshots are committed, so you only need Node.js 18+ and this folder:
+
+```bash
+git clone -b claude/vibrant-heisenberg-kr9bpl https://github.com/vyas-devgna/Portfolio.git
+cd Portfolio/05-video
+npm install
+npm run render:fast      # generates the music, then renders out/kt-showcase.mp4 using all CPU cores
+```
+
+Remotion downloads its own headless browser on first run. `npx remotion studio` opens a live preview to scrub through the video.
+
+## Rebuild the screenshots
 
 ```bash
 npm install

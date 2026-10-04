@@ -817,7 +817,9 @@
     const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) start(); }, { rootMargin: '600px 0px' });
     io.observe(section);
     // The feed is a few KB: fetch it when the browser is idle so it's ready before anyone scrolls here.
-    window.addEventListener('load', () => setTimeout(start, 2500), { once: true });
+    const schedule = () => setTimeout(start, 2500);
+    if (document.readyState === 'complete') schedule();
+    else window.addEventListener('load', schedule, { once: true });
   })();
 
   /* ---------- hero: the headline drifts a few pixels against the pointer ---------- */

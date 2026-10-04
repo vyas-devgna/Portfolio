@@ -33,9 +33,9 @@
   <link rel="icon" href="images/favicon-32.png" type="image/png" sizes="32x32" />
   <link rel="icon" href="images/icon-192.png" type="image/png" sizes="192x192" />
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/instrument-serif-5a51946dff.woff2" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/inter-2c295d99e2.woff2" />
+  <link rel="stylesheet" href="css/fonts.css" />
   <link rel="stylesheet" href="css/style.css" />
   <script>
     // Theme + capability flags before first paint (no flash).
@@ -231,11 +231,7 @@
  ]
 }
   </script>
-  <script defer src="js/vendor/gsap.min.js"></script>
-  <script defer src="js/vendor/ScrollTrigger.min.js"></script>
-  <script defer src="js/vendor/SplitText.min.js"></script>
-  <script defer src="js/vendor/lenis.min.js"></script>
-  <script defer src="js/main.js"></script>
+  <script defer src="js/bootstrap.js"></script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>

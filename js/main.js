@@ -12,33 +12,21 @@
   const saveData = Boolean(navigator.connection && navigator.connection.saveData);
   const gsap = window.gsap;
   const ST = window.ScrollTrigger;
-  const motion = Boolean(gsap && ST) && !reduced && !saveData;
+  const motion = Boolean(gsap && ST) && fine && !reduced && !saveData;
   const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
   const EMAIL = 'vyasdevgna@gmail.com';
   const tap = (ms = 8) => { if (!reduced && navigator.vibrate) navigator.vibrate(ms); };
 
-  if (gsap) gsap.registerPlugin(...[ST, window.SplitText].filter(Boolean));
+  if (gsap) gsap.registerPlugin(...[ST].filter(Boolean));
   if (motion) root.classList.add('motion');
 
-  /* ---------- smooth scroll ---------- */
-  let lenis = null;
-  if (motion && window.Lenis) {
-    lenis = new window.Lenis({ lerp: 0.1, smoothWheel: true });
-    lenis.on('scroll', ST.update);
-    gsap.ticker.add((t) => lenis.raf(t * 1000));
-    gsap.ticker.lagSmoothing(0);
-  }
-  const lockScroll = (on) => {
-    if (lenis) on ? lenis.stop() : lenis.start();
-    document.body.style.overflow = on ? 'hidden' : '';
-  };
+  const lockScroll = (on) => { document.body.style.overflow = on ? 'hidden' : ''; };
   const closeDialog = (d) => { if (d.open) d.close(); lockScroll(false); };
 
   const scrollToTarget = (target, instant = false) => {
     if (!target) return;
     const top = target.id === 'home';
-    if (lenis) lenis.scrollTo(top ? 0 : target, { duration: instant ? 0 : 1.3, immediate: instant });
-    else if (top) window.scrollTo({ top: 0, behavior: instant || reduced ? 'auto' : 'smooth' });
+    if (top) window.scrollTo({ top: 0, behavior: instant || reduced ? 'auto' : 'smooth' });
     else target.scrollIntoView({ behavior: instant || reduced ? 'auto' : 'smooth' });
     if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
     target.focus({ preventScroll: true });
@@ -199,7 +187,7 @@
     }`;
 
   const makePainting = (canvas, { calm = 0.18, seed = 0, scale = 0.5 } = {}) => {
-    if (!canvas || saveData) return null;
+    if (!canvas || saveData || !fine || reduced) return null;
     const gl = canvas.getContext('webgl', { antialias: false, alpha: false, depth: false, powerPreference: 'low-power' });
     if (!gl) return null;
     const sh = (type, src) => { const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); return gl.getShaderParameter(s, gl.COMPILE_STATUS) ? s : null; };
@@ -715,40 +703,23 @@
   /* ---------- motion layer (GSAP): Apple-style scroll choreography ---------- */
   const intro = () => {
     if (!motion) return;
-    const Split = window.SplitText;
     const tl = gsap.timeline({ defaults: { ease: 'expo.out' } });
-    const s = Split ? Split.create('.hero h1 .line', { type: 'words', mask: 'words' }) : null;
     tl.from('.hero-art', { opacity: 0, scale: 1.08, duration: 2.2, ease: 'power2.out' }, 0)
       .from('.eyebrow', { y: 16, opacity: 0, duration: 1.1 }, 0.2)
-      .from(s ? s.words : '.hero h1 .line', { yPercent: 110, duration: 1.4, stagger: 0.06, onComplete: () => s && s.revert() }, 0.3)
+      .from('.hero h1 .line', { yPercent: 12, duration: 1, stagger: 0.06 }, 0.3)
       .from('.hero-intro, .hero-cta > *', { y: 22, opacity: 0, duration: 1.2, stagger: 0.08 }, 0.75)
       .from('.gnav', { yPercent: -100, duration: 1.1 }, 0.1);
   };
 
   const scrollMotion = () => {
     if (!motion) return;
-    const Split = window.SplitText;
 
     // The painting shrinks into a framed canvas as the page takes over.
     const shrink = gsap.timeline({ scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom bottom', scrub: 0.6 } });
     shrink.fromTo('.hero-art', { clipPath: 'inset(0% 0% 0% 0% round 0px)' }, { clipPath: 'inset(9% 7% 9% 7% round 36px)', ease: 'none' }, 0)
       .to('.hero-copy', { yPercent: -14, opacity: 0, ease: 'none' }, 0.15);
 
-    // Headings: masked line reveal.
-    if (Split) {
-      $$('.split').forEach((el) => {
-        Split.create(el, {
-          type: 'lines', mask: 'lines', autoSplit: true,
-          onSplit: (self) => gsap.from(self.lines, { yPercent: 105, duration: 1.3, ease: 'expo.out', stagger: 0.1, scrollTrigger: { trigger: el, start: 'top 86%', once: true }, onComplete: () => self.revert() })
-        });
-      });
-      // Statements brighten word by word as you read.
-      $$('.reveal-words').forEach((el) => {
-        const s = Split.create(el, { type: 'words' });
-        gsap.fromTo(s.words, { opacity: 0.12 }, { opacity: 1, ease: 'none', stagger: 0.1, scrollTrigger: { trigger: el, start: 'top 80%', end: 'bottom 50%', scrub: true } });
-      });
-    }
-
+    // Keep paragraph text and headings in their semantic DOM, at full contrast.
     // Labels, ledes and tiles rise into place.
     $$('.label, .lede').forEach((el) => gsap.from(el, { y: 18, opacity: 0, duration: 1.1, ease: 'expo.out', scrollTrigger: { trigger: el, start: 'top 90%', once: true } }));
     const rise = $$('.rise, .notes-head, .notes-deck, .album-bar, .mail-row, .contact-links a, .links-row');
@@ -760,7 +731,6 @@
       const end = parseFloat(el.dataset.count);
       const dec = Number(el.dataset.decimals || 0);
       const o = { v: 0 };
-      el.textContent = (0).toFixed(dec);
       ST.create({ trigger: el, start: 'top 92%', once: true, onEnter: () => gsap.to(o, { v: end, duration: 1.8, ease: 'expo.out', onUpdate: () => { el.textContent = o.v.toFixed(dec); } }) });
     });
 

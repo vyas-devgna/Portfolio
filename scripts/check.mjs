@@ -24,5 +24,5 @@ for (const items of Object.values(gallery)) for (const p of items) {
   refs.push(p.src, p.thumb);
 }
 const unique = [...new Set(refs)];
-await Promise.all(unique.map((p) => access(resolve(root, p))));
+await Promise.all(unique.map((p) => access(resolve(root, p.replace(/^\//, '')))));
 console.log(`Static check passed: ${ids.length} IDs, ${unique.length} local assets.`);

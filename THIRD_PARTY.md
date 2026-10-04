@@ -1,8 +1,7 @@
-# Bundled browser libraries
+# Locally served assets
 
-The existing portfolio animation dependencies are served locally to remove their runtime CDN dependency. Their original copyright and license notices remain in the files.
+GSAP 3.15.0 and ScrollTrigger 3.15.0 are loaded only for optional desktop motion. The original license notices remain in `js/vendor`. Source: the versioned npm distribution, https://gsap.com/standard-license/.
 
-- GSAP 3.15.0: gsap.min.js, ScrollTrigger.min.js and SplitText.min.js, retrieved from the versioned npm distribution through cdn.jsdelivr.net. https://gsap.com/standard-license/
-- Lenis 1.3.26: lenis.min.js, retrieved from the versioned npm distribution through cdn.jsdelivr.net. https://github.com/darkroomengineering/lenis (MIT)
+Inter and Instrument Serif fonts are from the official Google Fonts repository. Their Open Font License files are included in `fonts/`. Blog fonts additionally include Newsreader under its included Open Font License.
 
-No new runtime dependency or paid service was introduced.
+No new paid service or runtime framework was introduced.

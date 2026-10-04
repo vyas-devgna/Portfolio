@@ -31,10 +31,11 @@ The screenshots are committed, so you only need Node.js 18+ and this folder:
 git clone -b claude/vibrant-heisenberg-kr9bpl https://github.com/vyas-devgna/Portfolio.git
 cd Portfolio/05-video
 npm install
-npm run render:fast      # generates the music, then renders out/kt-showcase.mp4 using all CPU cores
+npm run render           # best quality 1080p -> out/kt-showcase.mp4
+npm run render:4k        # best quality 4K (3840×2160) -> out/kt-showcase-4k.mp4
 ```
 
-Remotion downloads its own headless browser on first run. `npx remotion studio` opens a live preview to scrub through the video.
+Both use lossless PNG frames, CRF 10 H.264 with the `veryslow` preset and 320 kbps audio, so they take longer than a default render. Remotion downloads its own headless browser on first run. `npx remotion studio` opens a live preview to scrub through the video.
 
 ## Rebuild the screenshots
 

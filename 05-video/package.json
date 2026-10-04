@@ -6,8 +6,8 @@
     "studio": "remotion studio",
     "capture": "node scripts/capture.mjs",
     "music": "node scripts/music.mjs",
-    "render": "node scripts/music.mjs && remotion render KTShowcase out/kt-showcase.mp4",
-    "render:fast": "node scripts/music.mjs && remotion render KTShowcase out/kt-showcase.mp4 --concurrency=100%"
+    "render": "node scripts/music.mjs && remotion render KTShowcase out/kt-showcase.mp4 --audio-bitrate=320k",
+    "render:4k": "node scripts/music.mjs && remotion render KTShowcase out/kt-showcase-4k.mp4 --scale=2 --audio-bitrate=320k"
   },
   "dependencies": {
     "@remotion/cli": "^4.0.532",

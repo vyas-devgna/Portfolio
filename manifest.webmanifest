@@ -1,0 +1,27 @@
+{
+  "id": "/",
+  "name": "Devgna Vyas — Systems Engineer & Builder",
+  "short_name": "Devgna Vyas",
+  "description": "Systems engineer and published researcher — agent infrastructure, local-first software, networking, security and open source.",
+  "lang": "en-IN",
+  "dir": "ltr",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "any",
+  "background_color": "#07080f",
+  "theme_color": "#fbfbfd",
+  "categories": ["portfolio", "technology", "personalization"],
+  "icons": [
+    { "src": "/images/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/images/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/images/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Selected work", "short_name": "Work", "url": "/?source=shortcut#work", "icons": [{ "src": "/images/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Writing", "short_name": "Writing", "url": "/?source=shortcut#writing", "icons": [{ "src": "/images/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Photography", "short_name": "Photos", "url": "/?source=shortcut#photography", "icons": [{ "src": "/images/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Contact", "short_name": "Contact", "url": "/?source=shortcut#contact", "icons": [{ "src": "/images/icon-192.png", "sizes": "192x192" }] }
+  ]
+}

@@ -29,7 +29,12 @@
   <meta name="twitter:image" content="https://vyasdevgna.online/images/og.jpg" />
   <meta name="twitter:image:alt" content="Devgna Vyas — I build systems that survive reality." />
   <link rel="alternate" type="application/rss+xml" title="Vyas writing" href="https://blog.vyasdevgna.online/rss.xml" />
-  <link rel="manifest" href="site.webmanifest" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Devgna Vyas" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="application-name" content="Devgna Vyas" />
   <link rel="icon" href="images/favicon-32.png" type="image/png" sizes="32x32" />
   <link rel="icon" href="images/icon-192.png" type="image/png" sizes="192x192" />
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
@@ -232,6 +237,7 @@
 }
   </script>
   <script defer src="js/bootstrap.js"></script>
+  <script defer src="js/pwa.js"></script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -244,10 +250,10 @@
       <nav class="gnav-links" aria-label="Primary">
         <a href="#work">Work</a>
         <a href="#research">Research</a>
+        <a href="#writing">Writing</a>
         <a href="#about">About</a>
         <a href="#photography">Photography</a>
         <a href="#contact">Contact</a>
-        <a href="https://blog.vyasdevgna.online/" rel="noopener">Blog <span aria-hidden="true">↗</span></a>
       </nav>
       <div class="gnav-act">
         <button class="gicon" type="button" data-theme-toggle aria-label="Toggle colour theme" title="Toggle light / dark">
@@ -263,10 +269,11 @@
     <nav aria-label="Mobile">
       <a href="#work">Selected work</a>
       <a href="#research">Research</a>
+      <a href="#writing">Writing</a>
       <a href="#about">About</a>
       <a href="#photography">Photography</a>
       <a href="#contact">Contact</a>
-      <a href="https://blog.vyasdevgna.online/" rel="noopener">Blog ↗</a>
+      <a href="https://blog.vyasdevgna.online/" rel="noopener">The blog ↗</a>
     </nav>
     <div class="menu-foot">
       <a href="mailto:vyasdevgna@gmail.com">vyasdevgna@gmail.com</a>
@@ -436,6 +443,31 @@ ui · storage · shell · a11y</code></pre>
       </div>
     </section>
 
+    <!-- WRITING: live from the blog -->
+    <section class="section writing" id="writing" aria-labelledby="writing-title" data-api="https://blog.vyasdevgna.online/posts.json">
+      <header class="head wrap">
+        <p class="label"><b>Exhibit 03</b><span>Writing</span></p>
+        <h2 id="writing-title" class="split">Notes on systems, <span class="soft">software &amp; research.</span></h2>
+        <p class="lede">A place to follow an idea from its first question to the details that make it work.</p>
+      </header>
+
+      <div class="wrap writing-body" id="writing-body" aria-live="polite" aria-busy="false">
+        <div class="writing-empty rise">
+          <div class="empty-print" aria-hidden="true"><i></i><i></i><i></i></div>
+          <div class="empty-copy">
+            <p class="label"><b>Exhibit 00</b><span>The first essays are being written</span></p>
+            <p>Writing lives on its own site — plain pages, durable links, open to everyone. New essays will appear here as soon as they’re published.</p>
+            <p class="empty-links"><a class="more" href="https://blog.vyasdevgna.online/" rel="noopener">Visit the blog</a><a class="more" href="https://blog.vyasdevgna.online/rss.xml" rel="noopener">Subscribe via RSS</a></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="wrap writing-foot links-row">
+        <a class="pill pill-line" href="https://blog.vyasdevgna.online/blog/" rel="noopener">All writing ↗</a>
+        <a class="pill pill-line" href="https://blog.vyasdevgna.online/discussions/" rel="noopener">Join the community ↗</a>
+      </div>
+    </section>
+
     <!-- ABOUT -->
     <section class="section about" id="about" aria-labelledby="about-title">
       <div class="about-grid wrap">
@@ -444,7 +476,7 @@ ui · storage · shell · a11y</code></pre>
           <figcaption><b>Devgna Vyas</b><span>Field notes / 01 — © 2026</span></figcaption>
         </figure>
         <div class="about-text">
-          <p class="label"><b>Exhibit 03</b><span>About</span></p>
+          <p class="label"><b>Exhibit 04</b><span>About</span></p>
           <h2 id="about-title" class="split">Systems first.<br /><em>Curiosity always.</em></h2>
           <p class="about-body reveal-words">I work from first principles: understand the data flow, trust boundaries, control paths and failure modes before choosing the abstraction. AI is an execution multiplier — not a substitute for owning the architecture.</p>
           <div class="links-row">
@@ -490,7 +522,7 @@ ui · storage · shell · a11y</code></pre>
     <!-- PHOTOGRAPHY: the gallery wall -->
     <section class="section photos" id="photography" aria-labelledby="photo-title">
       <header class="head wrap">
-        <p class="label"><b>Exhibit 04</b><span>Elsewhere</span></p>
+        <p class="label"><b>Exhibit 05</b><span>Elsewhere</span></p>
         <h2 id="photo-title" class="split">Things I notice when <span class="soft">I look up.</span></h2>
         <p class="lede">Photography, mountains, music and writing give the technical work somewhere human to return to.</p>
       </header>
@@ -532,7 +564,7 @@ ui · storage · shell · a11y</code></pre>
     <section class="section contact" id="contact" aria-labelledby="contact-title">
       <div class="contact-art" aria-hidden="true"><canvas id="art2"></canvas></div>
       <div class="contact-in wrap">
-        <p class="label"><b>Exhibit 05</b><span>Contact</span></p>
+        <p class="label"><b>Exhibit 06</b><span>Contact</span></p>
         <h2 id="contact-title" class="contact-title split">Have an interesting <em>problem?</em></h2>
         <p class="lede">Systems, open source, research, security or a strange product idea — I’d like to hear about it.</p>
         <div class="mail-row">
@@ -554,6 +586,7 @@ ui · storage · shell · a11y</code></pre>
       <span>Devgna Vyas © <span data-year>2026</span></span>
       <span>Designed to survive reality</span>
       <a href="https://blog.vyasdevgna.online/" rel="noopener">Blog ↗</a>
+      <button class="footer-install" type="button" data-install hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4M5 19h14" /></svg><span>Install app</span></button>
       <a href="#home">Back to top ↑</a>
     </div>
   </footer>

@@ -302,9 +302,9 @@
         glow.addColorStop(0, `rgb(${i === 2 ? '48 209 88' : '226 74 44'} / ${flashes[i] * 0.14})`);
         glow.addColorStop(1, 'rgb(0 0 0 / 0)');
         ctx.fillStyle = glow; ctx.fillRect(x - h * 0.5, 0, h, h);
-        if (i === 1) { // three ARM nodes on the inference gate
-          for (let k = 0; k < 3; k += 1) {
-            const y = h * (0.28 + k * 0.22);
+        if (i === 1) { // two ARM nodes in the reported testbed
+          for (let k = 0; k < 2; k += 1) {
+            const y = h * (0.36 + k * 0.28);
             ctx.fillStyle = '#141415'; ctx.strokeStyle = `rgb(231 167 63 / ${0.4 + flashes[1] * 0.6})`;
             ctx.beginPath(); ctx.roundRect(x - 13, y - 13, 26, 26, 7); ctx.fill(); ctx.stroke();
             ctx.fillStyle = `rgb(231 167 63 / ${0.55 + flashes[1] * 0.45})`;

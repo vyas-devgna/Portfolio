@@ -23,7 +23,7 @@ Output: `out/kt-showcase.mp4` (not committed; regenerate with the steps below).
 
 Numbers shown come from the audit and the local Lighthouse runs in `../03-new-site/BUILD-NOTES.md`.
 
-## Render on your own computer (fastest)
+## Render on your own computer (best quality, 1080p)
 
 The screenshots are committed, so you only need Node.js 18+ and this folder:
 
@@ -31,11 +31,19 @@ The screenshots are committed, so you only need Node.js 18+ and this folder:
 git clone -b claude/vibrant-heisenberg-kr9bpl https://github.com/vyas-devgna/Portfolio.git
 cd Portfolio/05-video
 npm install
-npm run render           # best quality 1080p -> out/kt-showcase.mp4
-npm run render:4k        # best quality 4K (3840×2160) -> out/kt-showcase-4k.mp4
+npm run render:best
 ```
 
-Both use lossless PNG frames, CRF 10 H.264 with the `veryslow` preset and 320 kbps audio, so they take longer than a default render. Remotion downloads its own headless browser on first run. `npx remotion studio` opens a live preview to scrub through the video.
+Output: `out/kt-showcase-1080p.mp4` (1920×1080, 30 fps, about 2:00).
+
+What `render:best` does:
+- `--gl=angle` draws the frames on your **NVIDIA GPU** (the 3D scenes and big screenshots are the slow part). On Linux, if it errors, use `--gl=egl`.
+- `--image-format=png` keeps every frame lossless before encoding.
+- `--crf=12 --x264-preset=veryslow` is visually lossless H.264. It runs on the CPU on purpose: NVIDIA's NVENC encoder is faster but lower quality at the same file size, and Remotion only uses NVENC when no quality target is set.
+- `--color-space=bt709` gives correct HD colours, and `--pixel-format=yuv420p` makes the file play everywhere (YouTube, WhatsApp, PowerPoint, phones).
+- 320 kbps audio.
+
+Remotion downloads its own headless browser on first run. `npx remotion studio` opens a live preview to scrub through the video.
 
 ## Rebuild the screenshots
 

@@ -12,7 +12,7 @@ mkdirSync(OUT, { recursive: true });
 
 const browser = await chromium.launch();
 async function ctx(opts) {
-  return browser.newContext({ deviceScaleFactor: 1.5, reducedMotion: 'reduce', ...opts });
+  return browser.newContext({ deviceScaleFactor: 2, reducedMotion: 'reduce', ...opts });
 }
 async function shoot(page, name, opts = {}) {
   await page.waitForTimeout(opts.wait ?? 250);

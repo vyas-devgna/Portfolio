@@ -6,4 +6,4 @@ Config.setCodec('h264');
 Config.setCrf(10);
 Config.setX264Preset('veryslow');
 Config.setPixelFormat('yuv420p');
-Config.setChromiumOpenGlRenderer('swangle');
+// GPU drawing is chosen per machine with --gl (see README); the cloud render used --gl=swangle.

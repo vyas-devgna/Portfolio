@@ -187,8 +187,9 @@
     }`;
 
   const makePainting = (canvas, { calm = 0.18, seed = 0, scale = 0.5 } = {}) => {
-    if (!canvas || saveData || !fine || reduced) return null;
-    const gl = canvas.getContext('webgl', { antialias: false, alpha: false, depth: false, powerPreference: 'low-power' });
+    if (!canvas || saveData || !fine || reduced || !media('(min-width: 900px)').matches) return null;
+    // Keep the CSS painting when this browser cannot provide an efficient GPU context.
+    const gl = canvas.getContext('webgl', { antialias: false, alpha: false, depth: false, powerPreference: 'low-power', failIfMajorPerformanceCaveat: true });
     if (!gl) return null;
     const sh = (type, src) => { const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); return gl.getShaderParameter(s, gl.COMPILE_STATUS) ? s : null; };
     const vs = sh(gl.VERTEX_SHADER, 'attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}');

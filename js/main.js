@@ -649,6 +649,7 @@
       ['Home', 'Section', go('home')],
       ['Selected work', 'Section', go('work')],
       ['Research & open source', 'Section', go('research')],
+      ['Writing', 'Section', go('writing')],
       ['About', 'Section', go('about')],
       ['Photography', 'Section', go('photography')],
       ['Contact', 'Section', go('contact')],
@@ -711,6 +712,140 @@
       if ((e.key.toLowerCase() === 'k' && (e.metaKey || e.ctrlKey)) || (e.key === '/' && !typing && !lightbox.open)) { e.preventDefault(); show(); }
     });
   })();
+
+
+  /* ---------- pointer spotlight: a soft light that follows the cursor over tiles and cards ---------- */
+  if (fine && !reduced) {
+    $$('.tile, .card, .contact-links a, .post-feature, .post-row').forEach((el) => {
+      el.classList.add('spot');
+      el.addEventListener('pointermove', (e) => {
+        const r = el.getBoundingClientRect();
+        el.style.setProperty('--mx', `${e.clientX - r.left}px`);
+        el.style.setProperty('--my', `${e.clientY - r.top}px`);
+      }, { passive: true });
+    });
+  }
+
+  /* ---------- images: fade in once decoded ---------- */
+  $$('.t-media > img, .frame-mat img').forEach((img) => {
+    if (img.complete && img.naturalWidth) return;
+    img.classList.add('is-loading');
+    const done = () => img.classList.remove('is-loading');
+    img.addEventListener('load', done, { once: true });
+    img.addEventListener('error', done, { once: true });
+  });
+
+  /* ---------- writing: live from the blog (recent + best) ---------- */
+  (() => {
+    const section = $('#writing');
+    const body = $('#writing-body');
+    if (!section || !body) return;
+    const apiUrl = () => section.dataset.api;
+    const fmt = new Intl.DateTimeFormat('en', { dateStyle: 'medium', timeZone: 'UTC' });
+    const el = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; };
+    const safeUrl = (u) => { try { const x = new URL(u, apiUrl()); return x.protocol === 'https:' || (x.protocol === 'http:' && x.hostname === 'localhost') ? x.href : null; } catch { return null; } };
+    const safeCover = (c) => (typeof c === 'string' && (c.startsWith('data:image/svg+xml,') || /^https:\/\//.test(c)) ? c : null);
+
+    const meta = (post) => {
+      const m = el('span', 'post-meta');
+      if (post.tags && post.tags[0]) m.append(el('b', null, post.tags[0]));
+      const t = el('time', null, fmt.format(new Date(post.publishedAt)));
+      t.dateTime = post.publishedAt;
+      m.append(t, el('span', null, `${post.readingTime} min read`));
+      return m;
+    };
+
+    const feature = (post, badge) => {
+      const a = el('a', 'post-feature');
+      a.href = safeUrl(post.url) || '#';
+      a.rel = 'noopener';
+      const cover = safeCover(post.cover);
+      const media = el('span', 'post-cover');
+      if (cover) { const img = new Image(); img.src = cover; img.alt = ''; img.width = 1200; img.height = 760; img.loading = 'lazy'; img.decoding = 'async'; media.append(img); }
+      media.append(el('span', 'post-badge', badge));
+      a.append(media, meta(post), el('strong', 'post-title', post.title), el('span', 'post-desc', post.description), el('span', 'more', 'Read the essay'));
+      return a;
+    };
+
+    const row = (post, i) => {
+      const li = el('li');
+      const a = el('a', 'post-row');
+      a.href = safeUrl(post.url) || '#';
+      a.rel = 'noopener';
+      const text = el('span', 'post-row-text');
+      text.append(el('strong', null, post.title), meta(post));
+      a.append(el('span', 'post-no', String(i + 1).padStart(2, '0')), text, el('i', null, '↗'));
+      li.append(a);
+      return li;
+    };
+
+    const render = (data) => {
+      const featured = Array.isArray(data.featured) ? data.featured : [];
+      const recent = Array.isArray(data.recent) ? data.recent : [];
+      if (!featured.length && !recent.length) return false;
+      const best = featured[0] || recent[0];
+      const rest = recent.filter((p) => p.slug !== best.slug).slice(0, 4);
+
+      const grid = el('div', 'writing-grid');
+      const left = el('div', 'writing-col');
+      left.append(el('h3', 'writing-heading', featured.length ? 'Best of' : 'Latest'), feature(best, featured.length ? 'Featured' : 'New'));
+      grid.append(left);
+      if (rest.length) {
+        const right = el('div', 'writing-col');
+        const list = el('ol', 'post-list');
+        rest.forEach((p, i) => list.append(row(p, i)));
+        right.append(el('h3', 'writing-heading', 'Recent'), list);
+        grid.append(right);
+      }
+      body.replaceChildren(grid);
+      if (fine && !reduced) $$('.post-feature, .post-row', body).forEach((n) => {
+        n.classList.add('spot');
+        n.addEventListener('pointermove', (e) => { const r = n.getBoundingClientRect(); n.style.setProperty('--mx', `${e.clientX - r.left}px`); n.style.setProperty('--my', `${e.clientY - r.top}px`); }, { passive: true });
+      });
+      if (motion) gsap.from($$('.writing-heading, .post-feature, .post-row', body), { y: 40, opacity: 0, duration: 1.1, ease: 'expo.out', stagger: 0.07, clearProps: 'all', scrollTrigger: { trigger: body, start: 'top 88%', once: true } });
+      if (ST) ST.refresh();
+      return true;
+    };
+
+    const load = async () => {
+      const api = apiUrl();
+      if (!api) return;
+      body.setAttribute('aria-busy', 'true');
+      const ctl = new AbortController();
+      const timer = setTimeout(() => ctl.abort(), 7000);
+      try {
+        const res = await fetch(api, { signal: ctl.signal, headers: { accept: 'application/json' } });
+        if (!res.ok) throw new Error(String(res.status));
+        render(await res.json());
+      } catch {
+        /* keep the designed empty state — it links to the blog */
+      } finally {
+        clearTimeout(timer);
+        body.setAttribute('aria-busy', 'false');
+      }
+    };
+    let started = false;
+    const start = () => { if (started) return; started = true; io.disconnect(); load(); };
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) start(); }, { rootMargin: '600px 0px' });
+    io.observe(section);
+    // The feed is a few KB: fetch it when the browser is idle so it's ready before anyone scrolls here.
+    window.addEventListener('load', () => setTimeout(start, 2500), { once: true });
+  })();
+
+  /* ---------- hero: the headline drifts a few pixels against the pointer ---------- */
+  if (motion && fine) {
+    const copy = $('.hero-copy');
+    const hero = $('.hero');
+    if (copy && hero) {
+      const xTo = gsap.quickTo(copy, 'x', { duration: 1.2, ease: 'power3' });
+      const yTo = gsap.quickTo(copy, 'y', { duration: 1.2, ease: 'power3' });
+      hero.addEventListener('pointermove', (e) => {
+        xTo(-(e.clientX / innerWidth - 0.5) * 14);
+        yTo(-(e.clientY / innerHeight - 0.5) * 10);
+      }, { passive: true });
+      hero.addEventListener('pointerleave', () => { xTo(0); yTo(0); });
+    }
+  }
 
   /* ---------- motion layer (GSAP): Apple-style scroll choreography ---------- */
   const intro = () => {

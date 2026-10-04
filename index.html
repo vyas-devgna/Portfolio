@@ -27,13 +27,14 @@
   <meta name="twitter:title" content="Devgna Vyas — Systems Engineer & Builder" />
   <meta name="twitter:description" content="Selected systems work, research, open source, writing and photography." />
   <meta name="twitter:image" content="https://vyasdevgna.online/images/og.jpg" />
+  <meta name="twitter:image:alt" content="Devgna Vyas — I build systems that survive reality." />
+  <link rel="alternate" type="application/rss+xml" title="Vyas writing" href="https://blog.vyasdevgna.online/rss.xml" />
   <link rel="manifest" href="site.webmanifest" />
   <link rel="icon" href="images/favicon-32.png" type="image/png" sizes="32x32" />
   <link rel="icon" href="images/icon-192.png" type="image/png" sizes="192x192" />
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
   <script>
@@ -221,7 +222,7 @@
    "@type": "Blog",
    "@id": "https://blog.vyasdevgna.online/#blog",
    "url": "https://blog.vyasdevgna.online/",
-   "name": "Notes on software and systems",
+   "name": "Vyas",
    "description": "Independent notes on software, research, and the things worth understanding.",
    "author": {
     "@id": "https://vyasdevgna.online/#person"
@@ -230,10 +231,10 @@
  ]
 }
   </script>
-  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+  <script defer src="js/vendor/gsap.min.js"></script>
+  <script defer src="js/vendor/ScrollTrigger.min.js"></script>
+  <script defer src="js/vendor/SplitText.min.js"></script>
+  <script defer src="js/vendor/lenis.min.js"></script>
   <script defer src="js/main.js"></script>
 </head>
 <body>
@@ -262,7 +263,7 @@
     </div>
   </header>
 
-  <div class="menu" id="menu" data-lenis-prevent hidden>
+  <div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Navigation" data-lenis-prevent hidden>
     <nav aria-label="Mobile">
       <a href="#work">Selected work</a>
       <a href="#research">Research</a>
@@ -412,7 +413,7 @@
       <div class="wrap trio">
         <article class="card winutil rise">
           <p class="label"><span>Upstream engineering</span></p>
-          <pre class="term" aria-label="Terminal: git log --author=vyas shows 6 merged changes across ui, storage, shell and a11y"><code data-type>$ git log --author=vyas
+          <pre class="term" role="img" aria-label="Terminal: git log --author=vyas shows 6 merged changes across ui, storage, shell and a11y"><code data-type>$ git log --author=vyas
 <span class="ok">✓ 6 merged changes</span>
 ui · storage · shell · a11y</code></pre>
           <h3>WinUtil</h3>
@@ -499,12 +500,36 @@ ui · storage · shell · a11y</code></pre>
       </header>
       <div class="album-bar wrap">
         <div class="seg" role="tablist" aria-label="Albums">
-          <button role="tab" type="button" aria-selected="true" data-album="landscapes">Places <sup data-album-count="landscapes"></sup></button>
-          <button role="tab" type="button" aria-selected="false" data-album="animals">Animals <sup data-album-count="animals"></sup></button>
+          <button role="tab" type="button" aria-selected="true" id="album-places" aria-controls="gallery" data-album="landscapes">Places <sup data-album-count="landscapes"></sup></button>
+          <button role="tab" type="button" aria-selected="false" id="album-animals" aria-controls="gallery" data-album="animals">Animals <sup data-album-count="animals"></sup></button>
         </div>
         
       </div>
-      <div class="gallery" id="gallery" role="tabpanel" aria-label="Photography by Devgna Vyas" tabindex="0"></div>
+      <!-- gallery:start -->
+<div class="gallery" id="gallery" role="tabpanel" aria-labelledby="album-places" tabindex="0">
+<a class="shot" href="images/gallery/p01.webp" style="--ar:1800/1013"><span class="print"><span class="pic"><img src="images/gallery/p01-s.webp" alt="Sunset at the summit — Himalayan trek" width="1800" height="1013" loading="lazy" decoding="async" /></span></span><span class="plaque"><b>No. 01</b><span>Sunset at the summit — Himalayan trek</span></span></a>
+<a class="shot" href="images/gallery/p02.webp" style="--ar:1800/681"><span class="print"><span class="pic"><img src="images/gallery/p02-s.webp" alt="Layered peaks — misty mountain range" width="1800" height="681" loading="lazy" decoding="async" /></span></span><span class="plaque"><b>No. 02</b><span>Layered peaks — misty mountain range</span></span></a>
+<a class="shot" href="images/gallery/p03.webp" style="--ar:751/998"><span class="print"><span class="pic"><img src="images/gallery/p03-s.webp" alt="Flying Solo, Freedom is always lonely" width="751" height="998" loading="lazy" decoding="async" /></span></span><span class="plaque"><b>No. 03</b><span>Flying Solo, Freedom is always lonely</span></span></a>
+<a class="shot" href="images/gallery/p04.webp" style="--ar:958/721"><span class="print"><span class="pic"><img src="images/gallery/p04-s.webp" alt="The beauty in falling" width="958" height="721" loading="lazy" decoding="async" /></span></span><span class="plaque"><b>No. 04</b><span>The beauty in falling</span></span></a>
+<a class="shot" href="images/gallery/p05.webp" style="--ar:751/998"><span class="print"><span class="pic"><img src="images/gallery/p05-s.webp" alt="Some colors stay" width="751" height="998" loading="lazy" decoding="async" /></span></span><span class="plaque"><b>No. 05</b><span>Some colors stay</span></span></a>
+<a class="shot" href="images/gallery/p06.webp" style="--ar:561/998"><span class="print"><span class="pic"><img src="images/gallery/p06-s.webp" alt="Blooming is necessary when end is certain" width="561" height="998" loading="lazy" decoding="async" /></span></span><span class="plaque"><b>No. 06</b><span>Blooming is necessary when end is certain</span></span></a>
+<a class="shot" href="images/gallery/p07.webp" style="--ar:958/719"><span class="print"><span class="pic"><img src="images/gallery/p07-s.webp" alt="Stars in land" width="958" height="719" loading="lazy" decoding="async" /></span></span><span class="plaque"><b>No. 07</b><span>Stars in land</span></span></a>
+<a class="shot" href="images/gallery/p08.webp" style="--ar:958/719"><span class="print"><span class="pic"><img src="images/gallery/p08-s.webp" alt="Peace" width="958" height="719" loading="lazy" decoding="async" /></span></span><span class="plaque"><b>No. 08</b><span>Peace</span></span></a>
+<a class="shot" href="images/gallery/p09.webp" style="--ar:958/539"><span class="print"><span class="pic"><img src="images/gallery/p09-s.webp" alt="The flight of freedom" width="958" height="539" loading="lazy" decoding="async" /></span></span><span class="plaque"><b>No. 09</b><span>The flight of freedom</span></span></a>
+<a class="shot" href="images/gallery/p10.webp" style="--ar:958/539"><span class="print"><span class="pic"><img src="images/gallery/p10-s.webp" alt="Pahado ke piche wali dunia" width="958" height="539" loading="lazy" decoding="async" /></span></span><span class="plaque"><b>No. 10</b><span>Pahado ke piche wali dunia</span></span></a>
+<a class="shot" href="images/gallery/p11.webp" style="--ar:958/719"><span class="print"><span class="pic"><img src="images/gallery/p11-s.webp" alt="When the night sky takes over" width="958" height="719" loading="lazy" decoding="async" /></span></span><span class="plaque"><b>No. 11</b><span>When the night sky takes over</span></span></a>
+<a class="shot" href="images/gallery/p12.webp" style="--ar:958/539"><span class="print"><span class="pic"><img src="images/gallery/p12-s.webp" alt="Paradise" width="958" height="539" loading="lazy" decoding="async" /></span></span><span class="plaque"><b>No. 12</b><span>Paradise</span></span></a>
+<a class="shot" href="images/gallery/p13.webp" style="--ar:958/721"><span class="print"><span class="pic"><img src="images/gallery/p13-s.webp" alt="Patience" width="958" height="721" loading="lazy" decoding="async" /></span></span><span class="plaque"><b>No. 13</b><span>Patience</span></span></a>
+<a class="shot" href="images/gallery/p14.webp" style="--ar:751/997"><span class="print"><span class="pic"><img src="images/gallery/p14-s.webp" alt="Company" width="751" height="997" loading="lazy" decoding="async" /></span></span><span class="plaque"><b>No. 14</b><span>Company</span></span></a>
+<a class="shot" href="images/gallery/p15.webp" style="--ar:751/997"><span class="print"><span class="pic"><img src="images/gallery/p15-s.webp" alt="Curiosity" width="751" height="997" loading="lazy" decoding="async" /></span></span><span class="plaque"><b>No. 15</b><span>Curiosity</span></span></a>
+<a class="shot" href="images/gallery/p16.webp" style="--ar:751/997"><span class="print"><span class="pic"><img src="images/gallery/p16-s.webp" alt="Socialize" width="751" height="997" loading="lazy" decoding="async" /></span></span><span class="plaque"><b>No. 16</b><span>Socialize</span></span></a>
+<a class="shot" href="images/gallery/p17.webp" style="--ar:958/638"><span class="print"><span class="pic"><img src="images/gallery/p17-s.webp" alt="Photograph by Devgna Vyas" width="958" height="638" loading="lazy" decoding="async" /></span></span><span class="plaque"><b>No. 17</b><span>Untitled</span></span></a>
+<a class="shot" href="images/gallery/p18.webp" style="--ar:958/537"><span class="print"><span class="pic"><img src="images/gallery/p18-s.webp" alt="Photograph by Devgna Vyas" width="958" height="537" loading="lazy" decoding="async" /></span></span><span class="plaque"><b>No. 18</b><span>Untitled</span></span></a>
+<a class="shot" href="images/gallery/p19.webp" style="--ar:958/421"><span class="print"><span class="pic"><img src="images/gallery/p19-s.webp" alt="Photograph by Devgna Vyas" width="958" height="421" loading="lazy" decoding="async" /></span></span><span class="plaque"><b>No. 19</b><span>Untitled</span></span></a>
+<a class="shot" href="images/gallery/p20.webp" style="--ar:958/421"><span class="print"><span class="pic"><img src="images/gallery/p20-s.webp" alt="Photograph by Devgna Vyas" width="958" height="421" loading="lazy" decoding="async" /></span></span><span class="plaque"><b>No. 20</b><span>Untitled</span></span></a>
+<a class="shot" href="images/gallery/p21.webp" style="--ar:958/958"><span class="print"><span class="pic"><img src="images/gallery/p21-s.webp" alt="Photograph by Devgna Vyas" width="958" height="958" loading="lazy" decoding="async" /></span></span><span class="plaque"><b>No. 21</b><span>Untitled</span></span></a>
+</div>
+<!-- gallery:end -->
     </section>
 
     <!-- CONTACT -->

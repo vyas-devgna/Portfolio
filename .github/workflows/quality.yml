@@ -20,5 +20,7 @@ jobs:
           node-version: 22
       - name: Syntax
         run: node --check js/main.js
+      - name: Generated gallery
+        run: node scripts/render-gallery.mjs --check
       - name: Static site check
         run: node scripts/check.mjs

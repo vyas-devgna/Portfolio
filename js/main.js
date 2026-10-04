@@ -12,7 +12,7 @@
   const saveData = Boolean(navigator.connection && navigator.connection.saveData);
   const gsap = window.gsap;
   const ST = window.ScrollTrigger;
-  const motion = Boolean(gsap && ST) && !reduced;
+  const motion = Boolean(gsap && ST) && !reduced && !saveData;
   const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
   const EMAIL = 'vyasdevgna@gmail.com';
   const tap = (ms = 8) => { if (!reduced && navigator.vibrate) navigator.vibrate(ms); };
@@ -128,6 +128,8 @@
   function closeMenu() {
     if (!menu || menu.hidden) return;
     menuBtn.setAttribute('aria-expanded', 'false');
+    $('main').inert = false;
+    $('.footer').inert = false;
     menu.classList.remove('is-open');
     document.body.classList.remove('menu-open');
     lockScroll(false);
@@ -136,6 +138,8 @@
   const openMenu = () => {
     menu.hidden = false;
     menuBtn.setAttribute('aria-expanded', 'true');
+    $('main').inert = true;
+    $('.footer').inert = true;
     document.body.classList.add('menu-open');
     lockScroll(true);
     void menu.offsetWidth; // commit the hidden→shown state so the fade runs
@@ -143,12 +147,13 @@
     $('nav a', menu).focus({ preventScroll: true });
   };
   menuBtn.addEventListener('click', () => (menuBtn.getAttribute('aria-expanded') === 'true' ? closeMenu() : openMenu()));
-  menu.addEventListener('keydown', (e) => {
-    if (e.key !== 'Tab') return;
+  document.addEventListener('keydown', (e) => {
+    if (menuBtn.getAttribute('aria-expanded') !== 'true' || e.key !== 'Tab') return;
     const items = [...$$('a', menu), menuBtn];
     const i = items.indexOf(document.activeElement);
     if (e.shiftKey && i <= 0) { e.preventDefault(); items.at(-1).focus(); }
     else if (!e.shiftKey && i === items.length - 2) { e.preventDefault(); menuBtn.focus(); }
+    else if (!e.shiftKey && i === items.length - 1) { e.preventDefault(); items[0].focus(); }
   });
   window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !menu.hidden) { closeMenu(); menuBtn.focus(); } });
   media('(min-width: 1069px)').addEventListener('change', (e) => e.matches && closeMenu());
@@ -234,6 +239,7 @@
       gl.drawArrays(gl.TRIANGLES, 0, 3);
     }
     const loop = (now) => {
+      if (!visible || paused || document.hidden) return;
       frame = requestAnimationFrame(loop);
       if (now - last < 33) return; // ~30fps is plenty for paint
       const dt = last ? Math.min(0.1, (now - last) / 1000) : 0;
@@ -539,6 +545,7 @@
     tab.addEventListener('click', () => {
       if (!albums || tab.dataset.album === album) return;
       album = tab.dataset.album;
+      gallery.setAttribute('aria-labelledby', tab.id);
       tabs.forEach((t) => { t.setAttribute('aria-selected', String(t === tab)); t.tabIndex = t === tab ? 0 : -1; });
       placeThumb();
       tap();
@@ -546,6 +553,7 @@
     });
     tab.addEventListener('keydown', (e) => {
       if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      e.preventDefault();
       const next = tabs[(tabs.indexOf(tab) + (e.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length];
       next.focus(); next.click();
     });
@@ -560,10 +568,12 @@
       placeThumb();
       renderAlbum(album, false);
     } catch {
-      gallery.innerHTML = '<p class="wrap album-hint">The photo archive is unavailable right now.</p>';
+      // Keep the committed photo links when the optional JSON request fails.
+      gallery.dataset.offline = 'true';
     }
   };
-  new IntersectionObserver(([e], obs) => { if (e.isIntersecting) { obs.disconnect(); loadGallery(); } }, { rootMargin: '900px 0px' }).observe(gallery);
+  if ('IntersectionObserver' in window) new IntersectionObserver(([e], obs) => { if (e.isIntersecting) { obs.disconnect(); loadGallery(); } }, { rootMargin: '900px 0px' }).observe(gallery);
+  else loadGallery();
 
   /* lightbox */
   const lbImg = $('img', lightbox);
